@@ -12,16 +12,16 @@ NEAR_SB.defaults = {
     message = false,
     blockPvP = true,
     blockRecast = true,
-    bindings = {
-        [1] = '',
-        [2] = '',
-        [3] = '',
-        [4] = '',
-        [5] = '',
-        [6] = '',
-        [7] = '',
-        [8] = '',
-    },
+    -- bindings = {
+    --     [1] = '',
+    --     [2] = '',
+    --     [3] = '',
+    --     [4] = '',
+    --     [5] = '',
+    --     [6] = '',
+    --     [7] = '',
+    --     [8] = '',
+    -- },
 }
 
 NEAR_SB.defaults.skilldata = { -- Toggle block skills/messages
@@ -571,6 +571,102 @@ NEAR_SB.defaults.skilldata = { -- Toggle block skills/messages
             },
         },
         ["Resto"] = { -- Restoring Light
+            [1] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [2] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [3] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [4] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [5] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [6] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+        },
+        ["Herald"] = { -- Herald of the Tome
+            [1] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [2] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [3] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [4] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [5] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [6] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+        },
+        ["Soldier"] = { -- Soldier of Apocrypha
+            [1] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [2] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [3] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [4] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [5] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+            [6] = { -- 
+                [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+                [2] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
+            },
+        },
+        ["Curative"] = { -- Curative Runeforms
             [1] = { -- 
                 [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 
                 [1] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 

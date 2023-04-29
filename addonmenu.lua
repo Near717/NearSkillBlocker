@@ -1409,6 +1409,236 @@ function NEAR_SB.SetupSettings()
 				end,
 			},
 		},
+		ar = {
+			[1] = { -- Herald
+				type = 'dropdown',
+				name = class.Herald.name,
+				choices = {
+					class.Herald[1][0].name,
+					class.Herald[1][1].name,
+					class.Herald[1][2].name,
+					class.Herald[2][0].name,
+					class.Herald[2][1].name,
+					class.Herald[2][2].name,
+					class.Herald[3][0].name,
+					class.Herald[3][1].name,
+					class.Herald[3][2].name,
+					class.Herald[4][0].name,
+					class.Herald[4][1].name,
+					class.Herald[4][2].name,
+					class.Herald[5][0].name,
+					class.Herald[5][1].name,
+					class.Herald[5][2].name,
+					class.Herald[6][0].name,
+					class.Herald[6][1].name,
+					class.Herald[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Herald[1][0],
+					sv_class.Herald[1][1],
+					sv_class.Herald[1][2],
+					sv_class.Herald[2][0],
+					sv_class.Herald[2][1],
+					sv_class.Herald[2][2],
+					sv_class.Herald[3][0],
+					sv_class.Herald[3][1],
+					sv_class.Herald[3][2],
+					sv_class.Herald[4][0],
+					sv_class.Herald[4][1],
+					sv_class.Herald[4][2],
+					sv_class.Herald[5][0],
+					sv_class.Herald[5][1],
+					sv_class.Herald[5][2],
+					sv_class.Herald[6][0],
+					sv_class.Herald[6][1],
+					sv_class.Herald[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Soldier
+				type = 'dropdown',
+				name = class.Soldier.name,
+				choices = {
+					class.Soldier[1][0].name,
+					class.Soldier[1][1].name,
+					class.Soldier[1][2].name,
+					class.Soldier[2][0].name,
+					class.Soldier[2][1].name,
+					class.Soldier[2][2].name,
+					class.Soldier[3][0].name,
+					class.Soldier[3][1].name,
+					class.Soldier[3][2].name,
+					class.Soldier[4][0].name,
+					class.Soldier[4][1].name,
+					class.Soldier[4][2].name,
+					class.Soldier[5][0].name,
+					class.Soldier[5][1].name,
+					class.Soldier[5][2].name,
+					class.Soldier[6][0].name,
+					class.Soldier[6][1].name,
+					class.Soldier[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Soldier[1][0],
+					sv_class.Soldier[1][1],
+					sv_class.Soldier[1][2],
+					sv_class.Soldier[2][0],
+					sv_class.Soldier[2][1],
+					sv_class.Soldier[2][2],
+					sv_class.Soldier[3][0],
+					sv_class.Soldier[3][1],
+					sv_class.Soldier[3][2],
+					sv_class.Soldier[4][0],
+					sv_class.Soldier[4][1],
+					sv_class.Soldier[4][2],
+					sv_class.Soldier[5][0],
+					sv_class.Soldier[5][1],
+					sv_class.Soldier[5][2],
+					sv_class.Soldier[6][0],
+					sv_class.Soldier[6][1],
+					sv_class.Soldier[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Curative
+				type = 'dropdown',
+				name = class.Curative.name,
+				choices = {
+					class.Curative[1][0].name,
+					class.Curative[1][1].name,
+					class.Curative[1][2].name,
+					class.Curative[2][0].name,
+					class.Curative[2][1].name,
+					class.Curative[2][2].name,
+					class.Curative[3][0].name,
+					class.Curative[3][1].name,
+					class.Curative[3][2].name,
+					class.Curative[4][0].name,
+					class.Curative[4][1].name,
+					class.Curative[4][2].name,
+					class.Curative[5][0].name,
+					class.Curative[5][1].name,
+					class.Curative[5][2].name,
+					class.Curative[6][0].name,
+					class.Curative[6][1].name,
+					class.Curative[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Curative[1][0],
+					sv_class.Curative[1][1],
+					sv_class.Curative[1][2],
+					sv_class.Curative[2][0],
+					sv_class.Curative[2][1],
+					sv_class.Curative[2][2],
+					sv_class.Curative[3][0],
+					sv_class.Curative[3][1],
+					sv_class.Curative[3][2],
+					sv_class.Curative[4][0],
+					sv_class.Curative[4][1],
+					sv_class.Curative[4][2],
+					sv_class.Curative[5][0],
+					sv_class.Curative[5][1],
+					sv_class.Curative[5][2],
+					sv_class.Curative[6][0],
+					sv_class.Curative[6][1],
+					sv_class.Curative[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
 		weapon = {
 			[1] = { -- Two Handed
 				type = 'dropdown',
@@ -2589,7 +2819,7 @@ function NEAR_SB.SetupSettings()
 			name = GetString(NSB_am_brc_name),
 			tooltip = GetString(NSB_am_brc_tooltip),
 			getFunc = function () return sv.blockRecast end,
-			setFunc = function (v) sv.blockRecast = v return addon.recastEvents() --[[and addon.Initialize()]] end,
+			setFunc = function (v) sv.blockRecast = v return addon.recastEvents() end,
 			default = addon.defaults.blockRecast,
 			warning = GetString(NSB_am_brc_warning),
 		},
@@ -2645,6 +2875,11 @@ function NEAR_SB.SetupSettings()
 					name = class_name[6],
 					controls = control_options.tp,
 				},
+				[7] = {
+					type = 'submenu',
+					name = class_name[7],
+					controls = control_options.ar,
+				},
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -2697,58 +2932,58 @@ function NEAR_SB.SetupSettings()
 			text = GetString(NSB_am_cmd_text),
 		},
 		-- TODO: comment out:
-		-- {
-		-- 	type = 'divider',
-		-- 	width = 'full'
-		-- },
-		-- {
-		-- 	type = 'checkbox',
-		-- 	name = 'Debug log',
-		-- 	getFunc = function () return sv.debug end,
-		-- 	setFunc = function (v) sv.debug = v end,
-		-- 	default = addon.defaults.debug,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type = 'checkbox',
-		-- 	name = 'Debug log (cast)',
-		-- 	getFunc = function () return sv.debug_init_cast end,
-		-- 	setFunc = function (v) sv.debug_init_cast = v end,
-		-- 	default = addon.defaults.debug_init_cast,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type = 'checkbox',
-		-- 	name = 'Debug log (recast)',
-		-- 	getFunc = function () return sv.debug_init_recast end,
-		-- 	setFunc = function (v) sv.debug_init_recast = v end,
-		-- 	default = addon.defaults.debug_init_recast,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type = 'checkbox',
-		-- 	name = 'Debug log (pvp)',
-		-- 	getFunc = function () return sv.debug_init_pvp end,
-		-- 	setFunc = function (v) sv.debug_init_pvp = v end,
-		-- 	default = addon.defaults.debug_init_pvp,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type = 'checkbox',
-		-- 	name = 'Debug log (zone)',
-		-- 	getFunc = function () return sv.debug_zone end,
-		-- 	setFunc = function (v) sv.debug_zone = v end,
-		-- 	default = addon.defaults.debug_zone,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type = 'checkbox',
-		-- 	name = 'Debug log (recast events)',
-		-- 	getFunc = function () return sv.debug_recast end,
-		-- 	setFunc = function (v) sv.debug_recast = v end,
-		-- 	default = addon.defaults.debug_recast,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
+		{
+			type = 'divider',
+			width = 'full'
+		},
+		{
+			type = 'checkbox',
+			name = 'Debug log',
+			getFunc = function () return sv.debug end,
+			setFunc = function (v) sv.debug = v end,
+			default = addon.defaults.debug,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type = 'checkbox',
+			name = 'Debug log (cast)',
+			getFunc = function () return sv.debug_init_cast end,
+			setFunc = function (v) sv.debug_init_cast = v end,
+			default = addon.defaults.debug_init_cast,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type = 'checkbox',
+			name = 'Debug log (recast)',
+			getFunc = function () return sv.debug_init_recast end,
+			setFunc = function (v) sv.debug_init_recast = v end,
+			default = addon.defaults.debug_init_recast,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type = 'checkbox',
+			name = 'Debug log (pvp)',
+			getFunc = function () return sv.debug_init_pvp end,
+			setFunc = function (v) sv.debug_init_pvp = v end,
+			default = addon.defaults.debug_init_pvp,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type = 'checkbox',
+			name = 'Debug log (zone)',
+			getFunc = function () return sv.debug_zone end,
+			setFunc = function (v) sv.debug_zone = v end,
+			default = addon.defaults.debug_zone,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type = 'checkbox',
+			name = 'Debug log (recast events)',
+			getFunc = function () return sv.debug_recast end,
+			setFunc = function (v) sv.debug_recast = v end,
+			default = addon.defaults.debug_recast,
+			warning = 'will flood chat with debug messages'
+		},
 	}
 	LAM2:RegisterOptionControls(addon.name, optionsTable)
 

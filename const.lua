@@ -579,6 +579,102 @@ NEAR_SB.recastHandler = {
                 [2] = false, -- 
             },
         },
+        ["Herald"] = { -- Herald of the Tome
+            [1] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [2] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [3] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [4] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [5] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [6] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+        },
+        ["Soldier"] = { -- Soldier of Apocrypha
+            [1] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [2] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [3] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [4] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [5] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [6] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+        },
+        ["Curative"] = { -- Curative Runeforms
+            [1] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [2] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [3] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [4] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [5] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+            [6] = { -- 
+                [0] = false, -- 
+                [1] = false, -- 
+                [2] = false, -- 
+            },
+        },
     },
     ["weapon"] = {
         [1] = { -- Two Handed

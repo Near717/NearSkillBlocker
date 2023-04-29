@@ -1,6 +1,5 @@
-local addon = NEAR_SB
-
 NEAR_SB.slash_commands = {}
+local addon = NEAR_SB
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function NEAR_SB.activateSlashCommands()

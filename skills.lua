@@ -1,14 +1,22 @@
 NEAR_SB.skilldata = {}
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- --- @param abilityId integer
+-- --- @return skillType [SkillType|#SkillType], skillLineIndex luaindex, skillIndex luaindex, morphChoice integer, rank integer
+-- GetSpecificSkillAbilityKeysByAbilityId(abilityId)
+
 -- --- @param skillType [SkillType|#SkillType]
 -- --- @param skillLineIndex luaindex
 -- --- @return skillLineId integer
--- function GetSkillLineId(skillType, skillLineIndex) end
+-- GetSkillLineId(skillType, skillLineIndex)
 
 -- --- @param skillLineId integer
 -- --- @return name string
--- function GetSkillLineNameById(skillLineId) end
+--  GetSkillLineNameById(skillLineId)
+
+-- GetUnitClassId('player')
+
+-- GetSlotBoundId(SlotNum)
 
 --[[
 
@@ -19,6 +27,7 @@ local classid = {
     ["Warden"] = 4,
     ["Necromancer"] = 5,
     ["Templar"] = 6,
+    ["Arcanist"] = 117,
 }
 
 local skillid = {
@@ -41,6 +50,9 @@ local skillid = {
         ["Spear"] = 22, -- "Aedric Spear"
         ["Dawn"] = 27, -- "Dawn's Wrath"
         ["Resto"] = 28, -- "Restoring Light"
+        ["Herald"] = 218, -- "Herald of the Tome"
+        ["Soldier"] = 219, -- "Soldier of Apocrypha"
+        ["Curative"] = 220, -- "Curative Runeforms"
     },
     ["weapon"] = {
         [1] = 30, -- "Two Handed",
@@ -67,8 +79,8 @@ local skillid = {
         [6] = 55, -- "Undaunted",
     },
     ["ava"] = {
-    [1] = 48, -- "Assault",
-    [3] = 67, -- "Support",
+        [1] = 48, -- "Assault",
+        [3] = 67, -- "Support",
     },
 }
 
@@ -82,6 +94,7 @@ NEAR_SB.skilldata = {
         [4] = GetClassName(1, 4), -- "Warden"
         [5] = GetClassName(1, 5), -- "Necromancer"
         [6] = GetClassName(1, 6), -- "Templar"
+        [7] = GetClassName(1, 117), -- "Arcanist"
     },
     ["class_skill"] = {
         ["Flame"] = { -- Ardent Flame
@@ -678,6 +691,105 @@ NEAR_SB.skilldata = {
                 [2] = { id = 22237, name = GetAbilityName(22237), }, -- 
             },
         },
+        ["Herald"] = { -- Herald of the Tome
+            name = GetSkillLineNameById(218),
+            [1] = { -- 
+                [0] = { id = 189791, name = GetAbilityName(189791), }, -- The Unblinking Eye
+                [1] = { id = 189837, name = GetAbilityName(189837), }, -- The Tide King's Gaze
+                [2] = { id = 189867, name = GetAbilityName(189867), }, -- The Languid Eye
+            },
+            [2] = { -- 
+                [0] = { id = 185794, name = GetAbilityName(185794), }, -- Runeblades
+                [1] = { id = 185803, name = GetAbilityName(185803), }, -- Writhing Runeblades
+                [2] = { id = 182977, name = GetAbilityName(182977), }, -- Escalating Runeblades
+            },
+            [3] = { -- 
+                [0] = { id = 185805, name = GetAbilityName(185805), }, -- Fatecarver
+                [1] = { id = 183122, name = GetAbilityName(183122), }, -- Exhausting Fatecarver
+                [2] = { id = 186366, name = GetAbilityName(186366), }, -- Pragmatic Fatecarver
+            },
+            [4] = { -- 
+                [0] = { id = 185817, name = GetAbilityName(185817), }, -- Abyssal Impact
+                [1] = { id = 183006, name = GetAbilityName(183006), }, -- Cephaliarch's Flail
+                [2] = { id = 185823, name = GetAbilityName(185823), }, -- Tentacular Dread
+            },
+            [5] = { -- 
+                [0] = { id = 186452, name = GetAbilityName(186452), }, -- Tome-Bearer's Inspiration
+                [1] = { id = 185842, name = GetAbilityName(185842), }, -- Inspired Scholarship
+                [2] = { id = 183047, name = GetAbilityName(183047), }, -- Recuperative Treatise
+            },
+            [6] = { -- 
+                [0] = { id = 185836, name = GetAbilityName(185836), }, -- The Imperfect Ring
+                [1] = { id = 185839, name = GetAbilityName(185839), }, -- Rune of Displacement
+                [2] = { id = 182988, name = GetAbilityName(182988), }, -- Fulminating Rune
+            },
+        },
+        ["Soldier"] = { -- Soldier of Apocrypha
+            name = GetSkillLineNameById(219),
+            [1] = { -- 
+                [0] = { id = 183676, name = GetAbilityName(183676), }, -- Gibbering Shield
+                [1] = { id = 192372, name = GetAbilityName(192372), }, -- Sanctum of the Abyssal Sea
+                [2] = { id = 192380, name = GetAbilityName(192380), }, -- Gibbering Shelter
+            },
+            [2] = { -- 
+                [0] = { id = 183165, name = GetAbilityName(183165), }, -- Runic Jolt
+                [1] = { id = 183430, name = GetAbilityName(183430), }, -- Runic Sunder
+                [2] = { id = 186531, name = GetAbilityName(186531), }, -- Runic Embrace
+            },
+            [3] = { -- 
+                [0] = { id = 185894, name = GetAbilityName(185894), }, -- Runespite Ward
+                [1] = { id = 185901, name = GetAbilityName(185901), }, -- Spiteward of the Lucid Mind
+                [2] = { id = 183241, name = GetAbilityName(183241), }, -- Impervious Runeward
+            },
+            [4] = { -- 
+                [0] = { id = 183648, name = GetAbilityName(183648), }, -- Fatewoven Armor
+                [1] = { id = 185908, name = GetAbilityName(185908), }, -- Cruxweaver Armor
+                [2] = { id = 186477, name = GetAbilityName(186477), }, -- Unbreakable Fate
+            },
+            [5] = { -- 
+                [0] = { id = 185912, name = GetAbilityName(185912), }, -- Runic Defense
+                [1] = { id = 183401, name = GetAbilityName(183401), }, -- Runeguard of Still Waters
+                [2] = { id = 186489, name = GetAbilityName(186489), }, -- Runeguard of Freedom
+            },
+            [6] = { -- 
+                [0] = { id = 185918, name = GetAbilityName(185918), }, -- Rune of Eldritch Horror
+                [1] = { id = 185921, name = GetAbilityName(185921), }, -- Rune of Uncanny Adoration
+                [2] = { id = 183267, name = GetAbilityName(183267), }, -- Rune of the Colorless Pool
+            },
+        },
+        ["Curative"] = { -- Curative Runeforms
+            name = GetSkillLineNameById(220),
+            [1] = { -- 
+                [0] = { id = 183709, name = GetAbilityName(183709), }, -- Vitalizing Glyphic
+                [1] = { id = 193794, name = GetAbilityName(193794), }, -- Glyphic of the Tides
+                [2] = { id = 193558, name = GetAbilityName(193558), }, -- Resonating Glyphic
+            },
+            [2] = { -- 
+                [0] = { id = 183261, name = GetAbilityName(183261), }, -- Runemend
+                [1] = { id = 186189, name = GetAbilityName(186189), }, -- Evolving Runemend
+                [2] = { id = 186191, name = GetAbilityName(186191), }, -- Audacious Runemend
+            },
+            [3] = { -- 
+                [0] = { id = 183537, name = GetAbilityName(183537), }, -- Remedy Cascade
+                [1] = { id = 186193, name = GetAbilityName(186193), }, -- Cascading Fortune
+                [2] = { id = 186200, name = GetAbilityName(186200), }, -- Curative Surge
+            },
+            [4] = { -- 
+                [0] = { id = 183447, name = GetAbilityName(183447), }, -- Chakram Shields
+                [1] = { id = 186207, name = GetAbilityName(186207), }, -- Chakram of Destiny
+                [2] = { id = 186209, name = GetAbilityName(186209), }, -- Tidal Chakram
+            },
+            [5] = { -- 
+                [0] = { id = 183555, name = GetAbilityName(183555), }, -- Arcanist's Domain
+                [1] = { id = 186229, name = GetAbilityName(186229), }, -- Zenas' Empowering Disc
+                [2] = { id = 186234, name = GetAbilityName(186234), }, -- Reconstructive Domain
+            },
+            [6] = { -- 
+                [0] = { id = 183542, name = GetAbilityName(183542), }, -- Apocryphal Gate
+                [1] = { id = 186211, name = GetAbilityName(186211), }, -- Fleet-footed Gate
+                [2] = { id = 186220, name = GetAbilityName(186220), }, -- Passage Between Worlds
+            },
+        },
     },
     ["weapon"] = {
         [1] = { -- Two Handed
@@ -815,34 +927,34 @@ NEAR_SB.skilldata = {
         [5] = { -- Destruction Staff
             name = GetSkillLineNameById(33),
             [1] = { -- Elemental Storm
-                [0] = { id = 83619, name = GetAbilityName(83619), id1 = 83625, id2 = 83628, id3 = 83630, }, -- 83625 (flame) 83628 (frost) 83630 (shock)
-                [1] = { id = 84434, name = GetAbilityName(84434), id1 = 85126, id2 = 85128, id3 = 85130, }, -- 85126 (flame) 85128 (frost) 85130 (shock)
-                [2] = { id = 83642, name = GetAbilityName(83642), id1 = 83682, id2 = 83684, id3 = 83686, }, -- 83682 (flame) 83684 (frost) 83686 (shock)
+                [0] = { id = 83619, name = GetAbilityName(83619), id1 = 83625, id2 = 83628, id3 = 83630, }, -- Elemental Storm - 83625 (flame) 83628 (frost) 83630 (shock)
+                [1] = { id = 84434, name = GetAbilityName(84434), id1 = 85126, id2 = 85128, id3 = 85130, }, -- Elemental Rage - 85126 (flame) 85128 (frost) 85130 (shock)
+                [2] = { id = 83642, name = GetAbilityName(83642), id1 = 83682, id2 = 83684, id3 = 83686, }, -- Eye of the Storm - 83682 (flame) 83684 (frost) 83686 (shock)
             },
             [2] = { -- Force Shock
-                [0] = { id = 46340, name = GetAbilityName(46340), }, -- 
-                [1] = { id = 46348, name = GetAbilityName(46348), }, -- 
-                [2] = { id = 46356, name = GetAbilityName(46356), }, -- 
+                [0] = { id = 46340, name = GetAbilityName(46340), }, -- Force Shock
+                [1] = { id = 46348, name = GetAbilityName(46348), }, -- Crushing Shock
+                [2] = { id = 46356, name = GetAbilityName(46356), }, -- Force Pulse
             },
             [3] = { -- Wall of Elements
-                [0] = { id = 28858, name = GetAbilityName(28858), id1 = 28807, id2 = 28849, id3 = 28854, }, -- 28807 (flame) 28849 (frost) 28854 (shock)
-                [1] = { id = 39052, name = GetAbilityName(39052), id1 = 39053, id2 = 39067, id3 = 39073, }, -- 39053 (flame) 39067 (frost) 39073 (storm)
-                [2] = { id = 39011, name = GetAbilityName(39011), id1 = 39012, id2 = 39028, id3 = 39018, }, -- 39012 (flame) 39028 (frost) 39018 (shock)
+                [0] = { id = 28858, name = GetAbilityName(28858), id1 = 28807, id2 = 28849, id3 = 28854, }, -- Wall of Elements - 28807 (flame) 28849 (frost) 28854 (shock)
+                [1] = { id = 39052, name = GetAbilityName(39052), id1 = 39053, id2 = 39067, id3 = 39073, }, -- Unstable Wall of Elements - 39053 (flame) 39067 (frost) 39073 (storm)
+                [2] = { id = 39011, name = GetAbilityName(39011), id1 = 39012, id2 = 39028, id3 = 39018, }, -- Elemental Blockade - 39012 (flame) 39028 (frost) 39018 (shock)
             },
             [4] = { -- Destructive Touch
-                [0] = { id = 29091, name = GetAbilityName(29091), id1 = 29073, id2 = 29078, id3 = 29089, }, -- 29073 (flame) 29078 (frost) 29089 (shock)
-                [1] = { id = 38984, name = GetAbilityName(38984), id1 = 38985, id2 = 38989, id3 = 38993, }, -- 38985 (flame) 38989 (frost) 38993 (shock)
-                [2] = { id = 38937, name = GetAbilityName(38937), id1 = 38944, id2 = 38970, id3 = 38978, }, -- 38944 (flame) 38970 (frost) 38978 (shock)
+                [0] = { id = 29091, name = GetAbilityName(29091), id1 = 29073, id2 = 29078, id3 = 29089, }, -- Destructive Touch - 29073 (flame) 29078 (frost) 29089 (shock)
+                [1] = { id = 38984, name = GetAbilityName(38984), id1 = 38985, id2 = 38989, id3 = 38993, }, -- Destructive Clench - 38985 (flame) 38989 (frost) 38993 (shock)
+                [2] = { id = 38937, name = GetAbilityName(38937), id1 = 38944, id2 = 38970, id3 = 38978, }, -- Destructive Reach - 38944 (flame) 38970 (frost) 38978 (shock)
             },
             [5] = { -- Weakness to Elements
-                [0] = { id = 29173, name = GetAbilityName(29173), }, -- 
-                [1] = { id = 39089, name = GetAbilityName(39089), }, -- 
-                [2] = { id = 39095, name = GetAbilityName(39095), }, -- 
+                [0] = { id = 29173, name = GetAbilityName(29173), }, -- Weakness to Elements
+                [1] = { id = 39089, name = GetAbilityName(39089), }, -- Elemental Susceptibility
+                [2] = { id = 39095, name = GetAbilityName(39095), }, -- Elemental Drain
             },
             [6] = { -- Impulse
-                [0] = { id = 28800, name = GetAbilityName(28800), id1 = 28794, id2 = 28798, id3 = 28799, }, -- 28794 (flame) 28798 (frost) 28799 (shock)
-                [1] = { id = 39143, name = GetAbilityName(39143), id1 = 39145, id2 = 39146, id3 = 39147, }, -- 39145 (flame) 39146 (frost) 39147 (shock) -- NOT TESTED!!
-                [2] = { id = 39161, name = GetAbilityName(39161), id1 = 39162, id2 = 39163, id3 = 39167, }, -- 39162 (flame) 39163 (frost) 39167 (shock) -- NOT TESTED!!
+                [0] = { id = 28800, name = GetAbilityName(28800), id1 = 28794, id2 = 28798, id3 = 28799, }, -- Impulse - 28794 (flame) 28798 (frost) 28799 (shock)
+                [1] = { id = 39143, name = GetAbilityName(39143), id1 = 39145, id2 = 39146, id3 = 39147, }, -- Elemental Ring - 39145 (flame) 39146 (frost) 39147 (shock)
+                [2] = { id = 39161, name = GetAbilityName(39161), id1 = 39162, id2 = 39163, id3 = 39167, }, -- Pulsar - 39162 (flame) 39163 (frost) 39167 (shock)
             },
         },
         [6] = { -- Restoration Staff

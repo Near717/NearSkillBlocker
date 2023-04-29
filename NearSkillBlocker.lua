@@ -2,7 +2,7 @@ local addon = {
 	name 		= "NearSkillBlocker",
     title 		= "Near's Skill Blocker",
     shortTitle 	= "Skill Blocker",
-	version 	= "2.0.3",
+	version 	= "2.0.4",
 	author 		= "|cCC99FFnotnear|r",
 }
 NEAR_SB = addon
@@ -702,10 +702,10 @@ function addon.Initialize()
 					-- register with a custom handler to decide when it should block or not
 					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return recast_class[k][ability][morph] end)
 					-- register event and add filter for that ability and only if the source was the player
-					EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 					-- send message if toggled
 					if (sv.message and sv_class[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
@@ -714,7 +714,7 @@ function addon.Initialize()
 					-- if not blocking either cast or recast unregister
 					LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
 					-- unregister event for that ability
-					EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
+						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
 					-- send message if toggled
 					if (sv.message and sv_class[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
@@ -731,37 +731,37 @@ function addon.Initialize()
 				if (k == 5) and ((ability == 1) or (ability == 3) or (ability == 4) or (ability == 6)) then
 					if sv_weapon[k][ability][morph].block_recast then
 						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return recast_weapon[k][ability][morph] end)
-						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+							EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function () return recast_weapon[k][ability][morph] end) -- flame version
-						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id1)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+							EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id1)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function () return recast_weapon[k][ability][morph] end) -- frost version
-						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id2)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+							EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id2)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function () return recast_weapon[k][ability][morph] end) -- shock version
-						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id3)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+							EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id3)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 						if (sv.message and sv_weapon[k][ability][morph].msg) or sv.debug_init_recast then
 							d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
 						sv_weapon[k][ability][morph].msg = false
 					elseif not sv_weapon[k][ability][morph].block_recast and not sv_weapon[k][ability][morph].block then
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),  EVENT_EFFECT_CHANGED)
+							EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),  EVENT_EFFECT_CHANGED)
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id1) -- flame version
-						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1), EVENT_EFFECT_CHANGED)
+							EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id1), EVENT_EFFECT_CHANGED)
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id2) -- frost version
-						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2), EVENT_EFFECT_CHANGED)
+							EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id2), EVENT_EFFECT_CHANGED)
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id3) -- shock version
-						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3), EVENT_EFFECT_CHANGED)
+							EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id3), EVENT_EFFECT_CHANGED)
 						if (sv.message and sv_weapon[k][ability][morph].msg) or sv.debug_init_recast then
 							d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
 						sv_weapon[k][ability][morph].msg = false
@@ -769,16 +769,16 @@ function addon.Initialize()
 				else
 					if sv_weapon[k][ability][morph].block_recast then
 						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return recast_weapon[k][ability][morph] end)
-						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+							EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+							EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 						if (sv.message and sv_weapon[k][ability][morph].msg) or sv.debug_init_recast then
 							d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
 						sv_weapon[k][ability][morph].msg = false
 					elseif not sv_weapon[k][ability][morph].block_recast and not sv_weapon[k][ability][morph].block then
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
+							EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
 						if (sv.message and sv_weapon[k][ability][morph].msg) or sv.debug_init_recast then
 							d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
 						sv_weapon[k][ability][morph].msg = false
@@ -793,16 +793,16 @@ function addon.Initialize()
 			if sv_armor[k][ability] ~= nil then
 				if sv_armor[k][ability][morph].block_recast then
 					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return recast_armor[k][ability][morph] end)
-					EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 					if (sv.message and sv_armor[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
 					sv_armor[k][ability][morph].msg = false
 				elseif not sv_armor[k][ability][morph].block_recast and not sv_armor[k][ability][morph].block then
 					LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-					EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
+						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
 					if (sv.message and sv_armor[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
 					sv_armor[k][ability][morph].msg = false
@@ -816,16 +816,16 @@ function addon.Initialize()
 			if sv_world[k][ability] ~= nil then
 				if sv_world[k][ability][morph].block_recast then
 					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return recast_world[k][ability][morph] end)
-					EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 					if (sv.message and sv_world[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
 					sv_world[k][ability][morph].msg = false
 				elseif not sv_world[k][ability][morph].block_recast and not sv_world[k][ability][morph].block then
 					LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-					EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
+						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
 					if (sv.message and sv_world[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
 					sv_world[k][ability][morph].msg = false
@@ -839,16 +839,16 @@ function addon.Initialize()
 			if sv_guild[k][ability] ~= nil then
 				if sv_guild[k][ability][morph].block_recast then
 					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return recast_guild[k][ability][morph] end)
-					EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 					if (sv.message and sv_guild[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
 					sv_guild[k][ability][morph].msg = false
 				elseif not sv_guild[k][ability][morph].block_recast and not sv_guild[k][ability][morph].block then
 					LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-					EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
+						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
 					if (sv.message and sv_guild[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
 					sv_guild[k][ability][morph].msg = false
@@ -862,16 +862,16 @@ function addon.Initialize()
 			if sv_ava[k][ability] ~= nil then
 				if sv_ava[k][ability][morph].block_recast then
 					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return recast_ava[k][ability][morph] end)
-					EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
-					EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+						EVENT_MANAGER:RegisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, OnEffectChanged)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_ABILITY_ID, v[ability][morph].id)
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player")
+						EVENT_MANAGER:AddFilterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 					if (sv.message and sv_ava[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
 					sv_ava[k][ability][morph].msg = false
 				elseif not sv_ava[k][ability][morph].block_recast and not sv_ava[k][ability][morph].block then
 					LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-					EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
+						EVENT_MANAGER:UnregisterForEvent(addon.name .. "ABILITY" .. tostring(v[ability][morph].id),	EVENT_EFFECT_CHANGED)
 					if (sv.message and sv_ava[k][ability][morph].msg) or sv.debug_init_recast then
 						d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
 					sv_ava[k][ability][morph].msg = false
@@ -1383,18 +1383,9 @@ function addon.recastEvents()
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.recastEvents') end
 
 	if sv.blockRecast == false then
-		-- EVENT_MANAGER:UnregisterForEvent(addon.name .. "_EVENT_EFFECT_CHANGED_FILTERED_PLAYER", EVENT_EFFECT_CHANGED)
 		EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_PLAYER_ALIVE)
 		EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_PLAYER_ACTIVATED)
 	else
-		-- EVENT_MANAGER:RegisterForEvent(addon.name .. "_EVENT_EFFECT_CHANGED_FILTERED_PLAYER",	EVENT_EFFECT_CHANGED, OnEffectChanged)
-		-- --As you only check in teh function OnEffectChanged for "player" buffs you MUST filter here already for the player buffs!!! Else this callback fires for each companion, pet, enemy, group memebr buff change!
-		-- -->Performance mega gau!
-		-- --> Use the unitTag "player" directly!
-		-- EVENT_MANAGER:AddFilterForEvent(addon.name .. "_EVENT_EFFECT_CHANGED_FILTERED_PLAYER", EVENT_EFFECT_CHANGED, REGISTER_FILTER_UNIT_TAG, "player") --Example: Only run the callback function for effects that are on the player
-		-- -->Or maybe check by COMBAT_UNIT_TYPE_PLAYER, or both in combination? Only palyer made buffs on the player
-		-- EVENT_MANAGER:AddFilterForEvent(addon.name .. "_EVENT_EFFECT_CHANGED_FILTERED_PLAYER", EVENT_EFFECT_CHANGED, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER) --Example: Only run the callback function for effects that the player made himself (he was the "source")
-
 		EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_PLAYER_ALIVE,		DoPlayerBuffChecks)
 		EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_PLAYER_ACTIVATED,	DoPlayerBuffChecks)
 	end
@@ -1406,9 +1397,7 @@ end
 -- Addon loading
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local function OnAddonLoaded(event, name)
-	if name ~= addon.name then
-		return
-	end
+	if name ~= addon.name then return end
 	EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
 	addon.ASV = ZO_SavedVars:NewAccountWide(addon.name .. "_Data", 3, nil, addon.defaults)

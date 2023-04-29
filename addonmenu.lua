@@ -1,0 +1,2756 @@
+local addon = NEAR_SB
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Addon settings panel
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function NEAR_SB.SetupSettings()
+	local LAM2 = LibAddonMenu2
+	local sv = NEAR_SB.ASV
+
+	local libSkillBlockUpdateNeeded = false
+
+	---------------------------------------------------------------------------------
+	local choice			= ''
+	---------------------------------------------------------------------------------
+	local class_name		= NEAR_SB.skilldata.class
+	local class 			= NEAR_SB.skilldata.class_skill
+	local weapon 			= NEAR_SB.skilldata.weapon
+	local armor 			= NEAR_SB.skilldata.armor
+	local world 			= NEAR_SB.skilldata.world
+	local guild 			= NEAR_SB.skilldata.guild
+	local ava 				= NEAR_SB.skilldata.ava
+	---------------------------------------------------------------------------------
+	local sv_class			= NEAR_SB.ASV.skilldata.class_skill
+	local sv_weapon			= NEAR_SB.ASV.skilldata.weapon
+	local sv_armor 			= NEAR_SB.ASV.skilldata.armor
+	local sv_world 			= NEAR_SB.ASV.skilldata.world
+	local sv_guild			= NEAR_SB.ASV.skilldata.guild
+	local sv_ava			= NEAR_SB.ASV.skilldata.ava
+	---------------------------------------------------------------------------------
+
+	local control_options = {
+		dk = {
+			[1] = { -- Flame
+				type = 'dropdown',
+				name = class.Flame.name,
+				choices = {
+					class.Flame[1][0].name,
+					class.Flame[1][1].name,
+					class.Flame[1][2].name,
+					class.Flame[2][0].name,
+					class.Flame[2][1].name,
+					class.Flame[2][2].name,
+					class.Flame[3][0].name,
+					class.Flame[3][1].name,
+					class.Flame[3][2].name,
+					class.Flame[4][0].name,
+					class.Flame[4][1].name,
+					class.Flame[4][2].name,
+					class.Flame[5][0].name,
+					class.Flame[5][1].name,
+					class.Flame[5][2].name,
+					class.Flame[6][0].name,
+					class.Flame[6][1].name,
+					class.Flame[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Flame[1][0],
+					sv_class.Flame[1][1],
+					sv_class.Flame[1][2],
+					sv_class.Flame[2][0],
+					sv_class.Flame[2][1],
+					sv_class.Flame[2][2],
+					sv_class.Flame[3][0],
+					sv_class.Flame[3][1],
+					sv_class.Flame[3][2],
+					sv_class.Flame[4][0],
+					sv_class.Flame[4][1],
+					sv_class.Flame[4][2],
+					sv_class.Flame[5][0],
+					sv_class.Flame[5][1],
+					sv_class.Flame[5][2],
+					sv_class.Flame[6][0],
+					sv_class.Flame[6][1],
+					sv_class.Flame[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Draconic
+				type = 'dropdown',
+				name = class.Draconic.name,
+				choices = {
+					class.Draconic[1][0].name,
+					class.Draconic[1][1].name,
+					class.Draconic[1][2].name,
+					class.Draconic[2][0].name,
+					class.Draconic[2][1].name,
+					class.Draconic[2][2].name,
+					class.Draconic[3][0].name,
+					class.Draconic[3][1].name,
+					class.Draconic[3][2].name,
+					class.Draconic[4][0].name,
+					class.Draconic[4][1].name,
+					class.Draconic[4][2].name,
+					class.Draconic[5][0].name,
+					class.Draconic[5][1].name,
+					class.Draconic[5][2].name,
+					class.Draconic[6][0].name,
+					class.Draconic[6][1].name,
+					class.Draconic[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Draconic[1][0],
+					sv_class.Draconic[1][1],
+					sv_class.Draconic[1][2],
+					sv_class.Draconic[2][0],
+					sv_class.Draconic[2][1],
+					sv_class.Draconic[2][2],
+					sv_class.Draconic[3][0],
+					sv_class.Draconic[3][1],
+					sv_class.Draconic[3][2],
+					sv_class.Draconic[4][0],
+					sv_class.Draconic[4][1],
+					sv_class.Draconic[4][2],
+					sv_class.Draconic[5][0],
+					sv_class.Draconic[5][1],
+					sv_class.Draconic[5][2],
+					sv_class.Draconic[6][0],
+					sv_class.Draconic[6][1],
+					sv_class.Draconic[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Earth
+				type = 'dropdown',
+				name = class.Earth.name,
+				choices = {
+					class.Earth[1][0].name,
+					class.Earth[1][1].name,
+					class.Earth[1][2].name,
+					class.Earth[2][0].name,
+					class.Earth[2][1].name,
+					class.Earth[2][2].name,
+					class.Earth[3][0].name,
+					class.Earth[3][1].name,
+					class.Earth[3][2].name,
+					class.Earth[4][0].name,
+					class.Earth[4][1].name,
+					class.Earth[4][2].name,
+					class.Earth[5][0].name,
+					class.Earth[5][1].name,
+					class.Earth[5][2].name,
+					class.Earth[6][0].name,
+					class.Earth[6][1].name,
+					class.Earth[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Earth[1][0],
+					sv_class.Earth[1][1],
+					sv_class.Earth[1][2],
+					sv_class.Earth[2][0],
+					sv_class.Earth[2][1],
+					sv_class.Earth[2][2],
+					sv_class.Earth[3][0],
+					sv_class.Earth[3][1],
+					sv_class.Earth[3][2],
+					sv_class.Earth[4][0],
+					sv_class.Earth[4][1],
+					sv_class.Earth[4][2],
+					sv_class.Earth[5][0],
+					sv_class.Earth[5][1],
+					sv_class.Earth[5][2],
+					sv_class.Earth[6][0],
+					sv_class.Earth[6][1],
+					sv_class.Earth[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		sc = {
+			[1] = { -- Dark
+				type = 'dropdown',
+				name = class.Dark.name,
+				choices = {
+					class.Dark[1][0].name,
+					class.Dark[1][1].name,
+					class.Dark[1][2].name,
+					class.Dark[2][0].name,
+					class.Dark[2][1].name,
+					class.Dark[2][2].name,
+					class.Dark[3][0].name,
+					class.Dark[3][1].name,
+					class.Dark[3][2].name,
+					class.Dark[4][0].name,
+					class.Dark[4][1].name,
+					class.Dark[4][2].name,
+					class.Dark[5][0].name,
+					class.Dark[5][1].name,
+					class.Dark[5][2].name,
+					class.Dark[6][0].name,
+					class.Dark[6][1].name,
+					class.Dark[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Dark[1][0],
+					sv_class.Dark[1][1],
+					sv_class.Dark[1][2],
+					sv_class.Dark[2][0],
+					sv_class.Dark[2][1],
+					sv_class.Dark[2][2],
+					sv_class.Dark[3][0],
+					sv_class.Dark[3][1],
+					sv_class.Dark[3][2],
+					sv_class.Dark[4][0],
+					sv_class.Dark[4][1],
+					sv_class.Dark[4][2],
+					sv_class.Dark[5][0],
+					sv_class.Dark[5][1],
+					sv_class.Dark[5][2],
+					sv_class.Dark[6][0],
+					sv_class.Dark[6][1],
+					sv_class.Dark[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Daedric
+				type = 'dropdown',
+				name = class.Daedric.name,
+				choices = {
+					class.Daedric[1][0].name,
+					class.Daedric[1][1].name,
+					class.Daedric[1][2].name,
+					class.Daedric[2][0].name,
+					class.Daedric[2][1].name,
+					class.Daedric[2][2].name,
+					class.Daedric[3][0].name,
+					class.Daedric[3][1].name,
+					class.Daedric[3][2].name,
+					class.Daedric[4][0].name,
+					class.Daedric[4][1].name,
+					class.Daedric[4][2].name,
+					class.Daedric[5][0].name,
+					class.Daedric[5][1].name,
+					class.Daedric[5][2].name,
+					class.Daedric[6][0].name,
+					class.Daedric[6][1].name,
+					class.Daedric[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Daedric[1][0],
+					sv_class.Daedric[1][1],
+					sv_class.Daedric[1][2],
+					sv_class.Daedric[2][0],
+					sv_class.Daedric[2][1],
+					sv_class.Daedric[2][2],
+					sv_class.Daedric[3][0],
+					sv_class.Daedric[3][1],
+					sv_class.Daedric[3][2],
+					sv_class.Daedric[4][0],
+					sv_class.Daedric[4][1],
+					sv_class.Daedric[4][2],
+					sv_class.Daedric[5][0],
+					sv_class.Daedric[5][1],
+					sv_class.Daedric[5][2],
+					sv_class.Daedric[6][0],
+					sv_class.Daedric[6][1],
+					sv_class.Daedric[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Storm
+				type = 'dropdown',
+				name = class.Storm.name,
+				choices = {
+					class.Storm[1][0].name,
+					class.Storm[1][1].name,
+					class.Storm[1][2].name,
+					class.Storm[2][0].name,
+					class.Storm[2][1].name,
+					class.Storm[2][2].name,
+					class.Storm[3][0].name,
+					class.Storm[3][1].name,
+					class.Storm[3][2].name,
+					class.Storm[4][0].name,
+					class.Storm[4][1].name,
+					class.Storm[4][2].name,
+					class.Storm[5][0].name,
+					class.Storm[5][1].name,
+					class.Storm[5][2].name,
+					class.Storm[6][0].name,
+					class.Storm[6][1].name,
+					class.Storm[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Storm[1][0],
+					sv_class.Storm[1][1],
+					sv_class.Storm[1][2],
+					sv_class.Storm[2][0],
+					sv_class.Storm[2][1],
+					sv_class.Storm[2][2],
+					sv_class.Storm[3][0],
+					sv_class.Storm[3][1],
+					sv_class.Storm[3][2],
+					sv_class.Storm[4][0],
+					sv_class.Storm[4][1],
+					sv_class.Storm[4][2],
+					sv_class.Storm[5][0],
+					sv_class.Storm[5][1],
+					sv_class.Storm[5][2],
+					sv_class.Storm[6][0],
+					sv_class.Storm[6][1],
+					sv_class.Storm[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		nb = {
+			[1] = { -- Assassin
+				type = 'dropdown',
+				name = class.Assassin.name,
+				choices = {
+					class.Assassin[1][0].name,
+					class.Assassin[1][1].name,
+					class.Assassin[1][2].name,
+					class.Assassin[2][0].name,
+					class.Assassin[2][1].name,
+					class.Assassin[2][2].name,
+					class.Assassin[3][0].name,
+					class.Assassin[3][1].name,
+					class.Assassin[3][2].name,
+					class.Assassin[4][0].name,
+					class.Assassin[4][1].name,
+					class.Assassin[4][2].name,
+					class.Assassin[5][0].name,
+					class.Assassin[5][1].name,
+					class.Assassin[5][2].name,
+					class.Assassin[6][0].name,
+					class.Assassin[6][1].name,
+					class.Assassin[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Assassin[1][0],
+					sv_class.Assassin[1][1],
+					sv_class.Assassin[1][2],
+					sv_class.Assassin[2][0],
+					sv_class.Assassin[2][1],
+					sv_class.Assassin[2][2],
+					sv_class.Assassin[3][0],
+					sv_class.Assassin[3][1],
+					sv_class.Assassin[3][2],
+					sv_class.Assassin[4][0],
+					sv_class.Assassin[4][1],
+					sv_class.Assassin[4][2],
+					sv_class.Assassin[5][0],
+					sv_class.Assassin[5][1],
+					sv_class.Assassin[5][2],
+					sv_class.Assassin[6][0],
+					sv_class.Assassin[6][1],
+					sv_class.Assassin[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Shadow
+				type = 'dropdown',
+				name = class.Shadow.name,
+				choices = {
+					class.Shadow[1][0].name,
+					class.Shadow[1][1].name,
+					class.Shadow[1][2].name,
+					class.Shadow[2][0].name,
+					class.Shadow[2][1].name,
+					class.Shadow[2][2].name,
+					class.Shadow[3][0].name,
+					class.Shadow[3][1].name,
+					class.Shadow[3][2].name,
+					class.Shadow[4][0].name,
+					class.Shadow[4][1].name,
+					class.Shadow[4][2].name,
+					class.Shadow[5][0].name,
+					class.Shadow[5][1].name,
+					class.Shadow[5][2].name,
+					class.Shadow[6][0].name,
+					class.Shadow[6][1].name,
+					class.Shadow[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Shadow[1][0],
+					sv_class.Shadow[1][1],
+					sv_class.Shadow[1][2],
+					sv_class.Shadow[2][0],
+					sv_class.Shadow[2][1],
+					sv_class.Shadow[2][2],
+					sv_class.Shadow[3][0],
+					sv_class.Shadow[3][1],
+					sv_class.Shadow[3][2],
+					sv_class.Shadow[4][0],
+					sv_class.Shadow[4][1],
+					sv_class.Shadow[4][2],
+					sv_class.Shadow[5][0],
+					sv_class.Shadow[5][1],
+					sv_class.Shadow[5][2],
+					sv_class.Shadow[6][0],
+					sv_class.Shadow[6][1],
+					sv_class.Shadow[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Siphon
+				type = 'dropdown',
+				name = class.Siphon.name,
+				choices = {
+					class.Siphon[1][0].name,
+					class.Siphon[1][1].name,
+					class.Siphon[1][2].name,
+					class.Siphon[2][0].name,
+					class.Siphon[2][1].name,
+					class.Siphon[2][2].name,
+					class.Siphon[3][0].name,
+					class.Siphon[3][1].name,
+					class.Siphon[3][2].name,
+					class.Siphon[4][0].name,
+					class.Siphon[4][1].name,
+					class.Siphon[4][2].name,
+					class.Siphon[5][0].name,
+					class.Siphon[5][1].name,
+					class.Siphon[5][2].name,
+					class.Siphon[6][0].name,
+					class.Siphon[6][1].name,
+					class.Siphon[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Siphon[1][0],
+					sv_class.Siphon[1][1],
+					sv_class.Siphon[1][2],
+					sv_class.Siphon[2][0],
+					sv_class.Siphon[2][1],
+					sv_class.Siphon[2][2],
+					sv_class.Siphon[3][0],
+					sv_class.Siphon[3][1],
+					sv_class.Siphon[3][2],
+					sv_class.Siphon[4][0],
+					sv_class.Siphon[4][1],
+					sv_class.Siphon[4][2],
+					sv_class.Siphon[5][0],
+					sv_class.Siphon[5][1],
+					sv_class.Siphon[5][2],
+					sv_class.Siphon[6][0],
+					sv_class.Siphon[6][1],
+					sv_class.Siphon[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		wa = {
+			[1] = { -- Animal
+				type = 'dropdown',
+				name = class.Animal.name,
+				choices = {
+					class.Animal[1][0].name,
+					class.Animal[1][1].name,
+					class.Animal[1][2].name,
+					class.Animal[2][0].name,
+					class.Animal[2][1].name,
+					class.Animal[2][2].name,
+					class.Animal[3][0].name,
+					class.Animal[3][1].name,
+					class.Animal[3][2].name,
+					class.Animal[4][0].name,
+					class.Animal[4][1].name,
+					class.Animal[4][2].name,
+					class.Animal[5][0].name,
+					class.Animal[5][1].name,
+					class.Animal[5][2].name,
+					class.Animal[6][0].name,
+					class.Animal[6][1].name,
+					class.Animal[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Animal[1][0],
+					sv_class.Animal[1][1],
+					sv_class.Animal[1][2],
+					sv_class.Animal[2][0],
+					sv_class.Animal[2][1],
+					sv_class.Animal[2][2],
+					sv_class.Animal[3][0],
+					sv_class.Animal[3][1],
+					sv_class.Animal[3][2],
+					sv_class.Animal[4][0],
+					sv_class.Animal[4][1],
+					sv_class.Animal[4][2],
+					sv_class.Animal[5][0],
+					sv_class.Animal[5][1],
+					sv_class.Animal[5][2],
+					sv_class.Animal[6][0],
+					sv_class.Animal[6][1],
+					sv_class.Animal[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Green
+				type = 'dropdown',
+				name = class.Green.name,
+				choices = {
+					class.Green[1][0].name,
+					class.Green[1][1].name,
+					class.Green[1][2].name,
+					class.Green[2][0].name,
+					class.Green[2][1].name,
+					class.Green[2][2].name,
+					class.Green[3][0].name,
+					class.Green[3][1].name,
+					class.Green[3][2].name,
+					class.Green[4][0].name,
+					class.Green[4][1].name,
+					class.Green[4][2].name,
+					class.Green[5][0].name,
+					class.Green[5][1].name,
+					class.Green[5][2].name,
+					class.Green[6][0].name,
+					class.Green[6][1].name,
+					class.Green[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Green[1][0],
+					sv_class.Green[1][1],
+					sv_class.Green[1][2],
+					sv_class.Green[2][0],
+					sv_class.Green[2][1],
+					sv_class.Green[2][2],
+					sv_class.Green[3][0],
+					sv_class.Green[3][1],
+					sv_class.Green[3][2],
+					sv_class.Green[4][0],
+					sv_class.Green[4][1],
+					sv_class.Green[4][2],
+					sv_class.Green[5][0],
+					sv_class.Green[5][1],
+					sv_class.Green[5][2],
+					sv_class.Green[6][0],
+					sv_class.Green[6][1],
+					sv_class.Green[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Winter
+				type = 'dropdown',
+				name = class.Winter.name,
+				choices = {
+					class.Winter[1][0].name,
+					class.Winter[1][1].name,
+					class.Winter[1][2].name,
+					class.Winter[2][0].name,
+					class.Winter[2][1].name,
+					class.Winter[2][2].name,
+					class.Winter[3][0].name,
+					class.Winter[3][1].name,
+					class.Winter[3][2].name,
+					class.Winter[4][0].name,
+					class.Winter[4][1].name,
+					class.Winter[4][2].name,
+					class.Winter[5][0].name,
+					class.Winter[5][1].name,
+					class.Winter[5][2].name,
+					class.Winter[6][0].name,
+					class.Winter[6][1].name,
+					class.Winter[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Winter[1][0],
+					sv_class.Winter[1][1],
+					sv_class.Winter[1][2],
+					sv_class.Winter[2][0],
+					sv_class.Winter[2][1],
+					sv_class.Winter[2][2],
+					sv_class.Winter[3][0],
+					sv_class.Winter[3][1],
+					sv_class.Winter[3][2],
+					sv_class.Winter[4][0],
+					sv_class.Winter[4][1],
+					sv_class.Winter[4][2],
+					sv_class.Winter[5][0],
+					sv_class.Winter[5][1],
+					sv_class.Winter[5][2],
+					sv_class.Winter[6][0],
+					sv_class.Winter[6][1],
+					sv_class.Winter[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		nm = {
+			[1] = { -- Grave
+				type = 'dropdown',
+				name = class.Grave.name,
+				choices = {
+					class.Grave[1][0].name,
+					class.Grave[1][1].name,
+					class.Grave[1][2].name,
+					class.Grave[2][0].name,
+					class.Grave[2][1].name,
+					class.Grave[2][2].name,
+					class.Grave[3][0].name,
+					class.Grave[3][1].name,
+					class.Grave[3][2].name,
+					class.Grave[4][0].name,
+					class.Grave[4][1].name,
+					class.Grave[4][2].name,
+					class.Grave[5][0].name,
+					class.Grave[5][1].name,
+					class.Grave[5][2].name,
+					class.Grave[6][0].name,
+					class.Grave[6][1].name,
+					class.Grave[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Grave[1][0],
+					sv_class.Grave[1][1],
+					sv_class.Grave[1][2],
+					sv_class.Grave[2][0],
+					sv_class.Grave[2][1],
+					sv_class.Grave[2][2],
+					sv_class.Grave[3][0],
+					sv_class.Grave[3][1],
+					sv_class.Grave[3][2],
+					sv_class.Grave[4][0],
+					sv_class.Grave[4][1],
+					sv_class.Grave[4][2],
+					sv_class.Grave[5][0],
+					sv_class.Grave[5][1],
+					sv_class.Grave[5][2],
+					sv_class.Grave[6][0],
+					sv_class.Grave[6][1],
+					sv_class.Grave[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Bone
+				type = 'dropdown',
+				name = class.Bone.name,
+				choices = {
+					class.Bone[1][0].name,
+					class.Bone[1][1].name,
+					class.Bone[1][2].name,
+					class.Bone[2][0].name,
+					class.Bone[2][1].name,
+					class.Bone[2][2].name,
+					class.Bone[3][0].name,
+					class.Bone[3][1].name,
+					class.Bone[3][2].name,
+					class.Bone[4][0].name,
+					class.Bone[4][1].name,
+					class.Bone[4][2].name,
+					class.Bone[5][0].name,
+					class.Bone[5][1].name,
+					class.Bone[5][2].name,
+					class.Bone[6][0].name,
+					class.Bone[6][1].name,
+					class.Bone[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Bone[1][0],
+					sv_class.Bone[1][1],
+					sv_class.Bone[1][2],
+					sv_class.Bone[2][0],
+					sv_class.Bone[2][1],
+					sv_class.Bone[2][2],
+					sv_class.Bone[3][0],
+					sv_class.Bone[3][1],
+					sv_class.Bone[3][2],
+					sv_class.Bone[4][0],
+					sv_class.Bone[4][1],
+					sv_class.Bone[4][2],
+					sv_class.Bone[5][0],
+					sv_class.Bone[5][1],
+					sv_class.Bone[5][2],
+					sv_class.Bone[6][0],
+					sv_class.Bone[6][1],
+					sv_class.Bone[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Living
+				type = 'dropdown',
+				name = class.Living.name,
+				choices = {
+					class.Living[1][0].name,
+					class.Living[1][1].name,
+					class.Living[1][2].name,
+					class.Living[2][0].name,
+					class.Living[2][1].name,
+					class.Living[2][2].name,
+					class.Living[3][0].name,
+					class.Living[3][1].name,
+					class.Living[3][2].name,
+					class.Living[4][0].name,
+					class.Living[4][1].name,
+					class.Living[4][2].name,
+					class.Living[5][0].name,
+					class.Living[5][1].name,
+					class.Living[5][2].name,
+					class.Living[6][0].name,
+					class.Living[6][1].name,
+					class.Living[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Living[1][0],
+					sv_class.Living[1][1],
+					sv_class.Living[1][2],
+					sv_class.Living[2][0],
+					sv_class.Living[2][1],
+					sv_class.Living[2][2],
+					sv_class.Living[3][0],
+					sv_class.Living[3][1],
+					sv_class.Living[3][2],
+					sv_class.Living[4][0],
+					sv_class.Living[4][1],
+					sv_class.Living[4][2],
+					sv_class.Living[5][0],
+					sv_class.Living[5][1],
+					sv_class.Living[5][2],
+					sv_class.Living[6][0],
+					sv_class.Living[6][1],
+					sv_class.Living[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		tp = {
+			[1] = { -- Spear
+				type = 'dropdown',
+				name = class.Spear.name,
+				choices = {
+					class.Spear[1][0].name,
+					class.Spear[1][1].name,
+					class.Spear[1][2].name,
+					class.Spear[2][0].name,
+					class.Spear[2][1].name,
+					class.Spear[2][2].name,
+					class.Spear[3][0].name,
+					class.Spear[3][1].name,
+					class.Spear[3][2].name,
+					class.Spear[4][0].name,
+					class.Spear[4][1].name,
+					class.Spear[4][2].name,
+					class.Spear[5][0].name,
+					class.Spear[5][1].name,
+					class.Spear[5][2].name,
+					class.Spear[6][0].name,
+					class.Spear[6][1].name,
+					class.Spear[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Spear[1][0],
+					sv_class.Spear[1][1],
+					sv_class.Spear[1][2],
+					sv_class.Spear[2][0],
+					sv_class.Spear[2][1],
+					sv_class.Spear[2][2],
+					sv_class.Spear[3][0],
+					sv_class.Spear[3][1],
+					sv_class.Spear[3][2],
+					sv_class.Spear[4][0],
+					sv_class.Spear[4][1],
+					sv_class.Spear[4][2],
+					sv_class.Spear[5][0],
+					sv_class.Spear[5][1],
+					sv_class.Spear[5][2],
+					sv_class.Spear[6][0],
+					sv_class.Spear[6][1],
+					sv_class.Spear[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Dawn
+				type = 'dropdown',
+				name = class.Dawn.name,
+				choices = {
+					class.Dawn[1][0].name,
+					class.Dawn[1][1].name,
+					class.Dawn[1][2].name,
+					class.Dawn[2][0].name,
+					class.Dawn[2][1].name,
+					class.Dawn[2][2].name,
+					class.Dawn[3][0].name,
+					class.Dawn[3][1].name,
+					class.Dawn[3][2].name,
+					class.Dawn[4][0].name,
+					class.Dawn[4][1].name,
+					class.Dawn[4][2].name,
+					class.Dawn[5][0].name,
+					class.Dawn[5][1].name,
+					class.Dawn[5][2].name,
+					class.Dawn[6][0].name,
+					class.Dawn[6][1].name,
+					class.Dawn[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Dawn[1][0],
+					sv_class.Dawn[1][1],
+					sv_class.Dawn[1][2],
+					sv_class.Dawn[2][0],
+					sv_class.Dawn[2][1],
+					sv_class.Dawn[2][2],
+					sv_class.Dawn[3][0],
+					sv_class.Dawn[3][1],
+					sv_class.Dawn[3][2],
+					sv_class.Dawn[4][0],
+					sv_class.Dawn[4][1],
+					sv_class.Dawn[4][2],
+					sv_class.Dawn[5][0],
+					sv_class.Dawn[5][1],
+					sv_class.Dawn[5][2],
+					sv_class.Dawn[6][0],
+					sv_class.Dawn[6][1],
+					sv_class.Dawn[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Resto
+				type = 'dropdown',
+				name = class.Resto.name,
+				choices = {
+					class.Resto[1][0].name,
+					class.Resto[1][1].name,
+					class.Resto[1][2].name,
+					class.Resto[2][0].name,
+					class.Resto[2][1].name,
+					class.Resto[2][2].name,
+					class.Resto[3][0].name,
+					class.Resto[3][1].name,
+					class.Resto[3][2].name,
+					class.Resto[4][0].name,
+					class.Resto[4][1].name,
+					class.Resto[4][2].name,
+					class.Resto[5][0].name,
+					class.Resto[5][1].name,
+					class.Resto[5][2].name,
+					class.Resto[6][0].name,
+					class.Resto[6][1].name,
+					class.Resto[6][2].name,
+				},
+				choicesValues = {
+					sv_class.Resto[1][0],
+					sv_class.Resto[1][1],
+					sv_class.Resto[1][2],
+					sv_class.Resto[2][0],
+					sv_class.Resto[2][1],
+					sv_class.Resto[2][2],
+					sv_class.Resto[3][0],
+					sv_class.Resto[3][1],
+					sv_class.Resto[3][2],
+					sv_class.Resto[4][0],
+					sv_class.Resto[4][1],
+					sv_class.Resto[4][2],
+					sv_class.Resto[5][0],
+					sv_class.Resto[5][1],
+					sv_class.Resto[5][2],
+					sv_class.Resto[6][0],
+					sv_class.Resto[6][1],
+					sv_class.Resto[6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		weapon = {
+			[1] = { -- Two Handed
+				type = 'dropdown',
+				name = weapon[1].name,
+				choices = {
+					weapon[1][1][0].name,
+					weapon[1][1][1].name,
+					weapon[1][1][2].name,
+					weapon[1][2][0].name,
+					weapon[1][2][1].name,
+					weapon[1][2][2].name,
+					weapon[1][3][0].name,
+					weapon[1][3][1].name,
+					weapon[1][3][2].name,
+					weapon[1][4][0].name,
+					weapon[1][4][1].name,
+					weapon[1][4][2].name,
+					weapon[1][5][0].name,
+					weapon[1][5][1].name,
+					weapon[1][5][2].name,
+					weapon[1][6][0].name,
+					weapon[1][6][1].name,
+					weapon[1][6][2].name,
+				},
+				choicesValues = {
+					sv_weapon[1][1][0],
+					sv_weapon[1][1][1],
+					sv_weapon[1][1][2],
+					sv_weapon[1][2][0],
+					sv_weapon[1][2][1],
+					sv_weapon[1][2][2],
+					sv_weapon[1][3][0],
+					sv_weapon[1][3][1],
+					sv_weapon[1][3][2],
+					sv_weapon[1][4][0],
+					sv_weapon[1][4][1],
+					sv_weapon[1][4][2],
+					sv_weapon[1][5][0],
+					sv_weapon[1][5][1],
+					sv_weapon[1][5][2],
+					sv_weapon[1][6][0],
+					sv_weapon[1][6][1],
+					sv_weapon[1][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- One Hand and Shield
+				type = 'dropdown',
+				name = weapon[2].name,
+				choices = {
+					weapon[2][1][0].name,
+					weapon[2][1][1].name,
+					weapon[2][1][2].name,
+					weapon[2][2][0].name,
+					weapon[2][2][1].name,
+					weapon[2][2][2].name,
+					weapon[2][3][0].name,
+					weapon[2][3][1].name,
+					weapon[2][3][2].name,
+					weapon[2][4][0].name,
+					weapon[2][4][1].name,
+					weapon[2][4][2].name,
+					weapon[2][5][0].name,
+					weapon[2][5][1].name,
+					weapon[2][5][2].name,
+					weapon[2][6][0].name,
+					weapon[2][6][1].name,
+					weapon[2][6][2].name,
+				},
+				choicesValues = {
+					sv_weapon[2][1][0],
+					sv_weapon[2][1][1],
+					sv_weapon[2][1][2],
+					sv_weapon[2][2][0],
+					sv_weapon[2][2][1],
+					sv_weapon[2][2][2],
+					sv_weapon[2][3][0],
+					sv_weapon[2][3][1],
+					sv_weapon[2][3][2],
+					sv_weapon[2][4][0],
+					sv_weapon[2][4][1],
+					sv_weapon[2][4][2],
+					sv_weapon[2][5][0],
+					sv_weapon[2][5][1],
+					sv_weapon[2][5][2],
+					sv_weapon[2][6][0],
+					sv_weapon[2][6][1],
+					sv_weapon[2][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Dual Wield
+				type = 'dropdown',
+				name = weapon[3].name,
+				choices = {
+					weapon[3][1][0].name,
+					weapon[3][1][1].name,
+					weapon[3][1][2].name,
+					weapon[3][2][0].name,
+					weapon[3][2][1].name,
+					weapon[3][2][2].name,
+					weapon[3][3][0].name,
+					weapon[3][3][1].name,
+					weapon[3][3][2].name,
+					weapon[3][4][0].name,
+					weapon[3][4][1].name,
+					weapon[3][4][2].name,
+					weapon[3][5][0].name,
+					weapon[3][5][1].name,
+					weapon[3][5][2].name,
+					weapon[3][6][0].name,
+					weapon[3][6][1].name,
+					weapon[3][6][2].name,
+				},
+				choicesValues = {
+					sv_weapon[3][1][0],
+					sv_weapon[3][1][1],
+					sv_weapon[3][1][2],
+					sv_weapon[3][2][0],
+					sv_weapon[3][2][1],
+					sv_weapon[3][2][2],
+					sv_weapon[3][3][0],
+					sv_weapon[3][3][1],
+					sv_weapon[3][3][2],
+					sv_weapon[3][4][0],
+					sv_weapon[3][4][1],
+					sv_weapon[3][4][2],
+					sv_weapon[3][5][0],
+					sv_weapon[3][5][1],
+					sv_weapon[3][5][2],
+					sv_weapon[3][6][0],
+					sv_weapon[3][6][1],
+					sv_weapon[3][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- Bow
+				type = 'dropdown',
+				name = weapon[4].name,
+				choices = {
+					weapon[4][1][0].name,
+					weapon[4][1][1].name,
+					weapon[4][1][2].name,
+					weapon[4][2][0].name,
+					weapon[4][2][1].name,
+					weapon[4][2][2].name,
+					weapon[4][3][0].name,
+					weapon[4][3][1].name,
+					weapon[4][3][2].name,
+					weapon[4][4][0].name,
+					weapon[4][4][1].name,
+					weapon[4][4][2].name,
+					weapon[4][5][0].name,
+					weapon[4][5][1].name,
+					weapon[4][5][2].name,
+					weapon[4][6][0].name,
+					weapon[4][6][1].name,
+					weapon[4][6][2].name,
+				},
+				choicesValues = {
+					sv_weapon[4][1][0],
+					sv_weapon[4][1][1],
+					sv_weapon[4][1][2],
+					sv_weapon[4][2][0],
+					sv_weapon[4][2][1],
+					sv_weapon[4][2][2],
+					sv_weapon[4][3][0],
+					sv_weapon[4][3][1],
+					sv_weapon[4][3][2],
+					sv_weapon[4][4][0],
+					sv_weapon[4][4][1],
+					sv_weapon[4][4][2],
+					sv_weapon[4][5][0],
+					sv_weapon[4][5][1],
+					sv_weapon[4][5][2],
+					sv_weapon[4][6][0],
+					sv_weapon[4][6][1],
+					sv_weapon[4][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[5] = { -- Destruction Staff
+				type = 'dropdown',
+				name = weapon[5].name,
+				choices = {
+					weapon[5][1][0].name,
+					weapon[5][1][1].name,
+					weapon[5][1][2].name,
+					weapon[5][2][0].name,
+					weapon[5][2][1].name,
+					weapon[5][2][2].name,
+					weapon[5][3][0].name,
+					weapon[5][3][1].name,
+					weapon[5][3][2].name,
+					weapon[5][4][0].name,
+					weapon[5][4][1].name,
+					weapon[5][4][2].name,
+					weapon[5][5][0].name,
+					weapon[5][5][1].name,
+					weapon[5][5][2].name,
+					weapon[5][6][0].name,
+					weapon[5][6][1].name,
+					weapon[5][6][2].name,
+				},
+				choicesValues = {
+					sv_weapon[5][1][0],
+					sv_weapon[5][1][1],
+					sv_weapon[5][1][2],
+					sv_weapon[5][2][0],
+					sv_weapon[5][2][1],
+					sv_weapon[5][2][2],
+					sv_weapon[5][3][0],
+					sv_weapon[5][3][1],
+					sv_weapon[5][3][2],
+					sv_weapon[5][4][0],
+					sv_weapon[5][4][1],
+					sv_weapon[5][4][2],
+					sv_weapon[5][5][0],
+					sv_weapon[5][5][1],
+					sv_weapon[5][5][2],
+					sv_weapon[5][6][0],
+					sv_weapon[5][6][1],
+					sv_weapon[5][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[6] = { -- Restoration Staff
+				type = 'dropdown',
+				name = weapon[6].name,
+				choices = {
+					weapon[6][1][0].name,
+					weapon[6][1][1].name,
+					weapon[6][1][2].name,
+					weapon[6][2][0].name,
+					weapon[6][2][1].name,
+					weapon[6][2][2].name,
+					weapon[6][3][0].name,
+					weapon[6][3][1].name,
+					weapon[6][3][2].name,
+					weapon[6][4][0].name,
+					weapon[6][4][1].name,
+					weapon[6][4][2].name,
+					weapon[6][5][0].name,
+					weapon[6][5][1].name,
+					weapon[6][5][2].name,
+					weapon[6][6][0].name,
+					weapon[6][6][1].name,
+					weapon[6][6][2].name,
+				},
+				choicesValues = {
+					sv_weapon[6][1][0],
+					sv_weapon[6][1][1],
+					sv_weapon[6][1][2],
+					sv_weapon[6][2][0],
+					sv_weapon[6][2][1],
+					sv_weapon[6][2][2],
+					sv_weapon[6][3][0],
+					sv_weapon[6][3][1],
+					sv_weapon[6][3][2],
+					sv_weapon[6][4][0],
+					sv_weapon[6][4][1],
+					sv_weapon[6][4][2],
+					sv_weapon[6][5][0],
+					sv_weapon[6][5][1],
+					sv_weapon[6][5][2],
+					sv_weapon[6][6][0],
+					sv_weapon[6][6][1],
+					sv_weapon[6][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[7] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[8] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[11] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[13] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[14] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[15] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		armor = {
+			[1] = { -- Light Armor
+				type = 'dropdown',
+				name = armor[1].name,
+				choices = {
+					armor[1][1][0].name,
+					armor[1][1][1].name,
+					armor[1][1][2].name,
+				},
+				choicesValues = {
+					sv_armor[1][1][0],
+					sv_armor[1][1][1],
+					sv_armor[1][1][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Medium Armor
+				type = 'dropdown',
+				name = armor[2].name,
+				choices = {
+					armor[2][1][0].name,
+					armor[2][1][1].name,
+					armor[2][1][2].name,
+				},
+				choicesValues = {
+					sv_armor[2][1][0],
+					sv_armor[2][1][1],
+					sv_armor[2][1][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Heavy Armor
+				type = 'dropdown',
+				name = armor[3].name,
+				choices = {
+					armor[3][1][0].name,
+					armor[3][1][1].name,
+					armor[3][1][2].name,
+				},
+				choicesValues = {
+					sv_armor[3][1][0],
+					sv_armor[3][1][1],
+					sv_armor[3][1][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		world = {
+			[1] = { -- Soul Magic
+				type = 'dropdown',
+				name = world[4].name,
+				choices = {
+					world[4][1][0].name,
+					world[4][1][1].name,
+					world[4][1][2].name,
+					world[4][2][0].name,
+					world[4][2][1].name,
+					world[4][2][2].name,
+				},
+				choicesValues = {
+					sv_world[4][1][0],
+					sv_world[4][1][1],
+					sv_world[4][1][2],
+					sv_world[4][2][0],
+					sv_world[4][2][1],
+					sv_world[4][2][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Vampire
+				type = 'dropdown',
+				name = world[5].name,
+				choices = {
+					world[5][1][0].name,
+					world[5][1][1].name,
+					world[5][1][2].name,
+					world[5][2][0].name,
+					world[5][2][1].name,
+					world[5][2][2].name,
+					world[5][3][0].name,
+					world[5][3][1].name,
+					world[5][3][2].name,
+					world[5][4][0].name,
+					world[5][4][1].name,
+					world[5][4][2].name,
+					world[5][5][0].name,
+					world[5][5][1].name,
+					world[5][5][2].name,
+					world[5][6][0].name,
+					world[5][6][1].name,
+					world[5][6][2].name,
+				},
+				choicesValues = {
+					sv_world[5][1][0],
+					sv_world[5][1][1],
+					sv_world[5][1][2],
+					sv_world[5][2][0],
+					sv_world[5][2][1],
+					sv_world[5][2][2],
+					sv_world[5][3][0],
+					sv_world[5][3][1],
+					sv_world[5][3][2],
+					sv_world[5][4][0],
+					sv_world[5][4][1],
+					sv_world[5][4][2],
+					sv_world[5][5][0],
+					sv_world[5][5][1],
+					sv_world[5][5][2],
+					sv_world[5][6][0],
+					sv_world[5][6][1],
+					sv_world[5][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Werewolf
+				type = 'dropdown',
+				name = world[6].name,
+				choices = {
+					world[6][1][0].name,
+					world[6][1][1].name,
+					world[6][1][2].name,
+					world[6][2][0].name,
+					world[6][2][1].name,
+					world[6][2][2].name,
+					world[6][3][0].name,
+					world[6][3][1].name,
+					world[6][3][2].name,
+					world[6][4][0].name,
+					world[6][4][1].name,
+					world[6][4][2].name,
+					world[6][5][0].name,
+					world[6][5][1].name,
+					world[6][5][2].name,
+					world[6][6][0].name,
+					world[6][6][1].name,
+					world[6][6][2].name,
+				},
+				choicesValues = {
+					sv_world[6][1][0],
+					sv_world[6][1][1],
+					sv_world[6][1][2],
+					sv_world[6][2][0],
+					sv_world[6][2][1],
+					sv_world[6][2][2],
+					sv_world[6][3][0],
+					sv_world[6][3][1],
+					sv_world[6][3][2],
+					sv_world[6][4][0],
+					sv_world[6][4][1],
+					sv_world[6][4][2],
+					sv_world[6][5][0],
+					sv_world[6][5][1],
+					sv_world[6][5][2],
+					sv_world[6][6][0],
+					sv_world[6][6][1],
+					sv_world[6][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[5] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[8] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[11] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[12] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		guild = {
+			[1] = { -- Fighters Guild
+				type = 'dropdown',
+				name = guild[2].name,
+				choices = {
+					guild[2][1][0].name,
+					guild[2][1][1].name,
+					guild[2][1][2].name,
+					guild[2][2][0].name,
+					guild[2][2][1].name,
+					guild[2][2][2].name,
+					guild[2][3][0].name,
+					guild[2][3][1].name,
+					guild[2][3][2].name,
+					guild[2][4][0].name,
+					guild[2][4][1].name,
+					guild[2][4][2].name,
+					guild[2][5][0].name,
+					guild[2][5][1].name,
+					guild[2][5][2].name,
+				},
+				choicesValues = {
+					sv_guild[2][1][0],
+					sv_guild[2][1][1],
+					sv_guild[2][1][2],
+					sv_guild[2][2][0],
+					sv_guild[2][2][1],
+					sv_guild[2][2][2],
+					sv_guild[2][3][0],
+					sv_guild[2][3][1],
+					sv_guild[2][3][2],
+					sv_guild[2][4][0],
+					sv_guild[2][4][1],
+					sv_guild[2][4][2],
+					sv_guild[2][5][0],
+					sv_guild[2][5][1],
+					sv_guild[2][5][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Mages Guild
+				type = 'dropdown',
+				name = guild[3].name,
+				choices = {
+					guild[3][1][0].name,
+					guild[3][1][1].name,
+					guild[3][1][2].name,
+					guild[3][2][0].name,
+					guild[3][2][1].name,
+					guild[3][2][2].name,
+					guild[3][3][0].name,
+					guild[3][3][1].name,
+					guild[3][3][2].name,
+					guild[3][4][0].name,
+					guild[3][4][1].name,
+					guild[3][4][2].name,
+					guild[3][5][0].name,
+					guild[3][5][1].name,
+					guild[3][5][2].name,
+				},
+				choicesValues = {
+					sv_guild[3][1][0],
+					sv_guild[3][1][1],
+					sv_guild[3][1][2],
+					sv_guild[3][2][0],
+					sv_guild[3][2][1],
+					sv_guild[3][2][2],
+					sv_guild[3][3][0],
+					sv_guild[3][3][1],
+					sv_guild[3][3][2],
+					sv_guild[3][4][0],
+					sv_guild[3][4][1],
+					sv_guild[3][4][2],
+					sv_guild[3][5][0],
+					sv_guild[3][5][1],
+					sv_guild[3][5][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- Psijic Order
+				type = 'dropdown',
+				name = guild[4].name,
+				choices = {
+					guild[4][1][0].name,
+					guild[4][1][1].name,
+					guild[4][1][2].name,
+					guild[4][2][0].name,
+					guild[4][2][1].name,
+					guild[4][2][2].name,
+					guild[4][3][0].name,
+					guild[4][3][1].name,
+					guild[4][3][2].name,
+					guild[4][4][0].name,
+					guild[4][4][1].name,
+					guild[4][4][2].name,
+					guild[4][5][0].name,
+					guild[4][5][1].name,
+					guild[4][5][2].name,
+					guild[4][6][0].name,
+					guild[4][6][1].name,
+					guild[4][6][2].name,
+				},
+				choicesValues = {
+					sv_guild[4][1][0],
+					sv_guild[4][1][1],
+					sv_guild[4][1][2],
+					sv_guild[4][2][0],
+					sv_guild[4][2][1],
+					sv_guild[4][2][2],
+					sv_guild[4][3][0],
+					sv_guild[4][3][1],
+					sv_guild[4][3][2],
+					sv_guild[4][4][0],
+					sv_guild[4][4][1],
+					sv_guild[4][4][2],
+					sv_guild[4][5][0],
+					sv_guild[4][5][1],
+					sv_guild[4][5][2],
+					sv_guild[4][6][0],
+					sv_guild[4][6][1],
+					sv_guild[4][6][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[4] = { -- Undaunted
+				type = 'dropdown',
+				name = guild[6].name,
+				choices = {
+					guild[6][1][0].name,
+					guild[6][1][1].name,
+					guild[6][1][2].name,
+					guild[6][2][0].name,
+					guild[6][2][1].name,
+					guild[6][2][2].name,
+					guild[6][3][0].name,
+					guild[6][3][1].name,
+					guild[6][3][2].name,
+					guild[6][4][0].name,
+					guild[6][4][1].name,
+					guild[6][4][2].name,
+					guild[6][5][0].name,
+					guild[6][5][1].name,
+					guild[6][5][2].name,
+				},
+				choicesValues = {
+					sv_guild[6][1][0],
+					sv_guild[6][1][1],
+					sv_guild[6][1][2],
+					sv_guild[6][2][0],
+					sv_guild[6][2][1],
+					sv_guild[6][2][2],
+					sv_guild[6][3][0],
+					sv_guild[6][3][1],
+					sv_guild[6][3][2],
+					sv_guild[6][4][0],
+					sv_guild[6][4][1],
+					sv_guild[6][4][2],
+					sv_guild[6][5][0],
+					sv_guild[6][5][1],
+					sv_guild[6][5][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[5] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[6] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[7] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[8] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[9] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[10] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[11] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[12] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[13] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+		ava = {
+			[1] = { -- Assault
+				type = 'dropdown',
+				name = ava[1].name,
+				choices = {
+					ava[1][1][0].name,
+					ava[1][1][1].name,
+					ava[1][1][2].name,
+					ava[1][2][0].name,
+					ava[1][2][1].name,
+					ava[1][2][2].name,
+					ava[1][3][0].name,
+					ava[1][3][1].name,
+					ava[1][3][2].name,
+					ava[1][4][0].name,
+					ava[1][4][1].name,
+					ava[1][4][2].name,
+					ava[1][5][0].name,
+					ava[1][5][1].name,
+					ava[1][5][2].name,
+				},
+				choicesValues = {
+					sv_ava[1][1][0],
+					sv_ava[1][1][1],
+					sv_ava[1][1][2],
+					sv_ava[1][2][0],
+					sv_ava[1][2][1],
+					sv_ava[1][2][2],
+					sv_ava[1][3][0],
+					sv_ava[1][3][1],
+					sv_ava[1][3][2],
+					sv_ava[1][4][0],
+					sv_ava[1][4][1],
+					sv_ava[1][4][2],
+					sv_ava[1][5][0],
+					sv_ava[1][5][1],
+					sv_ava[1][5][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[2] = { -- Support
+				type = 'dropdown',
+				name = ava[3].name,
+				choices = {
+					ava[3][1][0].name,
+					ava[3][1][1].name,
+					ava[3][1][2].name,
+					ava[3][2][0].name,
+					ava[3][2][1].name,
+					ava[3][2][2].name,
+					ava[3][3][0].name,
+					ava[3][3][1].name,
+					ava[3][3][2].name,
+					ava[3][4][0].name,
+					ava[3][4][1].name,
+					ava[3][4][2].name,
+					ava[3][5][0].name,
+					ava[3][5][1].name,
+					ava[3][5][2].name,
+				},
+				choicesValues = {
+					sv_ava[3][1][0],
+					sv_ava[3][1][1],
+					sv_ava[3][1][2],
+					sv_ava[3][2][0],
+					sv_ava[3][2][1],
+					sv_ava[3][2][2],
+					sv_ava[3][3][0],
+					sv_ava[3][3][1],
+					sv_ava[3][3][2],
+					sv_ava[3][4][0],
+					sv_ava[3][4][1],
+					sv_ava[3][4][2],
+					sv_ava[3][5][0],
+					sv_ava[3][5][1],
+					sv_ava[3][5][2],
+				},
+				getFunc = function () return choice end,
+				setFunc = function (v) choice = v end,
+			},
+			[3] = { -- check cast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkCast),
+			getFunc = function () return (choice).block end,
+			disabled = true,
+			},
+			[4] = { -- register
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlock),
+				func = function ()
+					(choice).block = true
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[5] = { -- unregister
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlock),
+				func = function ()
+					(choice).block = false
+					(choice).msg = true
+					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[6] = { -- check recast
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkRecast),
+				getFunc = function () return (choice).block_recast end,
+				disabled = true,
+			},
+			[7] = { -- register recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockRecast),
+				func = function ()
+					(choice).block_recast = true
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[8] = { -- unregister recast
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockRecast),
+				func = function ()
+					(choice).block_recast = false
+					(choice).msg = true
+					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[9] = { -- check pvp
+				type = 'checkbox',
+				name = GetString(NSB_am_co_checkPVP),
+				getFunc = function () return (choice).pvp end,
+				disabled = true,
+			},
+			[10] = { -- register pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_regBlockPVP),
+				func = function ()
+					(choice).pvp = true
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+			[11] = { -- unregister pvp
+				type = 'button',
+				width = 'half',
+				name = GetString(NSB_am_co_unregBlockPVP),
+				func = function ()
+					(choice).pvp = false
+					(choice).msg = true
+					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+					libSkillBlockUpdateNeeded = true
+					--addon.Initialize()
+				end,
+			},
+		},
+	}
+
+	local panelData = {
+		type 				= 'panel',
+		name 				= addon.title,
+		displayName 		= addon.title,
+		author 				= addon.author,
+		version 			= addon.version,
+		slashCommand 		= '/skillblocker',
+		registerForRefresh 	= true,
+		registerForDefaults = true,
+	}
+
+	-- Check if the pannel of this addon closes and register/unregister the needed skill blocks with LibSkillBocker "once"
+	NEAR_SB.LAM2SettingsPanel = LAM2:RegisterAddonPanel(addon.name, panelData)
+	local function OnLamPanelClosed(panel)
+		if panel ~= NEAR_SB.LAM2SettingsPanel or not libSkillBlockUpdateNeeded then return end
+		libSkillBlockUpdateNeeded = false
+		addon.Initialize()
+	end
+
+	local optionsTable = {
+		{
+			type = 'checkbox',
+			name = GetString(NSB_am_bpvp_name),
+			tooltip = GetString(NSB_am_bpvp_tooltip),
+			getFunc = function () return sv.blockPvP end,
+			setFunc = function (v) sv.blockPvP = v return addon.EZC() end,
+			default = addon.defaults.blockPvP,
+			warning = GetString(NSB_am_bpvp_warning),
+		},
+		{
+			type = 'checkbox',
+			name = GetString(NSB_am_brc_name),
+			tooltip = GetString(NSB_am_brc_tooltip),
+			getFunc = function () return sv.blockRecast end,
+			setFunc = function (v) sv.blockRecast = v return addon.recastEvents() --[[and addon.Initialize()]] end,
+			default = addon.defaults.blockRecast,
+			warning = GetString(NSB_am_brc_warning),
+		},
+		{
+			type = 'divider',
+			width = 'full'
+		},
+		{
+			type = 'checkbox',
+			name = GetString(NSB_am_msg_name),
+			getFunc = function () return sv.message end,
+			setFunc = function (v) sv.message = v end,
+			default = addon.defaults.message,
+		},
+		{
+			type = 'header',
+			name = GetString(NSB_am_sksel_name),
+		},
+		---------------------------------------------------------------------------------
+		-- Class
+		---------------------------------------------------------------------------------
+		{
+			type = 'submenu',
+			name = GetString(NSB_skillType_1),
+			controls = {
+				[1] = {
+					type = 'submenu',
+					name = class_name[1],
+					controls = control_options.dk,
+				},
+				[2] = {
+					type = 'submenu',
+					name = class_name[2],
+					controls = control_options.sc,
+				},
+				[3] = {
+					type = 'submenu',
+					name = class_name[3],
+					controls = control_options.nb,
+				},
+				[4] = {
+					type = 'submenu',
+					name = class_name[4],
+					controls = control_options.wa,
+				},
+				[5] = {
+					type = 'submenu',
+					name = class_name[5],
+					controls = control_options.nm,
+				},
+				[6] = {
+					type = 'submenu',
+					name = class_name[6],
+					controls = control_options.tp,
+				},
+			},
+		},
+		---------------------------------------------------------------------------------
+		-- Weapon
+		---------------------------------------------------------------------------------
+		{
+			type = 'submenu',
+			name = GetString(NSB_skillType_2),
+			controls = control_options.weapon,
+		},
+		---------------------------------------------------------------------------------
+		-- Armor
+		---------------------------------------------------------------------------------
+		{
+			type = 'submenu',
+			name = GetString(NSB_skillType_3),
+			controls = control_options.armor,
+		},
+		---------------------------------------------------------------------------------
+		-- World
+		---------------------------------------------------------------------------------
+		{
+			type = 'submenu',
+			name = GetString(NSB_skillType_4),
+			controls = control_options.world,
+		},
+		---------------------------------------------------------------------------------
+		-- Guild
+		---------------------------------------------------------------------------------
+		{
+			type = 'submenu',
+			name = GetString(NSB_skillType_5),
+			controls = control_options.guild,
+		},
+		---------------------------------------------------------------------------------
+		-- AvA
+		---------------------------------------------------------------------------------
+		{
+			type = 'submenu',
+			name = GetString(NSB_skillType_6),
+			controls = control_options.ava,
+		},
+		---------------------------------------------------------------------------------
+		{
+			type = 'divider',
+			width = 'full'
+		},
+		{
+			type = 'description',
+			text = GetString(NSB_am_cmd_text),
+		},
+		-- TODO: comment out:
+		-- {
+		-- 	type = 'divider',
+		-- 	width = 'full'
+		-- },
+		-- {
+		-- 	type = 'checkbox',
+		-- 	name = 'Debug log',
+		-- 	getFunc = function () return sv.debug end,
+		-- 	setFunc = function (v) sv.debug = v end,
+		-- 	default = addon.defaults.debug,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type = 'checkbox',
+		-- 	name = 'Debug log (cast)',
+		-- 	getFunc = function () return sv.debug_init_cast end,
+		-- 	setFunc = function (v) sv.debug_init_cast = v end,
+		-- 	default = addon.defaults.debug_init_cast,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type = 'checkbox',
+		-- 	name = 'Debug log (recast)',
+		-- 	getFunc = function () return sv.debug_init_recast end,
+		-- 	setFunc = function (v) sv.debug_init_recast = v end,
+		-- 	default = addon.defaults.debug_init_recast,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type = 'checkbox',
+		-- 	name = 'Debug log (pvp)',
+		-- 	getFunc = function () return sv.debug_init_pvp end,
+		-- 	setFunc = function (v) sv.debug_init_pvp = v end,
+		-- 	default = addon.defaults.debug_init_pvp,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type = 'checkbox',
+		-- 	name = 'Debug log (zone)',
+		-- 	getFunc = function () return sv.debug_zone end,
+		-- 	setFunc = function (v) sv.debug_zone = v end,
+		-- 	default = addon.defaults.debug_zone,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type = 'checkbox',
+		-- 	name = 'Debug log (recast events)',
+		-- 	getFunc = function () return sv.debug_recast end,
+		-- 	setFunc = function (v) sv.debug_recast = v end,
+		-- 	default = addon.defaults.debug_recast,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+	}
+	LAM2:RegisterOptionControls(addon.name, optionsTable)
+
+	CALLBACK_MANAGER:RegisterCallback("LAM-PanelClosed", OnLamPanelClosed)
+end

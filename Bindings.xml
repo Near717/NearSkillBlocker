@@ -1,0 +1,33 @@
+<Bindings>
+	<Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
+		<Category name="Skill Blocker">
+			<!-- <Action name="NSB_key1">
+				<Up>d(1)</Up>
+			</Action>
+			<Action name="NSB_key2">
+				<Up>d(2)</Up>
+			</Action>
+			<Action name="NSB_key3">
+				<Up>d(3)</Up>
+			</Action>
+			<Action name="NSB_key4">
+				<Up>d(4)</Up>
+			</Action>
+			<Action name="NSB_key5">
+				<Up>d(5)</Up>
+			</Action>
+			<Action name="NSB_key6">
+				<Up>d(6)</Up>
+			</Action>
+			<Action name="NSB_key7">
+				<Up>d(7)</Up>
+			</Action>
+			<Action name="NSB_key8">
+				<Up>d(8)</Up>
+			</Action> -->
+			<Action name="NSB_blockPvP">
+				<Up>NEAR_SB.slash_commands.blockPvP()</Up>
+			</Action>
+		</Category>
+	</Layer>
+</Bindings>

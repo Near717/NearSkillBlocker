@@ -1,7 +1,7 @@
 ## Title: Near's Skill Blocker
 ## APIVersion: 101037 101038
-## Version: 2.0.4
-## AddOnVersion: 204
+## Version: 2.1.0
+## AddOnVersion: 210
 ## SavedVariables: NearSkillBlocker_Data
 ## Author: |cCC99FFnotnear|r
 ## DependsOn: LibAddonMenu-2.0>=30 LibSkillBlocker>=105
@@ -10,6 +10,8 @@ i18n/en.lua
 i18n/$(language).lua
 
 NearSkillBlocker.lua
+recasts.lua
+
 defaults.lua
 skills.lua
 utils.lua

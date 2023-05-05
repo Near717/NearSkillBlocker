@@ -2815,15 +2815,6 @@ function NEAR_SB.SetupSettings()
 			warning = GetString(NSB_am_bpvp_warning),
 		},
 		{
-			type = 'checkbox',
-			name = GetString(NSB_am_brc_name),
-			tooltip = GetString(NSB_am_brc_tooltip),
-			getFunc = function () return sv.blockRecast end,
-			setFunc = function (v) sv.blockRecast = v return addon.recastEvents() end,
-			default = addon.defaults.blockRecast,
-			warning = GetString(NSB_am_brc_warning),
-		},
-		{
 			type = 'divider',
 			width = 'full'
 		},
@@ -2978,7 +2969,7 @@ function NEAR_SB.SetupSettings()
 		},
 		{
 			type = 'checkbox',
-			name = 'Debug log (recast events)',
+			name = 'Debug log (recast functions)',
 			getFunc = function () return sv.debug_recast end,
 			setFunc = function (v) sv.debug_recast = v end,
 			default = addon.defaults.debug_recast,

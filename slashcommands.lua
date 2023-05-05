@@ -2,7 +2,7 @@ NEAR_SB.slash_commands = {}
 local addon = NEAR_SB
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function NEAR_SB.activateSlashCommands()
+function NEAR_SB.RegisterSlashCommands()
     -- blockPvP
     SLASH_COMMANDS["/sb/blockpvp"] = function () addon.slash_commands.blockPvP() end
 end

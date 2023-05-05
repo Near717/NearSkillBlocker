@@ -11,7 +11,6 @@ NEAR_SB.defaults = {
     debug_zone = false,
     message = false,
     blockPvP = true,
-    blockRecast = true,
     -- bindings = {
     --     [1] = '',
     --     [2] = '',

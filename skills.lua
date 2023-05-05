@@ -20,7 +20,7 @@ NEAR_SB.skilldata = {}
 
 --[[
 
-local classid = {
+local classId = {
     ["Dragonknight"] = 1,
     ["Sorcerer"] = 2,
     ["Nightblade"] = 3,
@@ -30,8 +30,8 @@ local classid = {
     ["Arcanist"] = 117,
 }
 
-local skillid = {
-    ["class_skill"] = {
+local skillLineId = {
+    [SKILL_TYPE_CLASS] = {
         ["Flame"] = 35, -- "Ardent Flame"
         ["Draconic"] = 36, -- "Draconic Power"
         ["Earth"] = 37, -- "Earthen Heart"
@@ -54,7 +54,7 @@ local skillid = {
         ["Soldier"] = 219, -- "Soldier of Apocrypha"
         ["Curative"] = 220, -- "Curative Runeforms"
     },
-    ["weapon"] = {
+    [SKILL_TYPE_WEAPON] = {
         [1] = 30, -- "Two Handed",
         [2] = 29, -- "One Hand and Shield",
         [3] = 31, -- "Dual Wield",
@@ -62,23 +62,23 @@ local skillid = {
         [5] = 33, -- "Destruction Staff",
         [6] = 34, -- "Restoration Staff",
     },
-    ["armor"] = {
+    [SKILL_TYPE_ARMOR] = {
         [1] = 24, -- "Light Armor",
         [2] = 25, -- "Medium Armor",
         [3] = 26, -- "Heavy Armor",
     },
-    ["world"] = {
+    [SKILL_TYPE_WORLD] = {
         [4] = 72, -- "Soul Magic",
         [5] = 51, -- "Vampire",
         [6] = 50, -- "Werewolf",
     },
-    ["guild"] = {
+    [SKILL_TYPE_GUILD] = {
         [2] = 45, -- "Fighters Guild",
         [3] = 44, -- "Mages Guild",
         [4] = 130, -- "Psijic Order",
         [6] = 55, -- "Undaunted",
     },
-    ["ava"] = {
+    [SKILL_TYPE_AVA] = {
         [1] = 48, -- "Assault",
         [3] = 67, -- "Support",
     },
@@ -86,8 +86,8 @@ local skillid = {
 
 ]]
 
-NEAR_SB.skilldata = {
-    ["class"] = {
+NEAR_SB.classdata = {
+    ["name"] = {
         [1] = GetClassName(1, 1), -- "Dragonknight"
         [2] = GetClassName(1, 2), -- "Sorcerer"
         [3] = GetClassName(1, 3), -- "Nightblade"
@@ -96,7 +96,10 @@ NEAR_SB.skilldata = {
         [6] = GetClassName(1, 6), -- "Templar"
         [7] = GetClassName(1, 117), -- "Arcanist"
     },
-    ["class_skill"] = {
+}
+
+NEAR_SB.skilldata = {
+    ["class"] = {
         ["Flame"] = { -- Ardent Flame
             name = GetSkillLineNameById(35),
             [1] = { -- 

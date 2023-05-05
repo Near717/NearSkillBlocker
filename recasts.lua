@@ -26,7 +26,6 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph)
         end
     end
 
-
     local function testSlots(abilityId, abilityId1, abilityId2, abilityId3)
         if (abilityId1 == nil or abilityId1 == '') and (abilityId2 == nil or abilityId2 == '') and (abilityId3 == nil or abilityId3 == '') then
             if abilityId == GetSlotBoundId(3) then

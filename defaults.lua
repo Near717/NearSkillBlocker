@@ -11,6 +11,7 @@ NEAR_SB.defaults = {
     debug_zone = false,
     message = false,
     blockPvP = true,
+    showError = true,
     -- bindings = {
     --     [1] = '',
     --     [2] = '',
@@ -24,7 +25,7 @@ NEAR_SB.defaults = {
 }
 
 NEAR_SB.defaults.skilldata = { -- Toggle block skills/messages
-    ["class_skill"] = {
+    ["class"] = {
         ["Flame"] = { -- Ardent Flame
             [1] = { -- 
                 [0] = { block = false, block_recast = false, pvp = true, msg = false, }, -- 

@@ -12,15 +12,16 @@ function NEAR_SB.SetupSettings()
 	---------------------------------------------------------------------------------
 	local choice			= ''
 	---------------------------------------------------------------------------------
-	local class_name		= NEAR_SB.skilldata.class
-	local class 			= NEAR_SB.skilldata.class_skill
+	local class_name		= NEAR_SB.classdata.name
+	---------------------------------------------------------------------------------
+	local class 			= NEAR_SB.skilldata.class
 	local weapon 			= NEAR_SB.skilldata.weapon
 	local armor 			= NEAR_SB.skilldata.armor
 	local world 			= NEAR_SB.skilldata.world
 	local guild 			= NEAR_SB.skilldata.guild
 	local ava 				= NEAR_SB.skilldata.ava
 	---------------------------------------------------------------------------------
-	local sv_class			= NEAR_SB.ASV.skilldata.class_skill
+	local sv_class			= NEAR_SB.ASV.skilldata.class
 	local sv_weapon			= NEAR_SB.ASV.skilldata.weapon
 	local sv_armor 			= NEAR_SB.ASV.skilldata.armor
 	local sv_world 			= NEAR_SB.ASV.skilldata.world
@@ -2826,6 +2827,14 @@ function NEAR_SB.SetupSettings()
 			default = addon.defaults.message,
 		},
 		{
+			type = 'checkbox',
+			name = GetString(NSB_am_showE_name),
+			tooltip = GetString(NSB_am_showE_tooltip),
+			getFunc = function () return sv.showError end,
+			setFunc = function (v) sv.showError = v end,
+			default = addon.defaults.showError,
+		},
+		{
 			type = 'header',
 			name = GetString(NSB_am_sksel_name),
 		},
@@ -2914,6 +2923,20 @@ function NEAR_SB.SetupSettings()
 			controls = control_options.ava,
 		},
 		---------------------------------------------------------------------------------
+		{
+			type = 'divider',
+			width = 'full'
+		},
+		{
+			type = 'submenu',
+			name = GetString(NSB_am_reglist_name),
+			controls = {
+				{
+					type = 'description',
+					text = NEAR_SB.registeredAbilityNames,
+				},
+			},
+		},
 		{
 			type = 'divider',
 			width = 'full'

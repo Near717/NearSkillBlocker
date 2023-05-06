@@ -31,6 +31,7 @@ local strings = {
     -- NSB_am_showE_name           = 'Invalid ability alert',
     -- NSB_am_showE_tooltip        = 'Show an alert when a suppressed ability is used, if disabled the ability will fail silently.',
     NSB_am_sksel_name           = 'Skill Auswahl',
+    -- NSB_am_classsel_name        = 'Class selector',
     NSB_am_cmd_text             = 'Chat Befehl zum öffenen dieses Menüs: \n"/skillblocker" \n\nChat Befehl zum wechseln (AN/AUS) der PvP blockierten Fähigkeiten: \n"/sb/blockpvp"',
     -- NSB_am_reglist_name         = 'Currently registered list',
 

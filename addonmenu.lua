@@ -11,6 +11,7 @@ function NEAR_SB.SetupSettings()
 
 	---------------------------------------------------------------------------------
 	local choice			= ''
+	local choice_class		= 'dk'
 	---------------------------------------------------------------------------------
 	local class_name		= NEAR_SB.classdata.name
 	---------------------------------------------------------------------------------
@@ -28,6 +29,14 @@ function NEAR_SB.SetupSettings()
 	local sv_guild			= NEAR_SB.ASV.skilldata.guild
 	local sv_ava			= NEAR_SB.ASV.skilldata.ava
 	---------------------------------------------------------------------------------
+
+	local function UpdateVars()
+		(choice).msg = true
+		-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
+		-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
+		-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
+		libSkillBlockUpdateNeeded = true
+	end
 
 	local control_options = {
 		dk = {
@@ -169,96 +178,6 @@ function NEAR_SB.SetupSettings()
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
 			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
 		},
 		sc = {
 			[1] = { -- Dark
@@ -398,96 +317,6 @@ function NEAR_SB.SetupSettings()
 				},
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
-			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
 			},
 		},
 		nb = {
@@ -629,96 +458,6 @@ function NEAR_SB.SetupSettings()
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
 			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
 		},
 		wa = {
 			[1] = { -- Animal
@@ -858,96 +597,6 @@ function NEAR_SB.SetupSettings()
 				},
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
-			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
 			},
 		},
 		nm = {
@@ -1089,96 +738,6 @@ function NEAR_SB.SetupSettings()
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
 			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
 		},
 		tp = {
 			[1] = { -- Spear
@@ -1319,96 +878,6 @@ function NEAR_SB.SetupSettings()
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
 			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
 		},
 		ar = {
 			[1] = { -- Herald
@@ -1548,96 +1017,6 @@ function NEAR_SB.SetupSettings()
 				},
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
-			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
 			},
 		},
 		weapon = {
@@ -1917,96 +1296,6 @@ function NEAR_SB.SetupSettings()
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
 			},
-			[7] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[8] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[11] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[13] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[14] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[15] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
 		},
 		armor = {
 			[1] = { -- Light Armor
@@ -2056,96 +1345,6 @@ function NEAR_SB.SetupSettings()
 				},
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
-			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
 			},
 		},
 		world = {
@@ -2262,96 +1461,6 @@ function NEAR_SB.SetupSettings()
 				},
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
-			},
-			[4] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[5] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[8] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[11] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[12] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
 			},
 		},
 		guild = {
@@ -2521,96 +1630,6 @@ function NEAR_SB.SetupSettings()
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
 			},
-			[5] = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
-			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[6] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[7] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[8] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[9] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[10] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[11] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[12] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[13] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
 		},
 		ava = {
 			[1] = { -- Assault
@@ -2693,98 +1712,27 @@ function NEAR_SB.SetupSettings()
 				getFunc = function () return choice end,
 				setFunc = function (v) choice = v end,
 			},
-			[3] = { -- check cast
+		},
+		b_cast = { -- check cast
 			type = 'checkbox',
 			name = GetString(NSB_am_co_checkCast),
 			getFunc = function () return (choice).block end,
-			disabled = true,
-			},
-			[4] = { -- register
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlock),
-				func = function ()
-					(choice).block = true
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[5] = { -- unregister
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlock),
-				func = function ()
-					(choice).block = false
-					(choice).msg = true
-					-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[6] = { -- check recast
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkRecast),
-				getFunc = function () return (choice).block_recast end,
-				disabled = true,
-			},
-			[7] = { -- register recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockRecast),
-				func = function ()
-					(choice).block_recast = true
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[8] = { -- unregister recast
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockRecast),
-				func = function ()
-					(choice).block_recast = false
-					(choice).msg = true
-					-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[9] = { -- check pvp
-				type = 'checkbox',
-				name = GetString(NSB_am_co_checkPVP),
-				getFunc = function () return (choice).pvp end,
-				disabled = true,
-			},
-			[10] = { -- register pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_regBlockPVP),
-				func = function ()
-					(choice).pvp = true
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
-			[11] = { -- unregister pvp
-				type = 'button',
-				width = 'half',
-				name = GetString(NSB_am_co_unregBlockPVP),
-				func = function ()
-					(choice).pvp = false
-					(choice).msg = true
-					-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
-					libSkillBlockUpdateNeeded = true
-					--addon.Initialize()
-				end,
-			},
+			setFunc = function (v) (choice).block = v return UpdateVars() end,
+		},
+		b_recast = { -- check recast
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkRecast),
+			getFunc = function () return (choice).block_recast end,
+			setFunc = function (v) (choice).block_recast = v return UpdateVars() end,
+		},
+		b_pvp = { -- check pvp
+			type = 'checkbox',
+			name = GetString(NSB_am_co_checkPVP),
+			getFunc = function () return (choice).pvp end,
+			setFunc = function (v) (choice).pvp = v return UpdateVars() end,
 		},
 	}
+
 
 	local panelData = {
 		type 				= 'panel',
@@ -2831,7 +1779,7 @@ function NEAR_SB.SetupSettings()
 			name = GetString(NSB_am_showE_name),
 			tooltip = GetString(NSB_am_showE_tooltip),
 			getFunc = function () return sv.showError end,
-			setFunc = function (v) sv.showError = v end,
+			setFunc = function (v) sv.showError = v libSkillBlockUpdateNeeded = true end,
 			default = addon.defaults.showError,
 		},
 		{
@@ -2845,41 +1793,68 @@ function NEAR_SB.SetupSettings()
 			type = 'submenu',
 			name = GetString(NSB_skillType_1),
 			controls = {
-				[1] = {
-					type = 'submenu',
-					name = class_name[1],
-					controls = control_options.dk,
+				{
+					type = 'dropdown',
+					name = GetString(NSB_am_classsel_name),
+					choices = {class_name[1], class_name[2], class_name[3], class_name[4], class_name[5], class_name[6], class_name[7]},
+					choicesValues = {'dk', 'sc', 'nb', 'wa', 'nm', 'tp', 'ar'},
+					getFunc = function () return choice_class end,
+					setFunc = function (v)
+						choice_class = v
+
+						NEARSB_AM_DROPDOWN_CLASS1:UpdateChoices(control_options[choice_class][1].choices, control_options[choice_class][1].choicesValues)
+						NEARSB_AM_DROPDOWN_CLASS2:UpdateChoices(control_options[choice_class][2].choices, control_options[choice_class][2].choicesValues)
+						NEARSB_AM_DROPDOWN_CLASS3:UpdateChoices(control_options[choice_class][3].choices, control_options[choice_class][3].choicesValues)
+					end,
 				},
-				[2] = {
-					type = 'submenu',
-					name = class_name[2],
-					controls = control_options.sc,
+				{
+					type = 'description',
+					width = "half",
+					text = function () return control_options[choice_class][1].name end,
 				},
-				[3] = {
-					type = 'submenu',
-					name = class_name[3],
-					controls = control_options.nb,
+				{
+					type = 'dropdown',
+					width = "half",
+					name			= nil,
+					choices			= control_options[choice_class][1].choices,
+					choicesValues	= control_options[choice_class][1].choicesValues,
+					getFunc = function () return choice end,
+					setFunc = function (v) choice = v end,
+					reference = 'NEARSB_AM_DROPDOWN_CLASS1',
 				},
-				[4] = {
-					type = 'submenu',
-					name = class_name[4],
-					controls = control_options.wa,
+				{
+					type = 'description',
+					width = "half",
+					text = function () return control_options[choice_class][2].name end,
 				},
-				[5] = {
-					type = 'submenu',
-					name = class_name[5],
-					controls = control_options.nm,
+				{
+					type = 'dropdown',
+					width = "half",
+					name			= nil,
+					choices			= control_options[choice_class][2].choices,
+					choicesValues	= control_options[choice_class][2].choicesValues,
+					getFunc = function () return choice end,
+					setFunc = function (v) choice = v end,
+					reference = 'NEARSB_AM_DROPDOWN_CLASS2',
 				},
-				[6] = {
-					type = 'submenu',
-					name = class_name[6],
-					controls = control_options.tp,
+				{
+					type = 'description',
+					width = "half",
+					text = function () return control_options[choice_class][3].name end,
 				},
-				[7] = {
-					type = 'submenu',
-					name = class_name[7],
-					controls = control_options.ar,
+				{
+					type = 'dropdown',
+					width = "half",
+					name			= nil,
+					choices			= control_options[choice_class][3].choices,
+					choicesValues	= control_options[choice_class][3].choicesValues,
+					getFunc = function () return choice end,
+					setFunc = function (v) choice = v end,
+					reference = 'NEARSB_AM_DROPDOWN_CLASS3',
 				},
+				control_options.b_cast,
+				control_options.b_recast,
+				control_options.b_pvp,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -2888,7 +1863,17 @@ function NEAR_SB.SetupSettings()
 		{
 			type = 'submenu',
 			name = GetString(NSB_skillType_2),
-			controls = control_options.weapon,
+			controls = {
+				control_options.weapon[1],
+				control_options.weapon[2],
+				control_options.weapon[3],
+				control_options.weapon[4],
+				control_options.weapon[5],
+				control_options.weapon[6],
+				control_options.b_cast,
+				control_options.b_recast,
+				control_options.b_pvp,
+			},
 		},
 		---------------------------------------------------------------------------------
 		-- Armor
@@ -2896,7 +1881,14 @@ function NEAR_SB.SetupSettings()
 		{
 			type = 'submenu',
 			name = GetString(NSB_skillType_3),
-			controls = control_options.armor,
+			controls = {
+				control_options.armor[1],
+				control_options.armor[2],
+				control_options.armor[3],
+				control_options.b_cast,
+				control_options.b_recast,
+				control_options.b_pvp,
+			},
 		},
 		---------------------------------------------------------------------------------
 		-- World
@@ -2904,7 +1896,14 @@ function NEAR_SB.SetupSettings()
 		{
 			type = 'submenu',
 			name = GetString(NSB_skillType_4),
-			controls = control_options.world,
+			controls = {
+				control_options.world[1],
+				control_options.world[2],
+				control_options.world[3],
+				control_options.b_cast,
+				control_options.b_recast,
+				control_options.b_pvp,
+			},
 		},
 		---------------------------------------------------------------------------------
 		-- Guild
@@ -2912,7 +1911,15 @@ function NEAR_SB.SetupSettings()
 		{
 			type = 'submenu',
 			name = GetString(NSB_skillType_5),
-			controls = control_options.guild,
+			controls = {
+				control_options.guild[1],
+				control_options.guild[2],
+				control_options.guild[3],
+				control_options.guild[4],
+				control_options.b_cast,
+				control_options.b_recast,
+				control_options.b_pvp,
+			},
 		},
 		---------------------------------------------------------------------------------
 		-- AvA
@@ -2920,7 +1927,13 @@ function NEAR_SB.SetupSettings()
 		{
 			type = 'submenu',
 			name = GetString(NSB_skillType_6),
-			controls = control_options.ava,
+			controls = {
+				control_options.ava[1],
+				control_options.ava[2],
+				control_options.b_cast,
+				control_options.b_recast,
+				control_options.b_pvp,
+			},
 		},
 		---------------------------------------------------------------------------------
 		{
@@ -2933,7 +1946,7 @@ function NEAR_SB.SetupSettings()
 			controls = {
 				{
 					type = 'description',
-					text = NEAR_SB.registeredAbilityNames,
+					text = function () return NEAR_SB.registeredAbilityNames end,
 				},
 			},
 		},

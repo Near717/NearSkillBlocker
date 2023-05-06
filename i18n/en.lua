@@ -33,6 +33,7 @@ local strings = {
     NSB_am_showE_name           = 'Invalid ability alert',
     NSB_am_showE_tooltip        = 'Show an alert when a suppressed ability is used, if disabled the ability will fail silently.',
     NSB_am_sksel_name           = 'Skill selector',
+    NSB_am_classsel_name        = 'Class selector',
     NSB_am_cmd_text             = 'Command to open this menu: \n"/skillblocker" \n\nCommand to toggle PvP block/unblock: \n"/sb/blockpvp"',
     NSB_am_reglist_name         = 'Currently registered list',
 

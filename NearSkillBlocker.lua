@@ -44,7 +44,6 @@ function addon.Initialize()
 	---------------------------------------------------------------------------------
 	-- define functions
 	---------------------------------------------------------------------------------
-	local showError = sv.showError
 
 	---register casts
 	---@param skillType string
@@ -61,10 +60,10 @@ function addon.Initialize()
 					-- check if its blocking cast and not recast
 					if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register block for different elements ids
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, nil, showError)
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, nil, showError) -- flame version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, nil, showError) -- frost version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, nil, showError) -- shock version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return true end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return true end, sv.showError) -- flame version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return true end, sv.showError) -- frost version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return true end, sv.showError) -- shock version
 						-- send message if toggled
 						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_cast then
 							d(dbg.white .. str_reg..' '.. v[ability][morph].name) end
@@ -84,7 +83,7 @@ function addon.Initialize()
 					-- check if its blocking cast and not recast
 					if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register block
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, nil, showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return true end, sv.showError)
 						-- send message if toggled
 						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_cast then
 							d(dbg.white .. str_reg..' '.. v[ability][morph].name) end
@@ -119,10 +118,10 @@ function addon.Initialize()
 					if sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register for different elements ids
 						-- with a custom handler to decide when it should block or not
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id,  function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, showError)
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, showError) -- flame version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, showError) -- frost version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, showError) -- shock version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id,  function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- flame version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- frost version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- shock version
 						-- send message if toggled
 						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_recast then
 							d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
@@ -142,7 +141,7 @@ function addon.Initialize()
 					-- check if its blocking recast
 					if sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register with a custom handler to decide when it should block or not
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError)
 						-- send message if toggled
 						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_recast then
 							d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end

@@ -1,23 +1,6 @@
 NEAR_SB.skilldata = {}
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- --- @param abilityId integer
--- --- @return skillType [SkillType|#SkillType], skillLineIndex luaindex, skillIndex luaindex, morphChoice integer, rank integer
--- GetSpecificSkillAbilityKeysByAbilityId(abilityId)
-
--- --- @param skillType [SkillType|#SkillType]
--- --- @param skillLineIndex luaindex
--- --- @return skillLineId integer
--- GetSkillLineId(skillType, skillLineIndex)
-
--- --- @param skillLineId integer
--- --- @return name string
---  GetSkillLineNameById(skillLineId)
-
--- GetUnitClassId('player')
-
--- GetSlotBoundId(SlotNum)
-
 --[[
 
 local classId = {

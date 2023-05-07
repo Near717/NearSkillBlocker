@@ -1,7 +1,7 @@
 ## Title: Near's Skill Blocker
 ## APIVersion: 101037 101038
-## Version: 2.1.0
-## AddOnVersion: 210
+## Version: 3.0.0
+## AddOnVersion: 300
 ## SavedVariables: NearSkillBlocker_Data
 ## Author: |cCC99FFnotnear|r
 ## DependsOn: LibAddonMenu-2.0>=30 LibSkillBlocker>=105

@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "2.1.0",
+	version		= "3.0.0",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -36,8 +36,8 @@ function addon.Initialize()
 	local sv = NEAR_SB.ASV
 	local dbg = NEAR_SB.utils.dbg
 
-	local str_reg = GetString(NSB_registered)
-	local str_unreg = GetString(NSB_unregistered)
+	local str_reg = GetString(NEARSB_registered)
+	local str_unreg = GetString(NEARSB_unregistered)
 
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.Initialize') end
 
@@ -60,10 +60,10 @@ function addon.Initialize()
 					-- check if its blocking cast and not recast
 					if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register block for different elements ids
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return true end, sv.showError)
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return true end, sv.showError) -- flame version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return true end, sv.showError) -- frost version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return true end, sv.showError) -- shock version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, nil, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, nil, sv.showError) -- flame version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, nil, sv.showError) -- frost version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, nil, sv.showError) -- shock version
 						-- send message if toggled
 						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_cast then
 							d(dbg.white .. str_reg..' '.. v[ability][morph].name) end
@@ -83,7 +83,7 @@ function addon.Initialize()
 					-- check if its blocking cast and not recast
 					if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register block
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return true end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, nil, sv.showError)
 						-- send message if toggled
 						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_cast then
 							d(dbg.white .. str_reg..' '.. v[ability][morph].name) end
@@ -801,7 +801,7 @@ local function OnAddonLoaded(event, name)
 	if name ~= addon.name then return end
 	EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
-	addon.ASV = ZO_SavedVars:NewAccountWide(addon.name .. "_Data", 3, nil, addon.defaults)
+	addon.ASV = ZO_SavedVars:NewAccountWide(addon.name .. "_Data", 4, nil, addon.defaults)
 
 	NEAR_SB.EZC()
 

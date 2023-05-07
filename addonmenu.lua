@@ -10,24 +10,24 @@ function NEAR_SB.SetupSettings()
 	local libSkillBlockUpdateNeeded = false
 
 	---------------------------------------------------------------------------------
-	local choice			= ''
-	local choice_class		= 'dk'
+	local choice		= ''
+	local choice_class	= 'dk'
 	---------------------------------------------------------------------------------
-	local class_name		= NEAR_SB.classdata.name
+	local class_name	= NEAR_SB.classdata.name
 	---------------------------------------------------------------------------------
-	local class 			= NEAR_SB.skilldata.class
-	local weapon 			= NEAR_SB.skilldata.weapon
-	local armor 			= NEAR_SB.skilldata.armor
-	local world 			= NEAR_SB.skilldata.world
-	local guild 			= NEAR_SB.skilldata.guild
-	local ava 				= NEAR_SB.skilldata.ava
+	local class 		= NEAR_SB.skilldata.class
+	local weapon 		= NEAR_SB.skilldata.weapon
+	local armor 		= NEAR_SB.skilldata.armor
+	local world 		= NEAR_SB.skilldata.world
+	local guild 		= NEAR_SB.skilldata.guild
+	local ava 			= NEAR_SB.skilldata.ava
 	---------------------------------------------------------------------------------
-	local sv_class			= NEAR_SB.ASV.skilldata.class
-	local sv_weapon			= NEAR_SB.ASV.skilldata.weapon
-	local sv_armor 			= NEAR_SB.ASV.skilldata.armor
-	local sv_world 			= NEAR_SB.ASV.skilldata.world
-	local sv_guild			= NEAR_SB.ASV.skilldata.guild
-	local sv_ava			= NEAR_SB.ASV.skilldata.ava
+	local sv_class		= NEAR_SB.ASV.skilldata.class
+	local sv_weapon		= NEAR_SB.ASV.skilldata.weapon
+	local sv_armor 		= NEAR_SB.ASV.skilldata.armor
+	local sv_world 		= NEAR_SB.ASV.skilldata.world
+	local sv_guild		= NEAR_SB.ASV.skilldata.guild
+	local sv_ava		= NEAR_SB.ASV.skilldata.ava
 	---------------------------------------------------------------------------------
 
 	local function UpdateVars()
@@ -1713,21 +1713,22 @@ function NEAR_SB.SetupSettings()
 				setFunc = function (v) choice = v end,
 			},
 		},
-		b_cast = { -- check cast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkCast),
+		b_cast = {
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_co_bcast_name),
 			getFunc = function () return (choice).block end,
 			setFunc = function (v) (choice).block = v return UpdateVars() end,
 		},
-		b_recast = { -- check recast
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkRecast),
+		b_recast = {
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_co_brecast_name),
 			getFunc = function () return (choice).block_recast end,
 			setFunc = function (v) (choice).block_recast = v return UpdateVars() end,
+			warning = GetString(NEARSB_LAM_co_brecast_warning),
 		},
-		b_pvp = { -- check pvp
-			type = 'checkbox',
-			name = GetString(NSB_am_co_checkPVP),
+		b_pvp = {
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_co_bpvp_name),
 			getFunc = function () return (choice).pvp end,
 			setFunc = function (v) (choice).pvp = v return UpdateVars() end,
 		},
@@ -1755,102 +1756,85 @@ function NEAR_SB.SetupSettings()
 
 	local optionsTable = {
 		{
-			type = 'checkbox',
-			name = GetString(NSB_am_bpvp_name),
-			tooltip = GetString(NSB_am_bpvp_tooltip),
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_bpvp_name),
+			tooltip = GetString(NEARSB_LAM_bpvp_tooltip),
 			getFunc = function () return sv.blockPvP end,
 			setFunc = function (v) sv.blockPvP = v return addon.EZC() end,
 			default = addon.defaults.blockPvP,
-			warning = GetString(NSB_am_bpvp_warning),
+			warning = GetString(NEARSB_LAM_bpvp_warning),
 		},
 		{
-			type = 'divider',
-			width = 'full'
-		},
-		{
-			type = 'checkbox',
-			name = GetString(NSB_am_msg_name),
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_msg_name),
 			getFunc = function () return sv.message end,
 			setFunc = function (v) sv.message = v end,
 			default = addon.defaults.message,
 		},
 		{
-			type = 'checkbox',
-			name = GetString(NSB_am_showE_name),
-			tooltip = GetString(NSB_am_showE_tooltip),
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_showE_name),
+			tooltip = GetString(NEARSB_LAM_showE_tooltip),
 			getFunc = function () return sv.showError end,
 			setFunc = function (v) sv.showError = v libSkillBlockUpdateNeeded = true end,
 			default = addon.defaults.showError,
 		},
 		{
 			type = 'header',
-			name = GetString(NSB_am_sksel_name),
+			name = GetString(NEARSB_LAM_sksel_name),
 		},
 		---------------------------------------------------------------------------------
 		-- Class
 		---------------------------------------------------------------------------------
 		{
 			type = 'submenu',
-			name = GetString(NSB_skillType_1),
+			name = GetString(SI_SKILLTYPE1),
 			controls = {
 				{
-					type = 'dropdown',
-					name = GetString(NSB_am_classsel_name),
-					choices = {class_name[1], class_name[2], class_name[3], class_name[4], class_name[5], class_name[6], class_name[7]},
-					choicesValues = {'dk', 'sc', 'nb', 'wa', 'nm', 'tp', 'ar'},
+					type			= 'dropdown',
+					name			= GetString(NEARSB_LAM_classsel_name),
+					choices			= {class_name[1], class_name[2], class_name[3], class_name[4], class_name[5], class_name[6], class_name[7]},
+					choicesValues	= {'dk', 'sc', 'nb', 'wa', 'nm', 'tp', 'ar'},
 					getFunc = function () return choice_class end,
 					setFunc = function (v)
 						choice_class = v
 
-						NEARSB_AM_DROPDOWN_CLASS1:UpdateChoices(control_options[choice_class][1].choices, control_options[choice_class][1].choicesValues)
-						NEARSB_AM_DROPDOWN_CLASS2:UpdateChoices(control_options[choice_class][2].choices, control_options[choice_class][2].choicesValues)
-						NEARSB_AM_DROPDOWN_CLASS3:UpdateChoices(control_options[choice_class][3].choices, control_options[choice_class][3].choicesValues)
+						NEARSB_LAM_DROPDOWN_CLASS1:UpdateChoices(control_options[choice_class][1].choices, control_options[choice_class][1].choicesValues)
+						NEARSB_LAM_DROPDOWN_CLASS1.label:SetText(control_options[choice_class][1].name)
+
+						NEARSB_LAM_DROPDOWN_CLASS2:UpdateChoices(control_options[choice_class][2].choices, control_options[choice_class][2].choicesValues)
+						NEARSB_LAM_DROPDOWN_CLASS2.label:SetText(control_options[choice_class][2].name)
+
+						NEARSB_LAM_DROPDOWN_CLASS3:UpdateChoices(control_options[choice_class][3].choices, control_options[choice_class][3].choicesValues)
+						NEARSB_LAM_DROPDOWN_CLASS3.label:SetText(control_options[choice_class][3].name)
 					end,
 				},
 				{
-					type = 'description',
-					width = "half",
-					text = function () return control_options[choice_class][1].name end,
-				},
-				{
-					type = 'dropdown',
-					width = "half",
-					name			= nil,
+					type			= 'dropdown',
+					reference		= 'NEARSB_LAM_DROPDOWN_CLASS1',
+					name			= control_options[choice_class][1].name,
 					choices			= control_options[choice_class][1].choices,
 					choicesValues	= control_options[choice_class][1].choicesValues,
 					getFunc = function () return choice end,
 					setFunc = function (v) choice = v end,
-					reference = 'NEARSB_AM_DROPDOWN_CLASS1',
 				},
 				{
-					type = 'description',
-					width = "half",
-					text = function () return control_options[choice_class][2].name end,
-				},
-				{
-					type = 'dropdown',
-					width = "half",
-					name			= nil,
+					type			= 'dropdown',
+					reference		= 'NEARSB_LAM_DROPDOWN_CLASS2',
+					name			= control_options[choice_class][2].name,
 					choices			= control_options[choice_class][2].choices,
 					choicesValues	= control_options[choice_class][2].choicesValues,
 					getFunc = function () return choice end,
 					setFunc = function (v) choice = v end,
-					reference = 'NEARSB_AM_DROPDOWN_CLASS2',
 				},
 				{
-					type = 'description',
-					width = "half",
-					text = function () return control_options[choice_class][3].name end,
-				},
-				{
-					type = 'dropdown',
-					width = "half",
-					name			= nil,
+					type			= 'dropdown',
+					reference		= 'NEARSB_LAM_DROPDOWN_CLASS3',
+					name			= control_options[choice_class][3].name,
 					choices			= control_options[choice_class][3].choices,
 					choicesValues	= control_options[choice_class][3].choicesValues,
 					getFunc = function () return choice end,
-					setFunc = function (v) choice = v end,
-					reference = 'NEARSB_AM_DROPDOWN_CLASS3',
+					setFunc	= function (v) choice = v end,
 				},
 				control_options.b_cast,
 				control_options.b_recast,
@@ -1862,7 +1846,7 @@ function NEAR_SB.SetupSettings()
 		---------------------------------------------------------------------------------
 		{
 			type = 'submenu',
-			name = GetString(NSB_skillType_2),
+			name = GetString(SI_SKILLTYPE2),
 			controls = {
 				control_options.weapon[1],
 				control_options.weapon[2],
@@ -1880,7 +1864,7 @@ function NEAR_SB.SetupSettings()
 		---------------------------------------------------------------------------------
 		{
 			type = 'submenu',
-			name = GetString(NSB_skillType_3),
+			name = GetString(SI_SKILLTYPE3),
 			controls = {
 				control_options.armor[1],
 				control_options.armor[2],
@@ -1895,7 +1879,7 @@ function NEAR_SB.SetupSettings()
 		---------------------------------------------------------------------------------
 		{
 			type = 'submenu',
-			name = GetString(NSB_skillType_4),
+			name = GetString(SI_SKILLTYPE4),
 			controls = {
 				control_options.world[1],
 				control_options.world[2],
@@ -1910,7 +1894,7 @@ function NEAR_SB.SetupSettings()
 		---------------------------------------------------------------------------------
 		{
 			type = 'submenu',
-			name = GetString(NSB_skillType_5),
+			name = GetString(SI_SKILLTYPE5),
 			controls = {
 				control_options.guild[1],
 				control_options.guild[2],
@@ -1926,7 +1910,7 @@ function NEAR_SB.SetupSettings()
 		---------------------------------------------------------------------------------
 		{
 			type = 'submenu',
-			name = GetString(NSB_skillType_6),
+			name = GetString(SI_SKILLTYPE6),
 			controls = {
 				control_options.ava[1],
 				control_options.ava[2],
@@ -1938,11 +1922,11 @@ function NEAR_SB.SetupSettings()
 		---------------------------------------------------------------------------------
 		{
 			type = 'divider',
-			width = 'full'
+			width = 'full',
 		},
 		{
 			type = 'submenu',
-			name = GetString(NSB_am_reglist_name),
+			name = GetString(NEARSB_LAM_reglist_name),
 			controls = {
 				{
 					type = 'description',
@@ -1952,60 +1936,60 @@ function NEAR_SB.SetupSettings()
 		},
 		{
 			type = 'divider',
-			width = 'full'
+			width = 'full',
 		},
 		{
 			type = 'description',
-			text = GetString(NSB_am_cmd_text),
+			text = GetString(NEARSB_LAM_cmd_text),
 		},
 		-- TODO: comment out:
 		{
 			type = 'divider',
-			width = 'full'
+			width = 'full',
 		},
 		{
-			type = 'checkbox',
-			name = 'Debug log',
+			type	= 'checkbox',
+			name	= 'Debug log',
 			getFunc = function () return sv.debug end,
 			setFunc = function (v) sv.debug = v end,
 			default = addon.defaults.debug,
 			warning = 'will flood chat with debug messages'
 		},
 		{
-			type = 'checkbox',
-			name = 'Debug log (cast)',
+			type	= 'checkbox',
+			name	= 'Debug log (cast)',
 			getFunc = function () return sv.debug_init_cast end,
 			setFunc = function (v) sv.debug_init_cast = v end,
 			default = addon.defaults.debug_init_cast,
 			warning = 'will flood chat with debug messages'
 		},
 		{
-			type = 'checkbox',
-			name = 'Debug log (recast)',
+			type	= 'checkbox',
+			name	= 'Debug log (recast)',
 			getFunc = function () return sv.debug_init_recast end,
 			setFunc = function (v) sv.debug_init_recast = v end,
 			default = addon.defaults.debug_init_recast,
 			warning = 'will flood chat with debug messages'
 		},
 		{
-			type = 'checkbox',
-			name = 'Debug log (pvp)',
+			type	= 'checkbox',
+			name	= 'Debug log (pvp)',
 			getFunc = function () return sv.debug_init_pvp end,
 			setFunc = function (v) sv.debug_init_pvp = v end,
 			default = addon.defaults.debug_init_pvp,
 			warning = 'will flood chat with debug messages'
 		},
 		{
-			type = 'checkbox',
-			name = 'Debug log (zone)',
+			type	= 'checkbox',
+			name	= 'Debug log (zone)',
 			getFunc = function () return sv.debug_zone end,
 			setFunc = function (v) sv.debug_zone = v end,
 			default = addon.defaults.debug_zone,
 			warning = 'will flood chat with debug messages'
 		},
 		{
-			type = 'checkbox',
-			name = 'Debug log (recast functions)',
+			type	= 'checkbox',
+			name	= 'Debug log (recast functions)',
 			getFunc = function () return sv.debug_recast end,
 			setFunc = function (v) sv.debug_recast = v end,
 			default = addon.defaults.debug_recast,

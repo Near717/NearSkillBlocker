@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.0.0",
+	version		= "3.0.1",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -802,7 +802,7 @@ local function OnAddonLoaded(event, name)
 	if name ~= addon.name then return end
 	EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
-	addon.ASV = ZO_SavedVars:NewAccountWide(addon.name .. "_Data", 4, nil, addon.defaults)
+	addon.ASV = ZO_SavedVars:NewAccountWide(addon.name .. "_Data", 4, GetWorldName(), addon.defaults)
 
 	NEAR_SB.EZC()
 

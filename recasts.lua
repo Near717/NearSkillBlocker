@@ -12,7 +12,7 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph)
 
 	--[[ Debug ]] if sv.debug_recast then d(dbg.open) d(dbg.lightGrey .. 'start of BlockRecasts') end
 
-	--[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'skillType: '..skillType.. '     skillLine: '..skillLine.. color.white..'\n          ability: '..ability.. '     morph: '..morph) end
+	--[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'skillType: '..skillType.. '     skillLine: '..skillLine.. '\n'..color.white..'          ability: '..ability.. '     morph: '..morph) end
 
     local recastHandler = NEAR_SB.recastHandler[skillType][skillLine][ability][morph]
 

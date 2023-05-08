@@ -17,13 +17,14 @@ local isInPvP	= false
 function addon.UpdateRegistered()
 	local abilityIds = LSB.GetRegisteredAbilityIdsByAddon(addon.name)
 	local abilityNames = nil
-
-	for k, v in pairs(abilityIds) do
-		local abilityName = GetAbilityName(k)
-		if abilityNames == nil then
-			abilityNames = abilityName
-		else
-			abilityNames = abilityNames..'\n'..abilityName
+	if abilityIds ~= nil then
+		for k, v in pairs(abilityIds) do
+			local abilityName = GetAbilityName(k)
+			if abilityNames == nil then
+				abilityNames = abilityName
+			else
+				abilityNames = abilityNames..'\n'..abilityName
+			end
 		end
 	end
 	NEAR_SB.registeredAbilityNames = abilityNames

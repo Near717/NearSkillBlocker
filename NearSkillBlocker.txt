@@ -4,10 +4,10 @@
 ## AddOnVersion: 300
 ## SavedVariables: NearSkillBlocker_Data
 ## Author: |cCC99FFnotnear|r
-## DependsOn: LibAddonMenu-2.0>=30 LibSkillBlocker>=105
+## DependsOn: LibAddonMenu-2.0>=30 LibSkillBlocker>=108
 
-i18n/en.lua
-i18n/$(language).lua
+lang/en.lua
+lang/$(language).lua
 
 NearSkillBlocker.lua
 recasts.lua

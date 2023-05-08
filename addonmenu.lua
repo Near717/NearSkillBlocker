@@ -1781,7 +1781,7 @@ function NEAR_SB.SetupSettings()
 		},
 		{
 			type = 'header',
-			name = GetString(NEARSB_LAM_sksel_name),
+			name = GetString(NEARSB_LAM_skillsel_name),
 		},
 		---------------------------------------------------------------------------------
 		-- Class
@@ -1943,58 +1943,58 @@ function NEAR_SB.SetupSettings()
 			text = GetString(NEARSB_LAM_cmd_text),
 		},
 		-- TODO: comment out:
-		{
-			type = 'divider',
-			width = 'full',
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log',
-			getFunc = function () return sv.debug end,
-			setFunc = function (v) sv.debug = v end,
-			default = addon.defaults.debug,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (cast)',
-			getFunc = function () return sv.debug_init_cast end,
-			setFunc = function (v) sv.debug_init_cast = v end,
-			default = addon.defaults.debug_init_cast,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (recast)',
-			getFunc = function () return sv.debug_init_recast end,
-			setFunc = function (v) sv.debug_init_recast = v end,
-			default = addon.defaults.debug_init_recast,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (pvp)',
-			getFunc = function () return sv.debug_init_pvp end,
-			setFunc = function (v) sv.debug_init_pvp = v end,
-			default = addon.defaults.debug_init_pvp,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (zone)',
-			getFunc = function () return sv.debug_zone end,
-			setFunc = function (v) sv.debug_zone = v end,
-			default = addon.defaults.debug_zone,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (recast functions)',
-			getFunc = function () return sv.debug_recast end,
-			setFunc = function (v) sv.debug_recast = v end,
-			default = addon.defaults.debug_recast,
-			warning = 'will flood chat with debug messages'
-		},
+		-- {
+		-- 	type = 'divider',
+		-- 	width = 'full',
+		-- },
+		-- {
+		-- 	type	= 'checkbox',
+		-- 	name	= 'Debug log',
+		-- 	getFunc = function () return sv.debug end,
+		-- 	setFunc = function (v) sv.debug = v end,
+		-- 	default = addon.defaults.debug,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type	= 'checkbox',
+		-- 	name	= 'Debug log (cast)',
+		-- 	getFunc = function () return sv.debug_init_cast end,
+		-- 	setFunc = function (v) sv.debug_init_cast = v end,
+		-- 	default = addon.defaults.debug_init_cast,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type	= 'checkbox',
+		-- 	name	= 'Debug log (recast)',
+		-- 	getFunc = function () return sv.debug_init_recast end,
+		-- 	setFunc = function (v) sv.debug_init_recast = v end,
+		-- 	default = addon.defaults.debug_init_recast,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type	= 'checkbox',
+		-- 	name	= 'Debug log (pvp)',
+		-- 	getFunc = function () return sv.debug_init_pvp end,
+		-- 	setFunc = function (v) sv.debug_init_pvp = v end,
+		-- 	default = addon.defaults.debug_init_pvp,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type	= 'checkbox',
+		-- 	name	= 'Debug log (zone)',
+		-- 	getFunc = function () return sv.debug_zone end,
+		-- 	setFunc = function (v) sv.debug_zone = v end,
+		-- 	default = addon.defaults.debug_zone,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
+		-- {
+		-- 	type	= 'checkbox',
+		-- 	name	= 'Debug log (recast functions)',
+		-- 	getFunc = function () return sv.debug_recast end,
+		-- 	setFunc = function (v) sv.debug_recast = v end,
+		-- 	default = addon.defaults.debug_recast,
+		-- 	warning = 'will flood chat with debug messages'
+		-- },
 	}
 	LAM2:RegisterOptionControls(addon.name, optionsTable)
 

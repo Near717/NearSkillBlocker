@@ -1771,7 +1771,6 @@ function NEAR_SB.SetupSettings()
 			getFunc = function() return sv.blockPvP end,
 			setFunc = function(v) sv.blockPvP = v end,
 			default = addon.defaults.blockPvP,
-			warning = GetString(NEARSB_LAM_bpvp_warning),
 		},
 		{
 			type	= 'checkbox',

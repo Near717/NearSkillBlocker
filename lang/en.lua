@@ -7,7 +7,6 @@ local strings = {
 
     NEARSB_LAM_bpvp_name            = 'Toggle block on PvP zones',
     NEARSB_LAM_bpvp_tooltip         = 'Block selected abilities in AvA and Battlegrounds',
-    NEARSB_LAM_bpvp_warning         = 'OFF: First time changing zones will cause the game to freeze for quick moment.',
     NEARSB_LAM_brc_name             = 'Toggle block recast',
     NEARSB_LAM_brc_tooltip          = 'Block recast for selected abilities',
     NEARSB_LAM_brc_warning          = 'OFF: Won\'t block recasts but might improve performance.',

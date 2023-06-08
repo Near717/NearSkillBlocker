@@ -7,7 +7,6 @@ local strings = {
 
     NEARSB_LAM_bpvp_name            = 'Blockieren in PvP zones AN/AUS',
     NEARSB_LAM_bpvp_tooltip         = 'Ausgewählte Fähigkeiten in AvA und Schlachtfeldern blockieren',
-    NEARSB_LAM_bpvp_warning         = 'AUS: Der 1. Zonenwechsel wird das Spiel kurz einfrieren lassen.',
     NEARSB_LAM_brc_name             = 'Blockiere erneutes Casten AN/AUS',
     NEARSB_LAM_brc_tooltip          = 'Das erneute Ausführen von ausgewählte Fähigkeiten blockieren',
     NEARSB_LAM_brc_warning          = 'AUS: Wird das erneute Ausführen nicht blockieren aber wird möglicherweise die Performance verbessern.',

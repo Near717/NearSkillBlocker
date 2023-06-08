@@ -2,19 +2,18 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.0.1",
+	version		= "3.1.0",
 	author		= "|cCC99FFnotnear|r",
 }
 
 local addon		= NEAR_SB
 local LSB		= LibSkillBlocker
-local isInPvP	= false
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Registered list
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function addon.UpdateRegistered()
+function NEAR_SB.UpdateRegistered()
 	local abilityIds = LSB.GetRegisteredAbilityIdsByAddon(addon.name)
 	local abilityNames = nil
 	if abilityIds ~= nil then
@@ -33,7 +32,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Skill Blocker
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function addon.Initialize()
+function NEAR_SB.Initialize()
 	local sv = NEAR_SB.ASV
 	local dbg = NEAR_SB.utils.dbg
 
@@ -51,8 +50,8 @@ function addon.Initialize()
 	---@param ability integer
 	---@param morph integer
 	local function cast(skillType, ability, morph)
-		local skilldata		= addon.skilldata[skillType]
-		local sv_skilldata	= sv.skilldata[skillType]
+		local skilldata    = addon.skilldata[skillType]
+		local sv_skilldata = sv.skilldata[skillType]
 
 		for skillLine, v in pairs(skilldata) do
 			if sv_skilldata[skillLine][ability] ~= nil then
@@ -61,14 +60,15 @@ function addon.Initialize()
 					-- check if its blocking cast and not recast
 					if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register block for different elements ids
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, nil, sv.showError)
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, nil, sv.showError) -- flame version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, nil, sv.showError) -- frost version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, nil, sv.showError) -- shock version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id,  function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError) -- flame version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError) -- frost version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError) -- shock version
 						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_cast then
-							d(dbg.white .. str_reg..' '.. v[ability][morph].name) end
-						sv_skilldata[skillLine][ability][morph].msg = false
+						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
+							d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name)
+						end
+						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 					elseif not sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 						-- if not blocking either cast or recast unregister
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
@@ -76,26 +76,29 @@ function addon.Initialize()
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id2) -- frost version
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id3) -- shock version
 						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_cast then
-							d(dbg.white .. str_unreg..' '.. v[ability][morph].name) end
-						sv_skilldata[skillLine][ability][morph].msg = false
+						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
+							d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name)
+						end
+						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 					end
 				else
 					-- check if its blocking cast and not recast
 					if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register block
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, nil, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError)
 						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_cast then
-							d(dbg.white .. str_reg..' '.. v[ability][morph].name) end
-						sv_skilldata[skillLine][ability][morph].msg = false
+						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
+							d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name)
+						end
+						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 					elseif not sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 						-- if not blocking either cast or recast unregister
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
 						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_cast then
-							d(dbg.white .. str_unreg..' '.. v[ability][morph].name) end
-						sv_skilldata[skillLine][ability][morph].msg = false
+						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
+							d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name)
+						end
+						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 					end
 				end
 			end
@@ -108,8 +111,8 @@ function addon.Initialize()
 	---@param ability integer
 	---@param morph integer
 	local function recast(skillType, ability, morph)
-		local skilldata		= addon.skilldata[skillType]
-		local sv_skilldata	= sv.skilldata[skillType]
+		local skilldata    = addon.skilldata[skillType]
+		local sv_skilldata = sv.skilldata[skillType]
 
 		for skillLine, v in pairs(skilldata) do
 			if sv_skilldata[skillLine][ability] ~= nil then
@@ -119,14 +122,15 @@ function addon.Initialize()
 					if sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register for different elements ids
 						-- with a custom handler to decide when it should block or not
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id,  function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError)
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- flame version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- frost version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- shock version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id,  function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- flame version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- frost version
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- shock version
 						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_recast then
-							d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
-						sv_skilldata[skillLine][ability][morph].msg = false
+						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
+							d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. ' recast')
+						end
+						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 					elseif not sv_skilldata[skillLine][ability][morph].block_recast and not sv_skilldata[skillLine][ability][morph].block then
 						-- if not blocking either cast or recast unregister
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
@@ -134,71 +138,35 @@ function addon.Initialize()
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id2) -- frost version
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id3) -- shock version
 						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_recast then
-							d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
-						sv_skilldata[skillLine][ability][morph].msg = false
+						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
+							d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. ' recast')
+						end
+						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 					end
 				else
 					-- check if its blocking recast
 					if sv_skilldata[skillLine][ability][morph].block_recast then
 						-- register with a custom handler to decide when it should block or not
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function () return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError)
 						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_recast then
-							d(dbg.white .. str_reg..' '.. v[ability][morph].name ..' recast') end
-						sv_skilldata[skillLine][ability][morph].msg = false
+						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
+							d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. ' recast')
+						end
+						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 					elseif not sv_skilldata[skillLine][ability][morph].block_recast and not sv_skilldata[skillLine][ability][morph].block then
 						-- if not blocking either cast or recast unregister
 						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
 						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_recast then
-							d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' recast') end
-						sv_skilldata[skillLine][ability][morph].msg = false
+						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
+							d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. ' recast')
+						end
+						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 					end
 				end
 			end
 		end
 	end
 
-
-	---unregister pvp
-	---@param skillType string
-	---@param ability integer
-	---@param morph integer
-	local function pvp(skillType, ability, morph)
-		local skilldata		= addon.skilldata[skillType]
-		local sv_skilldata	= sv.skilldata[skillType]
-
-		for skillLine, v in pairs(skilldata) do
-			if sv_skilldata[skillLine][ability] ~= nil then
-				-- check if skillLine is destruction staff
-				if (skillType == 'weapon') and (skillLine == 5) and ((ability == 1) or (ability == 3) or (ability == 4) or (ability == 6)) then
-					-- check if its blocking the skill while on pvp zones, is on pvp zone and is not blocking everything on pvp
-					if not sv_skilldata[skillLine][ability][morph].pvp and isInPvP and not sv.blockPvP then
-						-- if not blocking on pvp unregister
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id1) -- flame version
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id2) -- frost version
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id3) -- shock version
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_pvp then
-							d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' *PvP') end
-						sv_skilldata[skillLine][ability][morph].msg = false
-					end
-				else
-					-- check if its blocking the skill while on pvp zones, is on pvp zone and is not blocking everything on pvp
-					if not sv_skilldata[skillLine][ability][morph].pvp and isInPvP and not sv.blockPvP then
-						-- if not blocking on pvp unregister
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg) or sv.debug_init_pvp then
-							d(dbg.white .. str_unreg..' '.. v[ability][morph].name ..' *PvP') end
-						sv_skilldata[skillLine][ability][morph].msg = false
-					end
-				end
-			end
-		end
-	end
 
 	---------------------------------------------------------------------------------
 	-- execute functions
@@ -275,39 +243,6 @@ function addon.Initialize()
 		recast(skillType, 6, 1)
 		recast(skillType, 6, 2)
 	----------------------------------------
-	-- PVP
-	----------------------------------------
-		-- Ability 1
-		--------------------
-		pvp(skillType, 1, 0)
-		pvp(skillType, 1, 1)
-		pvp(skillType, 1, 2)
-		-- Ability 2
-		--------------------
-		pvp(skillType, 2, 0)
-		pvp(skillType, 2, 1)
-		pvp(skillType, 2, 2)
-		-- Ability 3
-		--------------------
-		pvp(skillType, 3, 0)
-		pvp(skillType, 3, 1)
-		pvp(skillType, 3, 2)
-		-- Ability 4
-		--------------------
-		pvp(skillType, 4, 0)
-		pvp(skillType, 4, 1)
-		pvp(skillType, 4, 2)
-		-- Ability 5
-		--------------------
-		pvp(skillType, 5, 0)
-		pvp(skillType, 5, 1)
-		pvp(skillType, 5, 2)
-		-- Ability 6
-		--------------------
-		pvp(skillType, 6, 0)
-		pvp(skillType, 6, 1)
-		pvp(skillType, 6, 2)
-	----------------------------------------
 
 
 	----------------------------------------
@@ -379,39 +314,6 @@ function addon.Initialize()
 		recast(skillType, 6, 1)
 		recast(skillType, 6, 2)
 	----------------------------------------
-	-- PVP
-	----------------------------------------
-		-- Ability 1
-		--------------------
-		pvp(skillType, 1, 0)
-		pvp(skillType, 1, 1)
-		pvp(skillType, 1, 2)
-		-- Ability 2
-		--------------------
-		pvp(skillType, 2, 0)
-		pvp(skillType, 2, 1)
-		pvp(skillType, 2, 2)
-		-- Ability 3
-		--------------------
-		pvp(skillType, 3, 0)
-		pvp(skillType, 3, 1)
-		pvp(skillType, 3, 2)
-		-- Ability 4
-		--------------------
-		pvp(skillType, 4, 0)
-		pvp(skillType, 4, 1)
-		pvp(skillType, 4, 2)
-		-- Ability 5
-		--------------------
-		pvp(skillType, 5, 0)
-		pvp(skillType, 5, 1)
-		pvp(skillType, 5, 2)
-		-- Ability 6
-		--------------------
-		pvp(skillType, 6, 0)
-		pvp(skillType, 6, 1)
-		pvp(skillType, 6, 2)
-	----------------------------------------
 
 
 	----------------------------------------
@@ -432,14 +334,6 @@ function addon.Initialize()
 		recast(skillType, 1, 0)
 		recast(skillType, 1, 1)
 		recast(skillType, 1, 2)
-	----------------------------------------
-	-- PVP
-	----------------------------------------
-		-- Ability 1
-		--------------------
-		pvp(skillType, 1, 0)
-		pvp(skillType, 1, 1)
-		pvp(skillType, 1, 2)
 	----------------------------------------
 
 
@@ -512,39 +406,6 @@ function addon.Initialize()
 		recast(skillType, 6, 1)
 		recast(skillType, 6, 2)
 	----------------------------------------
-	-- PVP
-	----------------------------------------
-		-- Ability 1
-		--------------------
-		pvp(skillType, 1, 0)
-		pvp(skillType, 1, 1)
-		pvp(skillType, 1, 2)
-		-- Ability 2
-		--------------------
-		pvp(skillType, 2, 0)
-		pvp(skillType, 2, 1)
-		pvp(skillType, 2, 2)
-		-- Ability 3
-		--------------------
-		pvp(skillType, 3, 0)
-		pvp(skillType, 3, 1)
-		pvp(skillType, 3, 2)
-		-- Ability 4
-		--------------------
-		pvp(skillType, 4, 0)
-		pvp(skillType, 4, 1)
-		pvp(skillType, 4, 2)
-		-- Ability 5
-		--------------------
-		pvp(skillType, 5, 0)
-		pvp(skillType, 5, 1)
-		pvp(skillType, 5, 2)
-		-- Ability 6
-		--------------------
-		pvp(skillType, 6, 0)
-		pvp(skillType, 6, 1)
-		pvp(skillType, 6, 2)
-	----------------------------------------
 
 
 	----------------------------------------
@@ -616,43 +477,12 @@ function addon.Initialize()
 		recast(skillType, 6, 1)
 		recast(skillType, 6, 2)
 	----------------------------------------
-	-- PVP
-	----------------------------------------
-		-- Ability 1
-		--------------------
-		pvp(skillType, 1, 0)
-		pvp(skillType, 1, 1)
-		pvp(skillType, 1, 2)
-		-- Ability 2
-		--------------------
-		pvp(skillType, 2, 0)
-		pvp(skillType, 2, 1)
-		pvp(skillType, 2, 2)
-		-- Ability 3
-		--------------------
-		pvp(skillType, 3, 0)
-		pvp(skillType, 3, 1)
-		pvp(skillType, 3, 2)
-		-- Ability 4
-		--------------------
-		pvp(skillType, 4, 0)
-		pvp(skillType, 4, 1)
-		pvp(skillType, 4, 2)
-		-- Ability 5
-		--------------------
-		pvp(skillType, 5, 0)
-		pvp(skillType, 5, 1)
-		pvp(skillType, 5, 2)
-		-- Ability 6
-		--------------------
-		pvp(skillType, 6, 0)
-		pvp(skillType, 6, 1)
-		pvp(skillType, 6, 2)
-	----------------------------------------
 
 
 	----------------------------------------
 		skillType = 'ava'
+	----------------------------------------
+		-- CAST
 	----------------------------------------
 		-- Ability 1
 		--------------------
@@ -680,7 +510,7 @@ function addon.Initialize()
 		cast(skillType, 5, 1)
 		cast(skillType, 5, 2)
 	----------------------------------------
-	-- AvA
+	-- RECAST
 	----------------------------------------
 		-- Ability 1
 		--------------------
@@ -708,91 +538,10 @@ function addon.Initialize()
 		recast(skillType, 5, 1)
 		recast(skillType, 5, 2)
 	----------------------------------------
-	-- PVP
-	----------------------------------------
-		-- Ability 1
-		--------------------
-		pvp(skillType, 1, 0)
-		pvp(skillType, 1, 1)
-		pvp(skillType, 1, 2)
-		-- Ability 2
-		--------------------
-		pvp(skillType, 2, 0)
-		pvp(skillType, 2, 1)
-		pvp(skillType, 2, 2)
-		-- Ability 3
-		--------------------
-		pvp(skillType, 3, 0)
-		pvp(skillType, 3, 1)
-		pvp(skillType, 3, 2)
-		-- Ability 4
-		--------------------
-		pvp(skillType, 4, 0)
-		pvp(skillType, 4, 1)
-		pvp(skillType, 4, 2)
-		-- Ability 5
-		--------------------
-		pvp(skillType, 5, 0)
-		pvp(skillType, 5, 1)
-		pvp(skillType, 5, 2)
-	----------------------------------------
 
 	addon.UpdateRegistered()
 
 	--[[ Debug ]] if sv.debug then d(dbg.grey .. 'end of addon.Initialize') d(dbg.close) end
-end
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Block PvP
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-local function OnZoneChange()
-	local sv = NEAR_SB.ASV
-	local dbg = NEAR_SB.utils.dbg
-
-	--[[ Debug ]] if sv.debug_zone then d(dbg.open) d(dbg.lightGrey .. 'start of OnZoneChange') end
-
-	if not sv.blockPvP and (IsPlayerInAvAWorld() or IsActiveWorldBattleground()) then
-		--[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'blockPvP = ' .. tostring(sv.blockPvP)) end
-		--[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'IsPlayerInAvAWorld = ' .. tostring(IsPlayerInAvAWorld())) end
-		--[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'IsActiveWorldBattleground = ' .. tostring(IsActiveWorldBattleground())) end
-
-		isInPvP = true --[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'isInPvP = ' .. tostring(isInPvP)) end
-	else
-		isInPvP = false --[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'isInPvP = ' .. tostring(isInPvP)) end
-	end
-
-	addon.Initialize()
-
-	--[[ Debug ]] if sv.debug_zone then d(dbg.grey .. 'end of OnZoneChange') d(dbg.close) end
-end
-
--- Toggle Event Zone Changed
-function addon.EZC()
-	local sv = NEAR_SB.ASV
-	local dbg = NEAR_SB.utils.dbg
-
-	--[[ Debug ]] if sv.debug_zone then d(dbg.open) d(dbg.lightGrey .. 'start of addon.EZC') end
-
-	if not sv.blockPvP then
-		EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ZONE_CHANGED, OnZoneChange)
-		--[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'registered EVENT_ZONE_CHANGED') end
-		--[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'IsPlayerInAvAWorld = ' .. tostring(IsPlayerInAvAWorld())) end
-		--[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'IsActiveWorldBattleground = ' .. tostring(IsActiveWorldBattleground())) end
-
-		if IsPlayerInAvAWorld() or IsActiveWorldBattleground() then
-			isInPvP = true --[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'isInPvP = ' .. tostring(isInPvP)) end
-		else
-			isInPvP = false --[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'isInPvP = ' .. tostring(isInPvP)) end
-		end
-	else
-		EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ZONE_CHANGED)
-		--[[ Debug ]] if sv.debug_zone then d(dbg.white .. 'unregistered EVENT_ZONE_CHANGED') end
-	end
-
-	addon.Initialize()
-
-	--[[ Debug ]] if sv.debug_zone then d(dbg.grey .. 'end of addon.EZC') d(dbg.close) end
 end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -804,7 +553,7 @@ local function OnAddonLoaded(event, name)
 
 	addon.ASV = ZO_SavedVars:NewAccountWide(addon.name .. "_Data", 4, GetWorldName(), addon.defaults)
 
-	NEAR_SB.EZC()
+	NEAR_SB.Initialize()
 
 	NEAR_SB.RegisterSlashCommands()
 	NEAR_SB.SetupSettings()

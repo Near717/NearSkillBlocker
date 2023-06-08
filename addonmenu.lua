@@ -31,7 +31,6 @@ function NEAR_SB.SetupSettings()
 	---------------------------------------------------------------------------------
 
 	local function UpdateVars()
-		(choice).msg = true
 		-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
 		-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
 		-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
@@ -1716,21 +1715,31 @@ function NEAR_SB.SetupSettings()
 		b_cast = {
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_co_bcast_name),
-			getFunc = function () return (choice).block end,
-			setFunc = function (v) (choice).block = v return UpdateVars() end,
+			getFunc = function() return (choice).block end,
+			setFunc = function(v)
+				(choice).block, (choice).msg.re_cast = v, true
+				UpdateVars()
+			end,
 		},
 		b_recast = {
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_co_brecast_name),
-			getFunc = function () return (choice).block_recast end,
-			setFunc = function (v) (choice).block_recast = v return UpdateVars() end,
 			warning = GetString(NEARSB_LAM_co_brecast_warning),
+			getFunc = function() return (choice).block_recast end,
+			setFunc = function(v)
+				(choice).block_recast, (choice).msg.re_cast = v, true
+				UpdateVars()
+			end,
 		},
 		b_pvp = {
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_co_bpvp_name),
-			getFunc = function () return (choice).pvp end,
-			setFunc = function (v) (choice).pvp = v return UpdateVars() end,
+			tooltip	= GetString(NEARSB_LAM_co_bpvp_tooltip),
+			getFunc = function() return (choice).pvp end,
+			setFunc = function(v)
+				(choice).pvp, (choice).msg.pvp = v, true
+				UpdateVars()
+			end,
 		},
 	}
 
@@ -1759,24 +1768,24 @@ function NEAR_SB.SetupSettings()
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_bpvp_name),
 			tooltip = GetString(NEARSB_LAM_bpvp_tooltip),
-			getFunc = function () return sv.blockPvP end,
-			setFunc = function (v) sv.blockPvP = v return addon.EZC() end,
+			getFunc = function() return sv.blockPvP end,
+			setFunc = function(v) sv.blockPvP = v end,
 			default = addon.defaults.blockPvP,
 			warning = GetString(NEARSB_LAM_bpvp_warning),
 		},
 		{
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_msg_name),
-			getFunc = function () return sv.message end,
-			setFunc = function (v) sv.message = v end,
+			getFunc = function() return sv.message end,
+			setFunc = function(v) sv.message = v end,
 			default = addon.defaults.message,
 		},
 		{
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_showE_name),
 			tooltip = GetString(NEARSB_LAM_showE_tooltip),
-			getFunc = function () return sv.showError end,
-			setFunc = function (v) sv.showError = v libSkillBlockUpdateNeeded = true end,
+			getFunc = function() return sv.showError end,
+			setFunc = function(v) sv.showError = v libSkillBlockUpdateNeeded = true end,
 			default = addon.defaults.showError,
 		},
 		{
@@ -1795,8 +1804,8 @@ function NEAR_SB.SetupSettings()
 					name			= GetString(NEARSB_LAM_classsel_name),
 					choices			= {class_name[1], class_name[2], class_name[3], class_name[4], class_name[5], class_name[6], class_name[7]},
 					choicesValues	= {'dk', 'sc', 'nb', 'wa', 'nm', 'tp', 'ar'},
-					getFunc = function () return choice_class end,
-					setFunc = function (v)
+					getFunc = function() return choice_class end,
+					setFunc = function(v)
 						choice_class = v
 
 						NEARSB_LAM_DROPDOWN_CLASS1:UpdateChoices(control_options[choice_class][1].choices, control_options[choice_class][1].choicesValues)
@@ -1815,8 +1824,8 @@ function NEAR_SB.SetupSettings()
 					name			= control_options[choice_class][1].name,
 					choices			= control_options[choice_class][1].choices,
 					choicesValues	= control_options[choice_class][1].choicesValues,
-					getFunc = function () return choice end,
-					setFunc = function (v) choice = v end,
+					getFunc = function() return choice end,
+					setFunc = function(v) choice = v end,
 				},
 				{
 					type			= 'dropdown',
@@ -1824,8 +1833,8 @@ function NEAR_SB.SetupSettings()
 					name			= control_options[choice_class][2].name,
 					choices			= control_options[choice_class][2].choices,
 					choicesValues	= control_options[choice_class][2].choicesValues,
-					getFunc = function () return choice end,
-					setFunc = function (v) choice = v end,
+					getFunc = function() return choice end,
+					setFunc = function(v) choice = v end,
 				},
 				{
 					type			= 'dropdown',
@@ -1833,8 +1842,8 @@ function NEAR_SB.SetupSettings()
 					name			= control_options[choice_class][3].name,
 					choices			= control_options[choice_class][3].choices,
 					choicesValues	= control_options[choice_class][3].choicesValues,
-					getFunc = function () return choice end,
-					setFunc	= function (v) choice = v end,
+					getFunc = function() return choice end,
+					setFunc	= function(v) choice = v end,
 				},
 				control_options.b_cast,
 				control_options.b_recast,
@@ -1930,7 +1939,7 @@ function NEAR_SB.SetupSettings()
 			controls = {
 				{
 					type = 'description',
-					text = function () return NEAR_SB.registeredAbilityNames end,
+					text = function() return NEAR_SB.registeredAbilityNames end,
 				},
 			},
 		},
@@ -1943,58 +1952,58 @@ function NEAR_SB.SetupSettings()
 			text = GetString(NEARSB_LAM_cmd_text),
 		},
 		-- TODO: comment out:
-		-- {
-		-- 	type = 'divider',
-		-- 	width = 'full',
-		-- },
-		-- {
-		-- 	type	= 'checkbox',
-		-- 	name	= 'Debug log',
-		-- 	getFunc = function () return sv.debug end,
-		-- 	setFunc = function (v) sv.debug = v end,
-		-- 	default = addon.defaults.debug,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type	= 'checkbox',
-		-- 	name	= 'Debug log (cast)',
-		-- 	getFunc = function () return sv.debug_init_cast end,
-		-- 	setFunc = function (v) sv.debug_init_cast = v end,
-		-- 	default = addon.defaults.debug_init_cast,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type	= 'checkbox',
-		-- 	name	= 'Debug log (recast)',
-		-- 	getFunc = function () return sv.debug_init_recast end,
-		-- 	setFunc = function (v) sv.debug_init_recast = v end,
-		-- 	default = addon.defaults.debug_init_recast,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type	= 'checkbox',
-		-- 	name	= 'Debug log (pvp)',
-		-- 	getFunc = function () return sv.debug_init_pvp end,
-		-- 	setFunc = function (v) sv.debug_init_pvp = v end,
-		-- 	default = addon.defaults.debug_init_pvp,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type	= 'checkbox',
-		-- 	name	= 'Debug log (zone)',
-		-- 	getFunc = function () return sv.debug_zone end,
-		-- 	setFunc = function (v) sv.debug_zone = v end,
-		-- 	default = addon.defaults.debug_zone,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
-		-- {
-		-- 	type	= 'checkbox',
-		-- 	name	= 'Debug log (recast functions)',
-		-- 	getFunc = function () return sv.debug_recast end,
-		-- 	setFunc = function (v) sv.debug_recast = v end,
-		-- 	default = addon.defaults.debug_recast,
-		-- 	warning = 'will flood chat with debug messages'
-		-- },
+		{
+			type = 'divider',
+			width = 'full',
+		},
+		{
+			type	= 'checkbox',
+			name	= 'Debug log',
+			getFunc = function() return sv.debug end,
+			setFunc = function(v) sv.debug = v end,
+			default = addon.defaults.debug,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type	= 'checkbox',
+			name	= 'Debug log (cast)',
+			getFunc = function() return sv.debug_init_cast end,
+			setFunc = function(v) sv.debug_init_cast = v end,
+			default = addon.defaults.debug_init_cast,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type	= 'checkbox',
+			name	= 'Debug log (recast)',
+			getFunc = function() return sv.debug_init_recast end,
+			setFunc = function(v) sv.debug_init_recast = v end,
+			default = addon.defaults.debug_init_recast,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type	= 'checkbox',
+			name	= 'Debug log (pvp)',
+			getFunc = function() return sv.debug_init_pvp end,
+			setFunc = function(v) sv.debug_init_pvp = v end,
+			default = addon.defaults.debug_init_pvp,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type	= 'checkbox',
+			name	= 'Debug log (pvp functions)',
+			getFunc = function() return sv.debug_pvp end,
+			setFunc = function(v) sv.debug_pvp = v end,
+			default = addon.defaults.debug_pvp,
+			warning = 'will flood chat with debug messages'
+		},
+		{
+			type	= 'checkbox',
+			name	= 'Debug log (recast functions)',
+			getFunc = function() return sv.debug_recast end,
+			setFunc = function(v) sv.debug_recast = v end,
+			default = addon.defaults.debug_recast,
+			warning = 'will flood chat with debug messages'
+		},
 	}
 	LAM2:RegisterOptionControls(addon.name, optionsTable)
 

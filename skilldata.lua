@@ -71,13 +71,13 @@ local skillLineId = {
 
 NEAR_SB.classdata = {
     ["name"] = {
-        [1] = GetClassName(1, 1), -- "Dragonknight"
-        [2] = GetClassName(1, 2), -- "Sorcerer"
-        [3] = GetClassName(1, 3), -- "Nightblade"
-        [4] = GetClassName(1, 4), -- "Warden"
-        [5] = GetClassName(1, 5), -- "Necromancer"
-        [6] = GetClassName(1, 6), -- "Templar"
-        [7] = GetClassName(1, 117), -- "Arcanist"
+        [1] = GetClassName(0, 1), -- "Dragonknight"
+        [2] = GetClassName(0, 2), -- "Sorcerer"
+        [3] = GetClassName(0, 3), -- "Nightblade"
+        [4] = GetClassName(0, 4), -- "Warden"
+        [5] = GetClassName(0, 5), -- "Necromancer"
+        [6] = GetClassName(0, 6), -- "Templar"
+        [7] = GetClassName(0, 117), -- "Arcanist"
     },
 }
 
@@ -223,9 +223,9 @@ NEAR_SB.skilldata = {
                 [2] = { id = 23495, name = GetAbilityName(23495), }, -- 
             },
             [2] = { -- 
-                [0] = { id = 23304, name = GetAbilityName(23304), }, -- 
-                [1] = { id = 23319, name = GetAbilityName(23319), }, -- 
-                [2] = { id = 23316, name = GetAbilityName(23316), }, -- 
+                [0] = { id = 23304, name = GetAbilityName(23304), id1 = 108840, }, -- 
+                [1] = { id = 23319, name = GetAbilityName(23319), id1 = 76076, }, -- 
+                [2] = { id = 23316, name = GetAbilityName(23316), id1 = 77182, }, -- 
             },
             [3] = { -- 
                 [0] = { id = 24326, name = GetAbilityName(24326), }, -- 
@@ -233,9 +233,9 @@ NEAR_SB.skilldata = {
                 [2] = { id = 24330, name = GetAbilityName(24330), }, -- 
             },
             [4] = { -- 
-                [0] = { id = 24613, name = GetAbilityName(24613), }, -- 
-                [1] = { id = 24636, name = GetAbilityName(24636), }, -- 
-                [2] = { id = 24639, name = GetAbilityName(24639), }, -- 
+                [0] = { id = 24613, name = GetAbilityName(24613), id1 = 108845, }, -- 
+                [1] = { id = 24636, name = GetAbilityName(24636), id1 = 77140, }, -- 
+                [2] = { id = 24639, name = GetAbilityName(24639), id1 = 77369, }, -- 
             },
             [5] = { -- 
                 [0] = { id = 28418, name = GetAbilityName(28418), }, -- 

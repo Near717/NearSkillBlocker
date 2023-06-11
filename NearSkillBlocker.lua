@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.1.0",
+	version		= "3.1.1",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -55,51 +55,43 @@ function NEAR_SB.Initialize()
 
 		for skillLine, v in pairs(skilldata) do
 			if sv_skilldata[skillLine][ability] ~= nil then
-				-- check if skillLine is destruction staff
-				if (skillType == 'weapon') and (skillLine == 5) and ((ability == 1) or (ability == 3) or (ability == 4) or (ability == 6)) then
-					-- check if its blocking cast and not recast
-					if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
-						-- register block for different elements ids
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id,  function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError)
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError) -- flame version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError) -- frost version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError) -- shock version
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
-							d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name)
-						end
-						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
-					elseif not sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
-						-- if not blocking either cast or recast unregister
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id1) -- flame version
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id2) -- frost version
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id3) -- shock version
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
-							d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name)
-						end
-						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
+				-- check if its blocking cast and not recast
+				if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
+					-- register block
+					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError)
+					-- register variant ids if there are any
+					if v[ability][morph].id1 ~= nil then
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError)
 					end
-				else
-					-- check if its blocking cast and not recast
-					if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
-						-- register block
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError)
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
-							d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name)
-						end
-						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
-					elseif not sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
-						-- if not blocking either cast or recast unregister
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
-							d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name)
-						end
-						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
+					if v[ability][morph].id2 ~= nil then
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError)
 					end
+					if v[ability][morph].id3 ~= nil then
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.BlockPvP(skillType, skillLine, ability, morph) end, sv.showError)
+					end
+					-- send message if toggled
+					if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
+						d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name)
+					end
+					sv_skilldata[skillLine][ability][morph].msg.re_cast = false
+				elseif not sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
+					-- if not blocking either cast or recast unregister
+					LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
+					-- unregister variant ids if there are any
+					if v[ability][morph].id1 ~= nil then
+						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id1)
+					end
+					if v[ability][morph].id2 ~= nil then
+						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id2)
+					end
+					if v[ability][morph].id3 ~= nil then
+						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id3)
+					end
+					-- send message if toggled
+					if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
+						d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name)
+					end
+					sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 				end
 			end
 		end
@@ -116,52 +108,43 @@ function NEAR_SB.Initialize()
 
 		for skillLine, v in pairs(skilldata) do
 			if sv_skilldata[skillLine][ability] ~= nil then
-				-- check if skillLine is destruction staff
-				if (skillType == 'weapon') and (skillLine == 5) and ((ability == 1) or (ability == 3) or (ability == 4) or (ability == 6)) then
-					-- check if its blocking recast
-					if sv_skilldata[skillLine][ability][morph].block_recast then
-						-- register for different elements ids
-						-- with a custom handler to decide when it should block or not
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id,  function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError)
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- flame version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- frost version
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError) -- shock version
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
-							d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. ' recast')
-						end
-						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
-					elseif not sv_skilldata[skillLine][ability][morph].block_recast and not sv_skilldata[skillLine][ability][morph].block then
-						-- if not blocking either cast or recast unregister
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id1) -- flame version
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id2) -- frost version
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id3) -- shock version
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
-							d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. ' recast')
-						end
-						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
+				-- check if its blocking recast
+				if sv_skilldata[skillLine][ability][morph].block_recast then
+					-- register with a custom handler to decide when it should block or not
+					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.BlockRecasts(skillType, skillLine, ability, morph, v[ability][morph].id) end, sv.showError)
+					-- register variant ids if there are any
+					if v[ability][morph].id1 ~= nil then
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.BlockRecasts(skillType, skillLine, ability, morph, v[ability][morph].id1) end, sv.showError)
 					end
-				else
-					-- check if its blocking recast
-					if sv_skilldata[skillLine][ability][morph].block_recast then
-						-- register with a custom handler to decide when it should block or not
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.BlockRecasts(skillType, skillLine, ability, morph) end, sv.showError)
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
-							d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. ' recast')
-						end
-						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
-					elseif not sv_skilldata[skillLine][ability][morph].block_recast and not sv_skilldata[skillLine][ability][morph].block then
-						-- if not blocking either cast or recast unregister
-						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
-						-- send message if toggled
-						if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
-							d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. ' recast')
-						end
-						sv_skilldata[skillLine][ability][morph].msg.re_cast = false
+					if v[ability][morph].id2 ~= nil then
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.BlockRecasts(skillType, skillLine, ability, morph, v[ability][morph].id2) end, sv.showError)
 					end
+					if v[ability][morph].id3 ~= nil then
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.BlockRecasts(skillType, skillLine, ability, morph, v[ability][morph].id3) end, sv.showError)
+					end
+					-- send message if toggled
+					if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
+						d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. ' recast')
+					end
+					sv_skilldata[skillLine][ability][morph].msg.re_cast = false
+				elseif not sv_skilldata[skillLine][ability][morph].block_recast and not sv_skilldata[skillLine][ability][morph].block then
+					-- if not blocking either cast or recast unregister
+					LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
+					-- unregister variant ids if there are any
+					if v[ability][morph].id1 ~= nil then
+						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id1)
+					end
+					if v[ability][morph].id2 ~= nil then
+						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id2)
+					end
+					if v[ability][morph].id3 ~= nil then
+						LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id3)
+					end
+					-- send message if toggled
+					if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
+						d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. ' recast')
+					end
+					sv_skilldata[skillLine][ability][morph].msg.re_cast = false
 				end
 			end
 		end

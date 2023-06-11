@@ -21,9 +21,9 @@ local strings = {
 
     NEARSB_LAM_co_bcast_name        = 'Block cast',
     NEARSB_LAM_co_brecast_name      = 'Block recast',
-    NEARSB_LAM_co_brecast_warning   = 'This option relies on the game setting '..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..' being ON! \n(under the setting panel: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
+    NEARSB_LAM_co_brecast_warning   = 'This option relies on the game setting "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" being ON! \n(under the setting panel: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
     NEARSB_LAM_co_bpvp_name         = 'Block in PvP',
-    NEARSB_LAM_co_bpvp_tooltip      = 'This setting works with "'..GetString(NEARSB_LAM_bpvp_name)..'" and "'..GetString(NEARSB_LAM_co_bcast_name)..'" to overwrite the blocks set by the latter.',
+    NEARSB_LAM_co_bpvp_tooltip      = 'This setting works with "'..GetString(NEARSB_LAM_bpvp_name)..'" and "'..GetString(NEARSB_LAM_co_bcast_name)..'" to overwrite the blocks set by the latter.\n"'..GetString(NEARSB_LAM_co_brecast_name)..'" currently not supported.',
 }
 
 

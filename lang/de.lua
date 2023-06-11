@@ -21,7 +21,7 @@ local strings = {
 
     NEARSB_LAM_co_bcast_name        = 'Blockiere Cast',
     NEARSB_LAM_co_brecast_name      = 'Blockiere Recast',
-    NEARSB_LAM_co_brecast_warning   = 'Diese Option hängt davon ab, dass die Spieleinstellung '..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..' aktiviert ist! (unter dem Einstellungsfeld: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'"!)', -- need to check
+    NEARSB_LAM_co_brecast_warning   = 'Diese Option hängt davon ab, dass die Spieleinstellung "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" aktiviert ist! (unter dem Einstellungsfeld: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'"!)', -- need to check
     NEARSB_LAM_co_bpvp_name         = 'Blockieren in PvP',
 }
 

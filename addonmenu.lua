@@ -1766,6 +1766,14 @@ function NEAR_SB.SetupSettings()
 	local optionsTable = {
 		{
 			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_supressblock_name),
+			tooltip = GetString(NEARSB_LAM_supressblock_tooltip),
+			getFunc = function() return sv.supressBlock end,
+			setFunc = function(v) sv.supressBlock = v end,
+			default = addon.defaults.supressBlock,
+		},
+		{
+			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_bpvp_name),
 			tooltip = GetString(NEARSB_LAM_bpvp_tooltip),
 			getFunc = function() return sv.blockPvP end,

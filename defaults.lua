@@ -12,16 +12,7 @@ NEAR_SB.defaults = {
     message = false,
     blockPvP = true,
     showError = true,
-    -- bindings = {
-    --     [1] = '',
-    --     [2] = '',
-    --     [3] = '',
-    --     [4] = '',
-    --     [5] = '',
-    --     [6] = '',
-    --     [7] = '',
-    --     [8] = '',
-    -- },
+    supressBlock = false
 }
 
 NEAR_SB.defaults.skilldata = { -- Toggle block skills/messages

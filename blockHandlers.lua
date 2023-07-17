@@ -1,3 +1,8 @@
+local dbg = NEAR_SB.utils.dbg
+local color = NEAR_SB.utils.color
+local skilldata = NEAR_SB.skilldata
+local sv = NEAR_SB.ASV
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ---@param skillType string
 ---@param skillLine string|integer
@@ -6,10 +11,7 @@
 ---@param abilityId integer
 ---@return boolean
 function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
-    local sv = NEAR_SB.ASV
-	local dbg = NEAR_SB.utils.dbg
-	local color = NEAR_SB.utils.color
-    local skilldata = NEAR_SB.skilldata
+    sv = sv or NEAR_SB.ASV
 
 	--[[ Debug ]] if sv.debug_recast then d(dbg.open) d(dbg.lightGrey .. 'start of BlockRecasts') end
 
@@ -58,7 +60,6 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
 	--[[ Debug ]] if sv.debug_recast then d(dbg.grey.. 'end of BlockRecasts') d(dbg.close) end
 
     return recastHandler
-
 end
 
 
@@ -71,10 +72,7 @@ end
 ---@param morph integer
 ---@return boolean
 function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
-    local sv = NEAR_SB.ASV
-	local dbg = NEAR_SB.utils.dbg
-	local color = NEAR_SB.utils.color
-    local skilldata = NEAR_SB.skilldata
+    sv = sv or NEAR_SB.ASV
     local sv_skilldata = sv.skilldata[skillType]
 
     local str_reg = GetString(NEARSB_registered)
@@ -117,7 +115,6 @@ function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
 	--[[ Debug ]] if sv.debug_pvp then d(dbg.grey.. 'end of BlockPvP') d(dbg.close) end
 
     return block
-
 end
 
 
@@ -131,32 +128,30 @@ end
 ---@param morph integer
 ---@param abilityId integer|nil
 ---@return boolean
-function NEAR_SB.supressCheck(type, skillType, skillLine, ability, morph, abilityId)
-    local sv = NEAR_SB.ASV
-	local dbg = NEAR_SB.utils.dbg
+function NEAR_SB.suppressCheck(type, skillType, skillLine, ability, morph, abilityId)
+    sv = sv or NEAR_SB.ASV
 
-	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of supressCheck') end
+	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of suppressCheck') end
 
     local block
 
-    if sv.supressBlock then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.supressBlock == true') end
+    if sv.suppressBlock then
+        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == true') end
         block = false
     elseif type == 1 then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv,supressBlock == false, type == 1, running NEAR_SB.BlockPvP') end
+        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, type == 1, running NEAR_SB.BlockPvP') end
         block = NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
     elseif type == 2 then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.supressBlock == false, type == 2, running NEAR_SB.BlockRecasts') end
+        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, type == 2, running NEAR_SB.BlockRecasts') end
         block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
     else
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.supressBlock == false, type == not defined, defaulting block = true') end
+        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, type == not defined, defaulting block = true') end
         block = true
     end
 
     --[[ Debug ]] if sv.debug then d(dbg.white.. 'block = '.. tostring(block)) end
 
-	--[[ Debug ]] if sv.debug then d(dbg.grey.. 'end of supressCheck') d(dbg.close) end
+	--[[ Debug ]] if sv.debug then d(dbg.grey.. 'end of suppressCheck') d(dbg.close) end
 
     return block
-
 end

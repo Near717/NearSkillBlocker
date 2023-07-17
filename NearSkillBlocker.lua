@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.2.0",
+	version		= "3.2.1",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -52,23 +52,23 @@ function NEAR_SB.Initialize()
 	local function cast(skillType, ability, morph)
 		local skilldata    = addon.skilldata[skillType]
 		local sv_skilldata = sv.skilldata[skillType]
-		local type = 1 -- run BlockPvP under supressCheck
+		local type = 1 -- run BlockPvP under suppressCheck
 
 		for skillLine, v in pairs(skilldata) do
 			if sv_skilldata[skillLine][ability] ~= nil then
 				-- check if its blocking cast and not recast
 				if sv_skilldata[skillLine][ability][morph].block and not sv_skilldata[skillLine][ability][morph].block_recast then
 					-- register block
-					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.supressCheck(type, skillType, skillLine, ability, morph) end, sv.showError)
+					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.suppressCheck(type, skillType, skillLine, ability, morph) end, sv.showError)
 					-- register variant ids if there are any
 					if v[ability][morph].id1 ~= nil then
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.supressCheck(type, skillType, skillLine, ability, morph) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.suppressCheck(type, skillType, skillLine, ability, morph) end, sv.showError)
 					end
 					if v[ability][morph].id2 ~= nil then
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.supressCheck(type, skillType, skillLine, ability, morph) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.suppressCheck(type, skillType, skillLine, ability, morph) end, sv.showError)
 					end
 					if v[ability][morph].id3 ~= nil then
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.supressCheck(type, skillType, skillLine, ability, morph) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.suppressCheck(type, skillType, skillLine, ability, morph) end, sv.showError)
 					end
 					-- send message if toggled
 					if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_cast then
@@ -106,23 +106,23 @@ function NEAR_SB.Initialize()
 	local function recast(skillType, ability, morph)
 		local skilldata    = addon.skilldata[skillType]
 		local sv_skilldata = sv.skilldata[skillType]
-		local type = 2 -- run BlockRecasts under supressCheck
+		local type = 2 -- run BlockRecasts under suppressCheck
 
 		for skillLine, v in pairs(skilldata) do
 			if sv_skilldata[skillLine][ability] ~= nil then
 				-- check if its blocking recast
 				if sv_skilldata[skillLine][ability][morph].block_recast then
 					-- register with a custom handler to decide when it should block or not
-					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.supressCheck(type, skillType, skillLine, ability, morph, v[ability][morph].id) end, sv.showError)
+					LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function() return addon.suppressCheck(type, skillType, skillLine, ability, morph, v[ability][morph].id) end, sv.showError)
 					-- register variant ids if there are any
 					if v[ability][morph].id1 ~= nil then
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.supressCheck(type, skillType, skillLine, ability, morph, v[ability][morph].id1) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id1, function() return addon.suppressCheck(type, skillType, skillLine, ability, morph, v[ability][morph].id1) end, sv.showError)
 					end
 					if v[ability][morph].id2 ~= nil then
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.supressCheck(type, skillType, skillLine, ability, morph, v[ability][morph].id2) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id2, function() return addon.suppressCheck(type, skillType, skillLine, ability, morph, v[ability][morph].id2) end, sv.showError)
 					end
 					if v[ability][morph].id3 ~= nil then
-						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.supressCheck(type, skillType, skillLine, ability, morph, v[ability][morph].id3) end, sv.showError)
+						LSB.RegisterSkillBlock(addon.name, v[ability][morph].id3, function() return addon.suppressCheck(type, skillType, skillLine, ability, morph, v[ability][morph].id3) end, sv.showError)
 					end
 					-- send message if toggled
 					if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or sv.debug_init_recast then
@@ -537,6 +537,8 @@ local function OnAddonLoaded(event, name)
 	EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
 	addon.ASV = ZO_SavedVars:NewAccountWide(addon.name .. "_Data", 4, GetWorldName(), addon.defaults)
+
+	if addon.ASV.suppressBlockReset then addon.ASV.suppressBlock = addon.defaults.suppressBlock end
 
 	NEAR_SB.Initialize()
 

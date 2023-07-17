@@ -1,11 +1,27 @@
 local addon = NEAR_SB
+local dbg = NEAR_SB.utils.dbg
+local sv = NEAR_SB.ASV
+
+local function cmdMessageTypeExample()
+	sv = sv or NEAR_SB.ASV
+
+	local str = "Example message"
+
+	if sv.cmdMessageType == 1 then
+		d(dbg.white .. str)
+	elseif sv.cmdMessageType == 2 then
+		ZO_Alert(UI_ALERT_CATEGORY_ALERT, SOUNDS.GENERAL_ALERT_ERROR, str)
+	elseif sv.cmdMessageType == 3 then
+		if sv.debug then d(dbg.white .. "this should only show if debug mode is on") end
+	end
+end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Addon settings panel
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function NEAR_SB.SetupSettings()
 	local LAM2 = LibAddonMenu2
-	local sv = NEAR_SB.ASV
+	sv = sv or NEAR_SB.ASV
 
 	local libSkillBlockUpdateNeeded = false
 
@@ -1766,11 +1782,19 @@ function NEAR_SB.SetupSettings()
 	local optionsTable = {
 		{
 			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_supressblock_name),
-			tooltip = GetString(NEARSB_LAM_supressblock_tooltip),
-			getFunc = function() return sv.supressBlock end,
-			setFunc = function(v) sv.supressBlock = v end,
-			default = addon.defaults.supressBlock,
+			name	= GetString(NEARSB_LAM_supb_name),
+			tooltip = GetString(NEARSB_LAM_supb_tooltip),
+			getFunc = function() return sv.suppressBlock end,
+			setFunc = function(v) sv.suppressBlock = v end,
+			default = addon.defaults.suppressBlock,
+		},
+		{
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_supbr_name),
+			tooltip = GetString(NEARSB_LAM_supbr_tooltip),
+			getFunc = function() return sv.suppressBlockReset end,
+			setFunc = function(v) sv.suppressBlockReset = v end,
+			default = addon.defaults.suppressBlockReset,
 		},
 		{
 			type	= 'checkbox',
@@ -1779,6 +1803,24 @@ function NEAR_SB.SetupSettings()
 			getFunc = function() return sv.blockPvP end,
 			setFunc = function(v) sv.blockPvP = v end,
 			default = addon.defaults.blockPvP,
+		},
+		{
+			type = 'dropdown',
+			name = GetString(NEARSB_LAM_cmdmsgt_name),
+			tooltip = GetString(NEARSB_LAM_cmdmsgt_tooltip),
+			choices = { GetString(NEARSB_LAM_cmdmsgt_choices1), GetString(NEARSB_LAM_cmdmsgt_choices2), GetString(NEARSB_LAM_cmdmsgt_choices3) },
+			choicesValues = { 1, 2, 3 },
+			getFunc = function() return sv.cmdMessageType end,
+			setFunc = function(v) sv.cmdMessageType = v cmdMessageTypeExample() end,
+			default = addon.defaults.cmdMessageType,
+		},
+		{
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_cmdmsgs_name),
+			tooltip = GetString(NEARSB_LAM_cmdmsgs_tooltip),
+			getFunc = function() return sv.cmdMessageSound end,
+			setFunc = function(v) sv.cmdMessageSound = v end,
+			default = addon.defaults.cmdMessageSound,
 		},
 		{
 			type	= 'checkbox',
@@ -1795,6 +1837,7 @@ function NEAR_SB.SetupSettings()
 			setFunc = function(v) sv.showError = v libSkillBlockUpdateNeeded = true end,
 			default = addon.defaults.showError,
 		},
+		---------------------------------------------------------------------------------
 		{
 			type = 'header',
 			name = GetString(NEARSB_LAM_skillsel_name),

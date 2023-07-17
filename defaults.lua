@@ -12,7 +12,10 @@ NEAR_SB.defaults = {
     message = false,
     blockPvP = true,
     showError = true,
-    supressBlock = false
+    suppressBlock = false,
+    suppressBlockReset = false,
+    cmdMessageType = 1,
+    cmdMessageSound = true,
 }
 
 NEAR_SB.defaults.skilldata = { -- Toggle block skills/messages

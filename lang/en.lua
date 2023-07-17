@@ -1,19 +1,35 @@
 
 local strings = {
-    SI_BINDING_NAME_NEARSB_supressblock = 'Toggle block suppression',
-    SI_BINDING_NAME_NEARSB_blockPvP     = 'Toggle PvP',
+    SI_BINDING_NAME_NEARSB_suppressblock = 'Toggle block suppression',
+    SI_BINDING_NAME_NEARSB_blockPvP      = 'Toggle PvP',
 
     NEARSB_registered               = 'Registered',
     NEARSB_unregistered             = 'Unregistered',
 
+    NEARSB_suppressblock_enabled    = 'Enabled suppress block',
+    NEARSB_suppressblock_disabled   = 'Disabled suppress block ',
+    NEARSB_blockpvp_enabled         = 'Enabled block PvP',
+    NEARSB_blockpvp_disabled        = 'Disabled block PvP ',
 
-    NEARSB_LAM_supressblock_name    = 'Toggle block suppression',
-    NEARSB_LAM_supressblock_tooltip = 'Supresses ALL blocks in ALL zones\nON: Won\'t block any ability\n\nUseful when you need to spam an ability to lower resources',
 
-    NEARSB_LAM_bpvp_name            = 'Toggle block on PvP zones',
+    NEARSB_LAM_supb_name            = 'Block suppression',
+    NEARSB_LAM_supb_tooltip         = 'Suppresses ALL blocks in ALL zones\nON: Won\'t block any ability\n\nUseful when you need to spam an ability to lower resources',
+    NEARSB_LAM_supbr_name           = 'Block suppression auto reset',
+    NEARSB_LAM_supbr_tooltip        = 'Auto reset '..GetString(NEARSB_LAM_supb_name)..' to default (disabled) at addon loaded',
+
+    NEARSB_LAM_bpvp_name            = 'Block on PvP zones',
     NEARSB_LAM_bpvp_tooltip         = 'Block selected abilities in AvA and Battlegrounds',
 
-    NEARSB_LAM_brc_name             = 'Toggle block recast',
+    NEARSB_LAM_cmdmsgt_name         = 'Type of alert',
+    NEARSB_LAM_cmdmsgt_tooltip      = 'Set type of alert for keybind/slash command output',
+    NEARSB_LAM_cmdmsgt_choices1     = 'Chat',
+    NEARSB_LAM_cmdmsgt_choices2     = 'Alert',
+    NEARSB_LAM_cmdmsgt_choices3     = 'No message',
+
+    NEARSB_LAM_cmdmsgs_name         = 'Alert sounds',
+    NEARSB_LAM_cmdmsgs_tooltip      = 'Wether to output or not sound for the "Alert" option (top right messages)',
+
+    NEARSB_LAM_brc_name             = 'Block recast',
     NEARSB_LAM_brc_tooltip          = 'Block recast for selected abilities',
     NEARSB_LAM_brc_warning          = 'OFF: Won\'t block recasts but might improve performance.',
 
@@ -27,7 +43,7 @@ local strings = {
     NEARSB_LAM_classsel_name        = 'Class selector',
     NEARSB_LAM_cmd_text             =
      'Command to open this menu: \n"/skillblocker"' .. '\n\n' ..
-     'Command to toggle block suppression: \n"/sb/supressblock"' .. '\n\n'..
+     'Command to toggle block suppression: \n"/sb/suppressblock"' .. '\n\n'..
      'Command to toggle PvP block/unblock: \n"/sb/blockpvp"',
     NEARSB_LAM_reglist_name         = 'Currently registered',
 

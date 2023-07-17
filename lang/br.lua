@@ -1,19 +1,35 @@
 
 local strings = {
-    SI_BINDING_NAME_NEARSB_supressblock = 'Alternar supressão de bloqueio',
-    SI_BINDING_NAME_NEARSB_blockPvP     = 'Alternar PvP',
+    SI_BINDING_NAME_NEARSB_suppressblock = 'Alternar supressão de bloqueio',
+    SI_BINDING_NAME_NEARSB_blockPvP      = 'Alternar PvP',
 
     NEARSB_registered               = 'Registrado',
     NEARSB_unregistered             = 'Desregistrado',
 
+    NEARSB_suppressblock_enabled    = 'Supressão de bloqueio ativado',
+    NEARSB_suppressblock_disabled   = 'Supressão de bloqueio desativado',
+    NEARSB_blockpvp_enabled         = 'Bloqueio em PvP ativado',
+    NEARSB_blockpvp_disabled        = 'Bloqueio em PvP desativado',
 
-    NEARSB_LAM_supressblock_name    = 'Alterna supressão de bloqueio',
-    NEARSB_LAM_supressblock_tooltip = 'Suprime TODOS os bloqueios em TODAS as zonas\nATIVADO: Não bloqueará nenhuma habilidade\n\nÚtil quando você precisa spammar uma habilidade para reduzir recursos',
 
-    NEARSB_LAM_bpvp_name            = 'Alternar bloqueio em zonas de PvP',
+    NEARSB_LAM_supb_name            = 'Supressão de bloqueio',
+    NEARSB_LAM_supb_tooltip         = 'Suprime TODOS os bloqueios em TODAS as zonas\nATIVADO: Não bloqueará nenhuma habilidade\n\nÚtil quando você precisa spammar uma habilidade para reduzir recursos',
+    NEARSB_LAM_supbr_name           = 'Redefinação automática da supressão	de bloqueio',
+    NEARSB_LAM_supbr_tooltip        = 'Automaticamente redefine "Alternar supressão de bloqueio" para o padrão (desativado) ao carregar o addon',
+
+    NEARSB_LAM_bpvp_name            = 'Bloqueio em zonas de PvP',
     NEARSB_LAM_bpvp_tooltip         = 'Bloquear habilidades selecionadas em Guerra das Alianças e Campos de Batalha',
 
-    NEARSB_LAM_brc_name             = 'Alternar bloqueio de recast',
+    NEARSB_LAM_cmdmsgt_name         = 'Tipo de alerta',
+    NEARSB_LAM_cmdmsgt_tooltip      = 'Definir o tipo de alerta das teclas de atalho/comandos de chat',
+    NEARSB_LAM_cmdmsgt_choices1     = 'Chat',
+    NEARSB_LAM_cmdmsgt_choices2     = 'Alerta',
+    NEARSB_LAM_cmdmsgt_choices3     = 'Sem mensagem',
+
+    NEARSB_LAM_cmdmsgs_name         = 'Som para o alerta',
+    NEARSB_LAM_cmdmsgs_tooltip      = 'Se deve ou não reproduzir som para a opção "Alerta" (mensagens no canto superior direito)',
+
+    NEARSB_LAM_brc_name             = 'Bloqueio de recast',
     NEARSB_LAM_brc_tooltip          = 'Bloquear recast para habilidades selecionadas',
     NEARSB_LAM_brc_warning          = 'DESATIVADO: Não irá bloquear recast, mas pode melhorar o desempenho.',
 
@@ -27,7 +43,7 @@ local strings = {
     NEARSB_LAM_classsel_name        = 'Seletor de classes',
     NEARSB_LAM_cmd_text             =
      'Comando para abrir este menu: \n"/skillblocker"' .. '\n\n' ..
-     'Comando para alternar supressão de bloqueio: \n"/sb/supressblock"' .. '\n\n'..
+     'Comando para alternar supressão de bloqueio: \n"/sb/suppressblock"' .. '\n\n'..
      'Comando para alternar bloqueio/desbloqueio em PvP: \n"/sb/blockpvp"',
     NEARSB_LAM_reglist_name         = 'Atualmente registrado',
 

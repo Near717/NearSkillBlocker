@@ -121,14 +121,14 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
----@param type integer
 ---@param skillType string
 ---@param skillLine string|integer
 ---@param ability integer
 ---@param morph integer
 ---@param abilityId integer|nil
+---@param blockType integer
 ---@return boolean
-function NEAR_SB.suppressCheck(type, skillType, skillLine, ability, morph, abilityId)
+function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, blockType)
     sv = sv or NEAR_SB.ASV
 
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of suppressCheck') end
@@ -138,14 +138,14 @@ function NEAR_SB.suppressCheck(type, skillType, skillLine, ability, morph, abili
     if sv.suppressBlock then
         --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == true') end
         block = false
-    elseif type == 1 then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, type == 1, running NEAR_SB.BlockPvP') end
+    elseif blockType == 1 then
+        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 1, running NEAR_SB.BlockPvP') end
         block = NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
-    elseif type == 2 then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, type == 2, running NEAR_SB.BlockRecasts') end
+    elseif blockType == 2 then
+        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 2, running NEAR_SB.BlockRecasts') end
         block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
     else
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, type == not defined, defaulting block = true') end
+        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == not defined, defaulting block = true') end
         block = true
     end
 

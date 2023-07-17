@@ -15,10 +15,10 @@ local strings = {
     NEARSB_LAM_supb_name            = 'Block suppression',
     NEARSB_LAM_supb_tooltip         = 'Suppresses ALL blocks in ALL zones\nON: Won\'t block any ability\n\nUseful when you need to spam an ability to lower resources',
     NEARSB_LAM_supbr_name           = 'Block suppression auto reset',
-    NEARSB_LAM_supbr_tooltip        = 'Auto reset '..GetString(NEARSB_LAM_supb_name)..' to default (disabled) at addon loaded',
+    NEARSB_LAM_supbr_tooltip        = 'Auto reset "'..GetString(NEARSB_LAM_supb_name)..'" to default (disabled) at addon loaded',
 
     NEARSB_LAM_bpvp_name            = 'Block on PvP zones',
-    NEARSB_LAM_bpvp_tooltip         = 'Block selected abilities in AvA and Battlegrounds',
+    NEARSB_LAM_bpvp_tooltip         = 'Block ALL selected abilities in AvA and Battlegrounds'..'\n\n*overwrites "'..GetString(NEARSB_LAM_co_bpvp_name)..'"',
 
     NEARSB_LAM_cmdmsgt_name         = 'Type of alert',
     NEARSB_LAM_cmdmsgt_tooltip      = 'Set type of alert for keybind/slash command output',
@@ -27,7 +27,7 @@ local strings = {
     NEARSB_LAM_cmdmsgt_choices3     = 'No message',
 
     NEARSB_LAM_cmdmsgs_name         = 'Alert sounds',
-    NEARSB_LAM_cmdmsgs_tooltip      = 'Wether to output or not sound for the "Alert" option (top right messages)',
+    NEARSB_LAM_cmdmsgs_tooltip      = 'Whether to output or not sound for the "Alert" option (top right messages)',
 
     NEARSB_LAM_brc_name             = 'Block recast',
     NEARSB_LAM_brc_tooltip          = 'Block recast for selected abilities',
@@ -52,7 +52,7 @@ local strings = {
     NEARSB_LAM_co_brecast_name      = 'Block recast',
     NEARSB_LAM_co_brecast_warning   = 'This option relies on the game setting "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" being ON! \n(under the setting panel: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
     NEARSB_LAM_co_bpvp_name         = 'Block in PvP',
-    NEARSB_LAM_co_bpvp_tooltip      = 'This setting works with "'..GetString(NEARSB_LAM_bpvp_name)..'" and "'..GetString(NEARSB_LAM_co_bcast_name)..'" to overwrite the blocks set by the latter.\n"'..GetString(NEARSB_LAM_co_brecast_name)..'" currently not supported.',
+    NEARSB_LAM_co_bpvp_tooltip      = 'This setting is overwritten by: "'..GetString(NEARSB_LAM_bpvp_name)..'"'..'\nAnd overwrites: "'..GetString(NEARSB_LAM_co_bcast_name)..'"'..'\n"'..GetString(NEARSB_LAM_co_brecast_name)..'" currently not supported.',
 }
 
 

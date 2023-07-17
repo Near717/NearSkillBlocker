@@ -18,7 +18,7 @@ local strings = {
     NEARSB_LAM_supbr_tooltip        = 'Automaticamente redefine "Alternar supressão de bloqueio" para o padrão (desativado) ao carregar o addon',
 
     NEARSB_LAM_bpvp_name            = 'Bloqueio em zonas de PvP',
-    NEARSB_LAM_bpvp_tooltip         = 'Bloquear habilidades selecionadas em Guerra das Alianças e Campos de Batalha',
+    NEARSB_LAM_bpvp_tooltip         = 'Bloqueia TODAS as habilidades selecionadas em Guerra das Alianças e Campos de Batalha'..'\n\n*sobrescreve "Bloquear em PvP"',
 
     NEARSB_LAM_cmdmsgt_name         = 'Tipo de alerta',
     NEARSB_LAM_cmdmsgt_tooltip      = 'Definir o tipo de alerta das teclas de atalho/comandos de chat',
@@ -52,7 +52,7 @@ local strings = {
     NEARSB_LAM_co_brecast_name      = 'Bloquear recast',
     NEARSB_LAM_co_brecast_warning   = 'Esta opção depende da configuração do jogo "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" estar ATIVADA! \n(no painel de configuração: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
     NEARSB_LAM_co_bpvp_name         = 'Bloquear em PvP',
-    NEARSB_LAM_co_bpvp_tooltip      = 'Essa configuração funciona com "Alternar bloqueio em zonas de PvP" e "Bloquear cast" para sobrescrever os bloqueios definidos pelo último.\n"Bloquear recast" atualmente não suportado.',
+    NEARSB_LAM_co_bpvp_tooltip      = 'Essa configuração é sobrescrita por: "Alternar bloqueio em zonas de PvP"'..'\nE sobrescreve: "Bloquear cast"'..'\n"Bloquear recast" atualmente não suportado.',
 }
 
 

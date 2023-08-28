@@ -1,7 +1,7 @@
 ## Title: Near's Skill Blocker
-## APIVersion: 101038
-## Version: 3.2.1
-## AddOnVersion: 321
+## APIVersion: 101039
+## Version: 3.2.2
+## AddOnVersion: 322
 ## SavedVariables: NearSkillBlocker_Data
 ## Author: |cCC99FFnotnear|r
 ## DependsOn: LibAddonMenu-2.0>=30 LibSkillBlocker>=108
@@ -20,3 +20,7 @@ blockHandlers.lua
 slashcommands.lua
 Bindings.xml
 addonmenu.lua
+
+# This Add-on is not created by, affiliated with, or sponsored by, ZeniMax Media Inc. or its affiliates.
+# The Elder Scrolls® and related logos are registered trademarks or trademarks of ZeniMax Media Inc. in the United States and/or other countries.
+# All rights reserved.

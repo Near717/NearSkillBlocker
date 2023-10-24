@@ -48,58 +48,69 @@ local function register(skillType, ability, morph, blockType)
     local skilldata    = addon.skilldata[skillType]
 	local sv_skilldata = sv.skilldata[skillType]
 
+    local function registerBlock(id, skillLine)
+        LSB.RegisterSkillBlock(addon.name, id, function()
+            return addon.suppressCheck(skillType, skillLine, ability, morph, id, blockType)
+        end, sv.showError)
+    end
+
+    local function unregisterBlock(id)
+        LSB.UnregisterSkillBlock(addon.name, id)
+    end
+
     for skillLine, v in pairs(skilldata) do
         if sv_skilldata[skillLine][ability] ~= nil then
-            local block = sv_skilldata[skillLine][ability][morph].block
-            local block_recast = sv_skilldata[skillLine][ability][morph].block_recast
-            local block_onMaxCrux = sv_skilldata[skillLine][ability][morph].block_onMaxCrux ~= nil and sv_skilldata[skillLine][ability][morph].block_onMaxCrux or false
+            local morphData = sv_skilldata[skillLine][ability][morph]
+            local block = morphData.block
+            local block_recast = morphData.block_recast
+            local block_onMaxCrux = morphData.block_onMaxCrux or false
 
-            if (block and blockType == 1 and not block_recast and not block_onMaxCrux) or (block_recast and blockType == 2 and not block_onMaxCrux) or (block_onMaxCrux and blockType == 3) then
+            local abilityId = v[ability][morph].id
+
+            if (block and blockType == 1 and not block_recast and not block_onMaxCrux) or
+               (block_recast and blockType == 2 and not block_onMaxCrux) or
+               (block_onMaxCrux and blockType == 3) then
                 -- Register block
-                LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function()
-                    return addon.suppressCheck(skillType, skillLine, ability, morph, v[ability][morph].id, blockType)
-                end, sv.showError)
+                registerBlock(abilityId, skillLine)
 
                 -- Register variant ids if there are any
                 for i = 1, 3 do
                     local variantId = v[ability][morph]["id"..i]
                     if variantId ~= nil then
-                        LSB.RegisterSkillBlock(addon.name, variantId, function()
-                            return addon.suppressCheck(skillType, skillLine, ability, morph, variantId, blockType)
-                        end, sv.showError)
+                        registerBlock(variantId, skillLine)
                     end
                 end
 
                 -- Send message if toggled
-                if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or
+                if (sv.message and morphData.msg.re_cast) or
                    (blockType == 1 and sv.debug_init_cast) or
                    (blockType == 2 and sv.debug_init_recast) or
                    (blockType == 3 and sv.debug_init_crux) then
                     d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_crux or ''))
                 end
 
-                sv_skilldata[skillLine][ability][morph].msg.re_cast = false
+                morphData.msg.re_cast = false
             elseif not block and not block_recast and not block_onMaxCrux then
                 -- Unregister block
-                LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
+                unregisterBlock(abilityId)
 
                 -- Unregister variant ids if there are any
                 for i = 1, 3 do
                     local variantId = v[ability][morph]["id"..i]
                     if variantId ~= nil then
-                        LSB.UnregisterSkillBlock(addon.name, variantId)
+                        unregisterBlock(variantId)
                     end
                 end
 
                 -- Send message if toggled
-                if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or
+                if (sv.message and morphData.msg.re_cast) or
                    (blockType == 1 and sv.debug_init_cast) or
                    (blockType == 2 and sv.debug_init_recast) or
-                   (blockType == 3 and sv.debug_init_crux and sv_skilldata[skillLine][ability][morph].block_onMaxCrux ~= nil) then
+                   (blockType == 3 and sv.debug_init_crux and morphData.block_onMaxCrux ~= nil) then
                     d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_crux or ''))
                 end
 
-                sv_skilldata[skillLine][ability][morph].msg.re_cast = false
+                morphData.msg.re_cast = false
             end
         end
     end
@@ -111,19 +122,19 @@ function NEAR_SB.Initialize()
 
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.Initialize') end
 
-	-- Execute register functions
-	for _, skillType in ipairs({ 'class', 'weapon', 'armor', 'world', 'guild', 'ava' }) do
-        for _, ability in ipairs({ 1, 2, 3, 4, 5, 6 }) do
-            for _, morph in ipairs({ 0, 1, 2 }) do
-                local blockTypes
-                if skillType == 'class' then
-                    blockTypes = { 1, 2, 3 } -- Cast, Recast and onMaxCrux
-                    if sv.debug then d('blockTypes == { 1, 2, 3 }') end
-                else
-                    blockTypes = { 1, 2 } -- Cast and Recast
-                    if sv.debug then d('blockTypes == { 1, 2 }') end
-                end
+    local skillTypeBlockTypes = {
+        ['class']   = { 1, 2, 3 },  -- Cast, Recast, and onMaxCrux
+        ['weapon']  = { 1, 2 },     -- Cast and Recast
+        ['armor']   = { 1, 2 },     -- Cast and Recast
+        ['world']   = { 1, 2 },     -- Cast and Recast
+        ['guild']   = { 1, 2 },     -- Cast and Recast
+        ['ava']     = { 1, 2 }      -- Cast and Recast
+    }
 
+    -- Execute register functions
+    for skillType, blockTypes in pairs(skillTypeBlockTypes) do
+        for _, ability in ipairs({1, 2, 3, 4, 5, 6}) do
+            for _, morph in ipairs({0, 1, 2}) do
                 for _, blockType in ipairs(blockTypes) do
                     register(skillType, ability, morph, blockType)
                 end

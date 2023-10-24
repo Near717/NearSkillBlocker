@@ -1,35 +1,6 @@
 local dbg = NEAR_SB.utils.dbg
 local color = NEAR_SB.utils.color
 local skilldata = NEAR_SB.skilldata
-local sv = NEAR_SB.ASV
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
---[[ local function createSkillEntry()
-    return {
-        [0] = false,
-        [1] = false,
-        [2] = false,
-    }
-end
-
-NEAR_SB.recastHandler = {}
--- Create handlers for recast block
-for _, skillType in ipairs({ 'class', 'weapon', 'armor', 'world', 'guild', 'ava' }) do
-    local addon	= NEAR_SB
-    addon.recastHandler[skillType] = {}
-
-    for skillLine, v in pairs(addon.skilldata[skillType]) do
-        addon.recastHandler[skillType][skillLine] = {}
-
-        for ability in pairs(v) do
-            if type(ability) == 'number' then
-                addon.recastHandler[skillType][skillLine][ability] = createSkillEntry()
-            end
-        end
-
-    end
-end ]]
-
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ---@param skillType string
@@ -39,7 +10,7 @@ end ]]
 ---@param abilityId integer
 ---@return boolean
 function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
-    sv = sv or NEAR_SB.ASV
+    local sv = NEAR_SB.ASV
 
 	--[[ Debug ]] if sv.debug_recast then d(dbg.open) d(dbg.lightGrey .. 'start of BlockRecasts') end
 
@@ -48,40 +19,20 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
     local abilityName = skilldata[skillType][skillLine][ability][morph].name
 	--[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'abilityId: '..abilityId.. '     abilityName: '..abilityName) end
 
-    -- local recastHandler = NEAR_SB.recastHandler[skillType][skillLine][ability][morph]
-    local recastHandler
+    local recastHandler = false
 
     local function UpdateRecastHandler(slotNum)
         local timeRemainingMS = GetActionSlotEffectTimeRemaining(slotNum)
         --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'timeRemainingMS = '..timeRemainingMS) end
-        if timeRemainingMS > 0 then
-            recastHandler = true
-        else
-            recastHandler = false
-        end
+        recastHandler = timeRemainingMS > 0
     end
 
-    if abilityId == GetSlotBoundId(3) then
-        --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'slotNum = 3') end
-        UpdateRecastHandler(3)
-    elseif abilityId == GetSlotBoundId(4) then
-        --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'slotNum = 4') end
-        UpdateRecastHandler(4)
-    elseif abilityId == GetSlotBoundId(5) then
-        --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'slotNum = 5') end
-        UpdateRecastHandler(5)
-    elseif abilityId == GetSlotBoundId(6) then
-        --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'slotNum = 6') end
-        UpdateRecastHandler(6)
-    elseif abilityId == GetSlotBoundId(7) then
-        --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'slotNum = 7') end
-        UpdateRecastHandler(7)
-    elseif abilityId == GetSlotBoundId(8) then
-        --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'slotNum = 8') end
-        UpdateRecastHandler(8)
-    else
-        --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'slotNum = couldn\'t define') end
-        recastHandler = false
+    for slotNum = 3, 8 do
+        if abilityId == GetSlotBoundId(slotNum) then
+            --[[ Debug ]] if sv.debug_recast then d(dbg.white .. 'slotNum = ' .. slotNum) end
+            UpdateRecastHandler(slotNum)
+            break
+        end
     end
 
 	--[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'recastHandler = '.. tostring(recastHandler)) end
@@ -101,17 +52,16 @@ end
 ---@param morph integer
 ---@return boolean
 function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
-    sv = sv or NEAR_SB.ASV
+    local sv = NEAR_SB.ASV
     local sv_skilldata = sv.skilldata[skillType]
 
-    local str_reg = GetString(NEARSB_registered)
 	local str_unreg = GetString(NEARSB_unregistered)
 
 	--[[ Debug ]] if sv.debug_pvp then d(dbg.open) d(dbg.lightGrey .. 'start of BlockPvP') end
 
-    local block
+    local block = true
 
-    -- check if its not blocking the skill while on pvp zones and is not blocking everything on pvp
+    -- check if its not blocking the skill in pvp zones and not blocking everything in pvp
 	if not sv_skilldata[skillLine][ability][morph].pvp and not sv.blockPvP then
 
 	    --[[ Debug ]] if sv.debug_pvp then d(dbg.white.. 'skillType: '..skillType.. '     skillLine: '..skillLine.. '\n'..color.white..'          ability: '..ability.. '     morph: '..morph) end
@@ -120,7 +70,7 @@ function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
         local abilityName = skilldata[skillType][skillLine][ability][morph].name
 	    --[[ Debug ]] if sv.debug_pvp then d(dbg.white.. 'abilityId: '..abilityId.. '     abilityName: '..abilityName) end
 
-        -- check if its on a pvp zone
+        -- check if player is in a pvp zone
 		if IsPlayerInAvAWorld() or IsActiveWorldBattleground() then
 			--[[ Debug ]] if sv.debug_pvp then d(dbg.white .. 'player is on pvp zone') end
             block = false -- tell libsb to not block
@@ -133,10 +83,12 @@ function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
 		else
 			--[[ Debug ]] if sv.debug_pvp then d(dbg.white .. 'player is NOT on pvp zone') end
             block = true -- tell libsb to block
-            if sv_skilldata[skillLine][ability][morph].msg.pvp ~= true then sv_skilldata[skillLine][ability][morph].msg.pvp = true end
+
+            -- set the PvP message to true
+            if sv_skilldata[skillLine][ability][morph].msg.pvp ~= true then
+                sv_skilldata[skillLine][ability][morph].msg.pvp = true
+            end
 		end
-	else
-		block = true -- is blocking the skill or all on pvp, tell libsb to block
 	end
 
 	--[[ Debug ]] if sv.debug_pvp then d(dbg.white.. 'block = '.. tostring(block)) end
@@ -152,7 +104,7 @@ end
 
 ---@return boolean
 function NEAR_SB.BlockOnMaxCrux()
-    sv = sv or NEAR_SB.ASV
+    local sv = NEAR_SB.ASV
 
 	--[[ Debug ]] if sv.debug_crux then d(dbg.open) d(dbg.lightGrey .. 'start of BlockOnMaxCrux') end
 
@@ -185,27 +137,23 @@ end
 ---@param blockType integer
 ---@return boolean
 function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, blockType)
-    sv = sv or NEAR_SB.ASV
+    local sv = NEAR_SB.ASV
 
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of suppressCheck') end
 
-    local block
+    local block = false
 
-    if sv.suppressBlock then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == true') end
-        block = false
-    elseif blockType == 1 then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 1, running NEAR_SB.BlockPvP') end
-        block = NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
-    elseif blockType == 2 then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 2, running NEAR_SB.BlockRecasts') end
-        block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
-    elseif blockType == 3 then
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 3, running NEAR_SB.BlockOnMaxCrux') end
-        block = NEAR_SB.BlockOnMaxCrux()
-    else
-        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == not defined, defaulting block = true') end
-        block = true
+    if not sv.suppressBlock then
+        if blockType == 1 then
+            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 1, running NEAR_SB.BlockPvP') end
+            block = NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
+        elseif blockType == 2 then
+            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 2, running NEAR_SB.BlockRecasts') end
+            block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
+        elseif blockType == 3 then
+            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 3, running NEAR_SB.BlockOnMaxCrux') end
+            block = NEAR_SB.BlockOnMaxCrux()
+        end
     end
 
     --[[ Debug ]] if sv.debug then d(dbg.white.. 'block = '.. tostring(block)) end

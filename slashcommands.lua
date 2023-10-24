@@ -1,7 +1,6 @@
 NEAR_SB.slash_commands = {}
 local addon = NEAR_SB
 local dbg = NEAR_SB.utils.dbg
-local sv = NEAR_SB.ASV
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function NEAR_SB.RegisterSlashCommands()
@@ -16,7 +15,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function NEAR_SB.slash_commands.suppressBlock()
-	sv = sv or NEAR_SB.ASV
+	local sv = NEAR_SB.ASV
 	local cmdMessageType = sv.cmdMessageType
 
 	--[[ Debug ]] if sv.debug then d(dbg.white .. 'triggered slash_commands.suppressBlock') end
@@ -36,7 +35,7 @@ function NEAR_SB.slash_commands.suppressBlock()
 end
 
 function NEAR_SB.slash_commands.blockPvP()
-	sv = sv or NEAR_SB.ASV
+	local sv = NEAR_SB.ASV
 	local cmdMessageType = sv.cmdMessageType
 
 	--[[ Debug ]] if sv.debug then d(dbg.white .. 'triggered slash_commands.blockPvP') end

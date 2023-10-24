@@ -1,9 +1,8 @@
 local addon = NEAR_SB
 local dbg = NEAR_SB.utils.dbg
-local sv = NEAR_SB.ASV
 
 local function cmdMessageTypeExample()
-	sv = sv or NEAR_SB.ASV
+	local sv = NEAR_SB.ASV
 
 	local str = "Example message"
 
@@ -21,7 +20,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function NEAR_SB.SetupSettings()
 	local LAM2 = LibAddonMenu2
-	sv = sv or NEAR_SB.ASV
+	local sv = NEAR_SB.ASV
 
 	local libSkillBlockUpdateNeeded = false
 

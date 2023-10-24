@@ -121,6 +121,33 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+---@return boolean
+function NEAR_SB.BlockOnMaxCrux()
+    sv = sv or NEAR_SB.ASV
+
+	--[[ Debug ]] if sv.debug_crux then d(dbg.open) d(dbg.lightGrey .. 'start of BlockOnMaxCrux') end
+
+    local blockHandler = false
+
+    local unitTag = 'player'
+    for buffIndex = 1, GetNumBuffs(unitTag) do
+        local _, _, _, _, stackCount, _, _, _, _, _, buffAbilityId, _, _ = GetUnitBuffInfo(unitTag, buffIndex)
+        if buffAbilityId == 184220 and stackCount == 3 then -- Crux abilityId = 184220
+            blockHandler = true
+        end
+    end
+
+    --[[ Debug ]] if sv.debug_crux then d(dbg.white.. 'blockHandler = '.. tostring(blockHandler)) end
+
+	--[[ Debug ]] if sv.debug_crux then d(dbg.grey.. 'end of BlockOnMaxCrux') d(dbg.close) end
+
+    return blockHandler
+end
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 ---@param skillType string
 ---@param skillLine string|integer
 ---@param ability integer
@@ -144,6 +171,9 @@ function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, 
     elseif blockType == 2 then
         --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 2, running NEAR_SB.BlockRecasts') end
         block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
+    elseif blockType == 3 then
+        --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 3, running NEAR_SB.BlockOnMaxCrux') end
+        block = NEAR_SB.BlockOnMaxCrux()
     else
         --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == not defined, defaulting block = true') end
         block = true

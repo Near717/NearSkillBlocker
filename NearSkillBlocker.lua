@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.2.1",
+	version		= "3.3.0",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -15,17 +15,16 @@ local LSB		= LibSkillBlocker
 
 function NEAR_SB.UpdateRegistered()
 	local abilityIds = LSB.GetRegisteredAbilityIdsByAddon(addon.name)
-	local abilityNames = nil
+    local abilityNames_table = {} -- Create a table to store ability names
 	if abilityIds ~= nil then
-		for k, v in pairs(abilityIds) do
-			local abilityName = GetAbilityName(k)
-			if abilityNames == nil then
-				abilityNames = abilityName
-			else
-				abilityNames = abilityNames..'\n'..abilityName
-			end
-		end
-	end
+        for k, v in pairs(abilityIds) do
+            local abilityName = GetAbilityName(k)
+            table.insert(abilityNames_table, abilityName)
+        end
+    end
+    table.sort(abilityNames_table) -- Sort the ability names alphabetically
+
+    local abilityNames = table.concat(abilityNames_table, '\n') -- Join the sorted names with '\n'
 	NEAR_SB.registeredAbilityNames = abilityNames
 end
 
@@ -43,6 +42,8 @@ local function register(skillType, ability, morph, blockType)
 
     local str_reg = GetString(NEARSB_registered)
 	local str_unreg = GetString(NEARSB_unregistered)
+    local str_crux = GetString(NEARSB_un_reg_crux)
+    local str_recast = GetString(NEARSB_un_reg_recast)
 
     local skilldata    = addon.skilldata[skillType]
 	local sv_skilldata = sv.skilldata[skillType]
@@ -51,8 +52,9 @@ local function register(skillType, ability, morph, blockType)
         if sv_skilldata[skillLine][ability] ~= nil then
             local block = sv_skilldata[skillLine][ability][morph].block
             local block_recast = sv_skilldata[skillLine][ability][morph].block_recast
+            local block_onMaxCrux = sv_skilldata[skillLine][ability][morph].block_onMaxCrux ~= nil and sv_skilldata[skillLine][ability][morph].block_onMaxCrux or false
 
-            if (block and blockType == 1 and not block_recast) or (block_recast and blockType == 2) then
+            if (block and blockType == 1 and not block_recast and not block_onMaxCrux) or (block_recast and blockType == 2 and not block_onMaxCrux) or (block_onMaxCrux and blockType == 3) then
                 -- Register block
                 LSB.RegisterSkillBlock(addon.name, v[ability][morph].id, function()
                     return addon.suppressCheck(skillType, skillLine, ability, morph, v[ability][morph].id, blockType)
@@ -71,12 +73,13 @@ local function register(skillType, ability, morph, blockType)
                 -- Send message if toggled
                 if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or
                    (blockType == 1 and sv.debug_init_cast) or
-                   (blockType == 2 and sv.debug_init_recast) then
-                    d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. (blockType == 2 and ' recast' or ''))
+                   (blockType == 2 and sv.debug_init_recast) or
+                   (blockType == 3 and sv.debug_init_crux) then
+                    d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_crux or ''))
                 end
 
                 sv_skilldata[skillLine][ability][morph].msg.re_cast = false
-            elseif not block and not block_recast then
+            elseif not block and not block_recast and not block_onMaxCrux then
                 -- Unregister block
                 LSB.UnregisterSkillBlock(addon.name, v[ability][morph].id)
 
@@ -91,8 +94,9 @@ local function register(skillType, ability, morph, blockType)
                 -- Send message if toggled
                 if (sv.message and sv_skilldata[skillLine][ability][morph].msg.re_cast) or
                    (blockType == 1 and sv.debug_init_cast) or
-                   (blockType == 2 and sv.debug_init_recast) then
-                    d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. (blockType == 2 and ' recast' or ''))
+                   (blockType == 2 and sv.debug_init_recast) or
+                   (blockType == 3 and sv.debug_init_crux and sv_skilldata[skillLine][ability][morph].block_onMaxCrux ~= nil) then
+                    d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_crux or ''))
                 end
 
                 sv_skilldata[skillLine][ability][morph].msg.re_cast = false
@@ -108,12 +112,18 @@ function NEAR_SB.Initialize()
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.Initialize') end
 
 	-- Execute register functions
-
-    local blockTypes = { 1, 2 } -- Cast and Recast
-
 	for _, skillType in ipairs({ 'class', 'weapon', 'armor', 'world', 'guild', 'ava' }) do
         for _, ability in ipairs({ 1, 2, 3, 4, 5, 6 }) do
             for _, morph in ipairs({ 0, 1, 2 }) do
+                local blockTypes
+                if skillType == 'class' then
+                    blockTypes = { 1, 2, 3 } -- Cast, Recast and onMaxCrux
+                    if sv.debug then d('blockTypes == { 1, 2, 3 }') end
+                else
+                    blockTypes = { 1, 2 } -- Cast and Recast
+                    if sv.debug then d('blockTypes == { 1, 2 }') end
+                end
+
                 for _, blockType in ipairs(blockTypes) do
                     register(skillType, ability, morph, blockType)
                 end

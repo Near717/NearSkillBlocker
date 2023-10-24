@@ -14,7 +14,6 @@ NearSkillBlocker.lua
 skilldata.lua
 defaults.lua
 utils.lua
-const.lua
 
 blockHandlers.lua
 slashcommands.lua

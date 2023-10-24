@@ -31,20 +31,6 @@ function NEAR_SB.SetupSettings()
 	---------------------------------------------------------------------------------
 	local class_name	= NEAR_SB.classdata.name
 	---------------------------------------------------------------------------------
-	local class 		= NEAR_SB.skilldata.class
-	-- local weapon 		= NEAR_SB.skilldata.weapon
-	-- local armor 			= NEAR_SB.skilldata.armor
-	-- local world 			= NEAR_SB.skilldata.world
-	-- local guild 			= NEAR_SB.skilldata.guild
-	-- local ava 			= NEAR_SB.skilldata.ava
-	---------------------------------------------------------------------------------
-	local sv_class		= NEAR_SB.ASV.skilldata.class
-	-- local sv_weapon		= NEAR_SB.ASV.skilldata.weapon
-	-- local sv_armor 		= NEAR_SB.ASV.skilldata.armor
-	-- local sv_world 		= NEAR_SB.ASV.skilldata.world
-	-- local sv_guild		= NEAR_SB.ASV.skilldata.guild
-	-- local sv_ava			= NEAR_SB.ASV.skilldata.ava
-	---------------------------------------------------------------------------------
 
 	local function UpdateVars()
 		-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
@@ -77,41 +63,22 @@ function NEAR_SB.SetupSettings()
 	    return dropdown
 	end
 
-	control_options.dk = {
-	    [1] = createDropdown(class.Flame,		sv_class.Flame),	-- Flame
-	    [2] = createDropdown(class.Draconic,	sv_class.Draconic),	-- Draconic
-	    [3] = createDropdown(class.Earth,		sv_class.Earth),	-- Earth
+	local classes = {
+		{class = 'dk', "Flame", "Draconic", "Earth"},
+		{class = 'sc', "Dark", "Daedric", "Storm"},
+		{class = 'nb', "Assassin", "Shadow", "Siphon"},
+		{class = 'wa', "Animal", "Green", "Winter"},
+		{class = 'nm', "Grave", "Bone", "Living"},
+		{class = 'tp', "Spear", "Dawn", "Resto"},
+		{class = 'ar', "Herald", "Soldier", "Curative"}
 	}
-	control_options.sc = {
-	    [1] = createDropdown(class.Dark,		sv_class.Dark),		-- Dark
-	    [2] = createDropdown(class.Daedric,		sv_class.Daedric),	-- Daedric
-	    [3] = createDropdown(class.Storm,		sv_class.Storm),	-- Storm
-	}
-	control_options.nb = {
-	    [1] = createDropdown(class.Assassin,	sv_class.Assassin),	-- Assassin
-	    [2] = createDropdown(class.Shadow,		sv_class.Shadow),	-- Shadow
-	    [3] = createDropdown(class.Siphon,		sv_class.Siphon),	-- Siphon
-	}
-	control_options.wa = {
-	    [1] = createDropdown(class.Animal,		sv_class.Animal),	-- Animal
-	    [2] = createDropdown(class.Green,		sv_class.Green),	-- Green
-	    [3] = createDropdown(class.Winter,		sv_class.Winter),	-- Winter
-	}
-	control_options.nm = {
-	    [1] = createDropdown(class.Grave,		sv_class.Grave),	-- Grave
-	    [2] = createDropdown(class.Bone,		sv_class.Bone),		-- Bone
-	    [3] = createDropdown(class.Living,		sv_class.Living),	-- Living
-	}
-	control_options.tp = {
-	    [1] = createDropdown(class.Spear,		sv_class.Spear),	-- Spear
-	    [2] = createDropdown(class.Dawn,		sv_class.Dawn),		-- Dawn
-	    [3] = createDropdown(class.Resto,		sv_class.Resto),	-- Resto
-	}
-	control_options.ar = {
-	    [1] = createDropdown(class.Herald,		sv_class.Herald),	-- Herald
-	    [2] = createDropdown(class.Soldier,		sv_class.Soldier),	-- Soldier
-	    [3] = createDropdown(class.Curative,	sv_class.Curative),	-- Curative
-	}
+
+	for _, skillLine in ipairs(classes) do
+	    control_options[skillLine.class] = {}
+	    for i = 1, 3 do
+	        control_options[skillLine.class][i] = createDropdown(addon.skilldata['class'][(skillLine[i])], addon.ASV.skilldata["class"][(skillLine[i])])
+	    end
+	end
 
 	for _, skillType in ipairs({ 'weapon', 'armor', 'world', 'guild', 'ava' }) do
 		control_options[skillType] = {}
@@ -129,35 +96,6 @@ function NEAR_SB.SetupSettings()
 			control_options[skillType][i] = createDropdown(addon.skilldata[skillType][skillLineIndex], addon.ASV.skilldata[skillType][skillLineIndex])
 		end
 	end
-
-	-- control_options.weapon = {
-	--     [1] = createDropdown(weapon[1],			sv_weapon[1]),		-- Two Handed
-	--     [2] = createDropdown(weapon[2],			sv_weapon[2]),		-- One Hand and Shield
-	--     [3] = createDropdown(weapon[3],			sv_weapon[3]),		-- Dual Wield
-	--     [4] = createDropdown(weapon[4],			sv_weapon[4]),		-- Bow
-	--     [5] = createDropdown(weapon[5],			sv_weapon[5]),		-- Destruction Staff
-	--     [6] = createDropdown(weapon[6],			sv_weapon[6]),		-- Restoration Staff
-	-- }
-	-- control_options.armor = {
-	--     [1] = createDropdown(armor[1],			sv_armor[1]),		-- Light Armor
-	--     [2] = createDropdown(armor[2],			sv_armor[2]),		-- Medium Armor
-	--     [3] = createDropdown(armor[3],			sv_armor[3]),		-- Heavy Armor
-	-- }
-	-- control_options.world = {
-	--     [1] = createDropdown(world[4],			sv_world[4]),		-- Soul Magic
-	--     [2] = createDropdown(world[5],			sv_world[5]),		-- Vampire
-	--     [3] = createDropdown(world[6],			sv_world[6]),		-- Werewolf
-	-- }
-	-- control_options.guild = {
-	--     [1] = createDropdown(guild[2],			sv_guild[2]),		-- Fighters Guild
-	--     [2] = createDropdown(guild[3],			sv_guild[3]),		-- Mages Guild
-	--     [3] = createDropdown(guild[4],			sv_guild[4]),		-- Psijic Order
-	--     [4] = createDropdown(guild[6],			sv_guild[6]),		-- Undaunted
-	-- }
-	-- control_options.ava = {
-	--     [1] = createDropdown(ava[1],			sv_ava[1]),			-- Assault
-	--     [2] = createDropdown(ava[3],			sv_ava[3]),			-- Support
-	-- }
 
 	local additional_control_options = {
 		b_cast = {
@@ -455,75 +393,6 @@ function NEAR_SB.SetupSettings()
 		{
 			type = 'description',
 			text = GetString(NEARSB_LAM_cmd_text),
-		},
-		-- TODO: comment out:
-		{
-			type = 'divider',
-			width = 'full',
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log',
-			getFunc = function() return sv.debug end,
-			setFunc = function(v) sv.debug = v end,
-			default = addon.defaults.debug,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (init cast)',
-			getFunc = function() return sv.debug_init_cast end,
-			setFunc = function(v) sv.debug_init_cast = v end,
-			default = addon.defaults.debug_init_cast,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (init recast)',
-			getFunc = function() return sv.debug_init_recast end,
-			setFunc = function(v) sv.debug_init_recast = v end,
-			default = addon.defaults.debug_init_recast,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (init crux)',
-			getFunc = function() return sv.debug_init_crux end,
-			setFunc = function(v) sv.debug_init_crux = v end,
-			default = addon.defaults.debug_init_crux,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (init pvp)',
-			getFunc = function() return sv.debug_init_pvp end,
-			setFunc = function(v) sv.debug_init_pvp = v end,
-			default = addon.defaults.debug_init_pvp,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (pvp functions)',
-			getFunc = function() return sv.debug_pvp end,
-			setFunc = function(v) sv.debug_pvp = v end,
-			default = addon.defaults.debug_pvp,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (recast functions)',
-			getFunc = function() return sv.debug_recast end,
-			setFunc = function(v) sv.debug_recast = v end,
-			default = addon.defaults.debug_recast,
-			warning = 'will flood chat with debug messages'
-		},
-		{
-			type	= 'checkbox',
-			name	= 'Debug log (crux functions)',
-			getFunc = function() return sv.debug_crux end,
-			setFunc = function(v) sv.debug_crux = v end,
-			default = addon.defaults.debug_crux,
-			warning = 'will flood chat with debug messages'
 		},
 	}
 	LAM2:RegisterOptionControls(addon.name, optionsTable)

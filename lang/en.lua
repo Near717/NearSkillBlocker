@@ -44,9 +44,10 @@ local strings = {
     NEARSB_LAM_skillsel_name        = 'Skill selector',
     NEARSB_LAM_classsel_name        = 'Class selector',
     NEARSB_LAM_cmd_text             =
-     'Command to open this menu: \n"/skillblocker"' .. '\n\n' ..
-     'Command to toggle block suppression: \n"/sb/suppressblock"' .. '\n\n'..
-     'Command to toggle PvP block/unblock: \n"/sb/blockpvp"',
+     'Commands:' .. '\n\n' ..
+     'Open this menu: \n"/skillblocker"' .. '\n\n' ..
+     'Toggle block suppression: \n"/sb/suppressblock"' .. '\n\n'..
+     'Toggle PvP block: \n"/sb/blockpvp"',
     NEARSB_LAM_reglist_name         = 'Currently registered',
 
 

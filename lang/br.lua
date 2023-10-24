@@ -5,7 +5,7 @@ local strings = {
 
     NEARSB_registered               = 'Registrado',
     NEARSB_unregistered             = 'Desregistrado',
-    -- NEARSB_un_reg_recast            = ' recast', -- manter o mesmo
+    -- NEARSB_un_reg_recast            = ' recast', -- manter o original
     NEARSB_un_reg_crux              = ' para Crux máximo',
 
     NEARSB_suppressblock_enabled    = 'Supressão de bloqueio ativado',
@@ -44,9 +44,10 @@ local strings = {
     NEARSB_LAM_skillsel_name        = 'Seletor de habilidades',
     NEARSB_LAM_classsel_name        = 'Seletor de classes',
     NEARSB_LAM_cmd_text             =
-     'Comando para abrir este menu: \n"/skillblocker"' .. '\n\n' ..
-     'Comando para alternar supressão de bloqueio: \n"/sb/suppressblock"' .. '\n\n'..
-     'Comando para alternar bloqueio/desbloqueio em PvP: \n"/sb/blockpvp"',
+     'Comandos:' .. '\n\n' ..
+     'Abrir este menu: \n"/skillblocker"' .. '\n\n' ..
+     'Alternar supressão de bloqueio: \n"/sb/suppressblock"' .. '\n\n'..
+     'Alternar bloqueio em PvP: \n"/sb/blockpvp"',
     NEARSB_LAM_reglist_name         = 'Atualmente registrado',
 
 
@@ -56,7 +57,7 @@ local strings = {
     NEARSB_LAM_co_bpvp_name         = 'Bloquear em PvP',
     NEARSB_LAM_co_bpvp_tooltip      = 'Essa configuração é sobrescrita por: "Alternar bloqueio em zonas de PvP"'..'\nE sobrescreve: "Bloquear cast"'..'\n"Bloquear recast" atualmente não suportado.',
     NEARSB_LAM_co_bonMaxCrux_name   = 'Bloquear em Crux máximo',
-    NEARSB_LAM_co_bonMaxCrux_tooltip = 'Previne cast da habilidade se o player tiver 3 stacks de Crux',
+    NEARSB_LAM_co_bonMaxCrux_tooltip = 'Previne uso da habilidade se o player tiver 3 stacks de Crux',
 }
 
 

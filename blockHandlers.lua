@@ -4,6 +4,34 @@ local skilldata = NEAR_SB.skilldata
 local sv = NEAR_SB.ASV
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+--[[ local function createSkillEntry()
+    return {
+        [0] = false,
+        [1] = false,
+        [2] = false,
+    }
+end
+
+NEAR_SB.recastHandler = {}
+-- Create handlers for recast block
+for _, skillType in ipairs({ 'class', 'weapon', 'armor', 'world', 'guild', 'ava' }) do
+    local addon	= NEAR_SB
+    addon.recastHandler[skillType] = {}
+
+    for skillLine, v in pairs(addon.skilldata[skillType]) do
+        addon.recastHandler[skillType][skillLine] = {}
+
+        for ability in pairs(v) do
+            if type(ability) == 'number' then
+                addon.recastHandler[skillType][skillLine][ability] = createSkillEntry()
+            end
+        end
+
+    end
+end ]]
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ---@param skillType string
 ---@param skillLine string|integer
 ---@param ability integer
@@ -20,7 +48,8 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
     local abilityName = skilldata[skillType][skillLine][ability][morph].name
 	--[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'abilityId: '..abilityId.. '     abilityName: '..abilityName) end
 
-    local recastHandler = NEAR_SB.recastHandler[skillType][skillLine][ability][morph]
+    -- local recastHandler = NEAR_SB.recastHandler[skillType][skillLine][ability][morph]
+    local recastHandler
 
     local function UpdateRecastHandler(slotNum)
         local timeRemainingMS = GetActionSlotEffectTimeRemaining(slotNum)

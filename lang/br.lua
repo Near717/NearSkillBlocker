@@ -6,7 +6,8 @@ local strings = {
     NEARSB_registered               = 'Registrado',
     NEARSB_unregistered             = 'Desregistrado',
     -- NEARSB_un_reg_recast            = ' recast', -- manter o original
-    NEARSB_un_reg_crux              = ' para Crux máximo',
+    NEARSB_un_reg_MaxCrux           = ' quando em Crux máximo',
+    NEARSB_un_reg_NotMaxCrux        = ' quando não em Crux máximo',
 
     NEARSB_suppressblock_enabled    = 'Supressão de bloqueio ativado',
     NEARSB_suppressblock_disabled   = 'Supressão de bloqueio desativado',
@@ -56,8 +57,10 @@ local strings = {
     NEARSB_LAM_co_brecast_warning   = 'Esta opção depende da configuração do jogo "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" estar ATIVADA! \n(no painel de configuração: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
     NEARSB_LAM_co_bpvp_name         = 'Bloquear em PvP',
     NEARSB_LAM_co_bpvp_tooltip      = 'Essa configuração é sobrescrita por: "Alternar bloqueio em zonas de PvP"'..'\nE sobrescreve: "Bloquear cast"'..'\n"Bloquear recast" atualmente não suportado.',
-    NEARSB_LAM_co_bonMaxCrux_name   = 'Bloquear em Crux máximo',
+    NEARSB_LAM_co_bonMaxCrux_name   = 'Bloquear quando em Crux máximo',
     NEARSB_LAM_co_bonMaxCrux_tooltip = 'Previne uso da habilidade se o player tiver 3 stacks de Crux',
+    NEARSB_LAM_co_bonNotMaxCrux_name = 'Bloquear quando não em Crux máximo',
+    NEARSB_LAM_co_bonNotMaxCrux_tooltip = 'Previne uso da habilidade se o player não tiver 3 stacks de Crux',
 }
 
 

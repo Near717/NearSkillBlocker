@@ -143,6 +143,23 @@ function NEAR_SB.SetupSettings()
 				end
 			end
 		},
+		b_onNotMaxCrux = {
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_co_bonNotMaxCrux_name),
+			tooltip	= GetString(NEARSB_LAM_co_bonNotMaxCrux_tooltip),
+			getFunc = function() return (choice).block_onNotMaxCrux end,
+			setFunc = function(v)
+				(choice).block_onNotMaxCrux, (choice).msg.re_cast = v, true
+				UpdateVars()
+			end,
+			disabled = function()
+				if choice_class == 'ar' and (choice).block_onNotMaxCrux ~= nil then
+					return false
+				else
+					return true
+				end
+			end
+		},
 	}
 
 	-- Merge the existing control_options and the additional_control_options
@@ -290,6 +307,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_recast,
 				control_options.b_pvp,
 				control_options.b_onMaxCrux,
+				control_options.b_onNotMaxCrux,
 			},
 		},
 		---------------------------------------------------------------------------------

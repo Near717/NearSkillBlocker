@@ -6,7 +6,8 @@ local strings = {
     NEARSB_registered               = 'Registered',
     NEARSB_unregistered             = 'Unregistered',
     NEARSB_un_reg_recast            = ' recast',
-    NEARSB_un_reg_crux              = ' for max Crux',
+    NEARSB_un_reg_MaxCrux           = ' for max Crux',
+    NEARSB_un_reg_NotMaxCrux        = ' for not max Crux',
 
     NEARSB_suppressblock_enabled    = 'Enabled suppress block',
     NEARSB_suppressblock_disabled   = 'Disabled suppress block ',
@@ -56,8 +57,10 @@ local strings = {
     NEARSB_LAM_co_brecast_warning   = 'This option relies on the game setting "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" being ON! \n(under the setting panel: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
     NEARSB_LAM_co_bpvp_name         = 'Block in PvP',
     NEARSB_LAM_co_bpvp_tooltip      = 'This setting is overwritten by: "'..GetString(NEARSB_LAM_bpvp_name)..'"'..'\nAnd overwrites: "'..GetString(NEARSB_LAM_co_bcast_name)..'"'..'\n"'..GetString(NEARSB_LAM_co_brecast_name)..'" currently not supported.',
-    NEARSB_LAM_co_bonMaxCrux_name   = 'Block on max Crux',
+    NEARSB_LAM_co_bonMaxCrux_name   = 'Block when on max Crux',
     NEARSB_LAM_co_bonMaxCrux_tooltip = 'Prevents ability cast if player has 3 stacks of Crux',
+    NEARSB_LAM_co_bonNotMaxCrux_name   = 'Block when not on max Crux',
+    NEARSB_LAM_co_bonNotMaxCrux_tooltip = 'Prevents ability cast if player doesn\'t have 3 stacks of Crux',
 }
 
 

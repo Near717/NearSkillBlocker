@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.3.0",
+	version		= "3.4.0",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -42,7 +42,8 @@ local function register(skillType, ability, morph, blockType)
 
     local str_reg = GetString(NEARSB_registered)
 	local str_unreg = GetString(NEARSB_unregistered)
-    local str_crux = GetString(NEARSB_un_reg_crux)
+    local str_maxcrux = GetString(NEARSB_un_reg_MaxCrux)
+    local str_notmaxcrux = GetString(NEARSB_un_reg_NotMaxCrux)
     local str_recast = GetString(NEARSB_un_reg_recast)
 
     local skilldata    = addon.skilldata[skillType]
@@ -64,12 +65,14 @@ local function register(skillType, ability, morph, blockType)
             local block = morphData.block
             local block_recast = morphData.block_recast
             local block_onMaxCrux = morphData.block_onMaxCrux or false
+            local block_onNotMaxCrux = morphData.block_onNotMaxCrux or false
 
             local abilityId = v[ability][morph].id
 
-            if (block and blockType == 1 and not block_recast and not block_onMaxCrux) or
-               (block_recast and blockType == 2 and not block_onMaxCrux) or
-               (block_onMaxCrux and blockType == 3) then
+            if (block and blockType == 1 and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
+               (block_recast and blockType == 2 and not block_onMaxCrux and not block_onNotMaxCrux) or
+               (block_onMaxCrux and blockType == 3 and not block_onNotMaxCrux) or
+               (block_onNotMaxCrux and blockType == 4) then
                 -- Register block
                 registerBlock(abilityId, skillLine)
 
@@ -85,12 +88,12 @@ local function register(skillType, ability, morph, blockType)
                 if (sv.message and morphData.msg.re_cast) or
                    (blockType == 1 and sv.debug_init_cast) or
                    (blockType == 2 and sv.debug_init_recast) or
-                   (blockType == 3 and sv.debug_init_crux) then
-                    d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_crux or ''))
+                   ((blockType == 3 or blockType == 4) and sv.debug_init_crux) then
+                    d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_maxcrux or blockType == 4 and str_notmaxcrux or ''))
                 end
 
                 morphData.msg.re_cast = false
-            elseif not block and not block_recast and not block_onMaxCrux then
+            elseif not block and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux then
                 -- Unregister block
                 unregisterBlock(abilityId)
 
@@ -106,8 +109,8 @@ local function register(skillType, ability, morph, blockType)
                 if (sv.message and morphData.msg.re_cast) or
                    (blockType == 1 and sv.debug_init_cast) or
                    (blockType == 2 and sv.debug_init_recast) or
-                   (blockType == 3 and sv.debug_init_crux and morphData.block_onMaxCrux ~= nil) then
-                    d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_crux or ''))
+                   ((blockType == 3 or blockType == 4) and sv.debug_init_crux and (morphData.block_onMaxCrux ~= nil or morphData.block_onNotMaxCrux ~= nil)) then
+                    d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_maxcrux or blockType == 4 and str_notmaxcrux or ''))
                 end
 
                 morphData.msg.re_cast = false
@@ -123,7 +126,7 @@ function NEAR_SB.Initialize()
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.Initialize') end
 
     local skillTypeBlockTypes = {
-        ['class']   = { 1, 2, 3 },  -- Cast, Recast, and onMaxCrux
+        ['class']   = { 1, 2, 3, 4 },  -- Cast, Recast, onMaxCrux and onNotMaxCrux
         ['weapon']  = { 1, 2 },     -- Cast and Recast
         ['armor']   = { 1, 2 },     -- Cast and Recast
         ['world']   = { 1, 2 },     -- Cast and Recast

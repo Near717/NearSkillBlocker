@@ -129,6 +129,50 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+---@return boolean
+function NEAR_SB.BlockOnNotMaxCrux()
+    local sv = NEAR_SB.ASV
+
+	--[[ Debug ]] if sv.debug_crux then d(dbg.open) d(dbg.lightGrey .. 'start of BlockOnNotMaxCrux') end
+
+    local blockHandler = false
+
+    local listBuffs = {}
+
+    local unitTag = 'player'
+    for buffIndex = 1, GetNumBuffs(unitTag) do
+        local _, _, _, _, stackCount, _, _, _, _, _, buffAbilityId, _, _ = GetUnitBuffInfo(unitTag, buffIndex)
+        table.insert(listBuffs, buffAbilityId)
+        if buffAbilityId == 184220 and not (stackCount == 3) then -- Crux abilityId = 184220
+            blockHandler = true
+        end
+    end
+
+    if blockHandler == false then
+        local buffExists = false
+        for _, id in ipairs(listBuffs) do
+            if id == 184220 then
+                buffExists = true
+                break
+            end
+        end
+
+        if not buffExists then
+            blockHandler = true
+        end
+    end
+
+    --[[ Debug ]] if sv.debug_crux then d(dbg.white.. 'blockHandler = '.. tostring(blockHandler)) end
+
+	--[[ Debug ]] if sv.debug_crux then d(dbg.grey.. 'end of BlockOnNotMaxCrux') d(dbg.close) end
+
+    return blockHandler
+end
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 ---@param skillType string
 ---@param skillLine string|integer
 ---@param ability integer
@@ -153,6 +197,9 @@ function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, 
         elseif blockType == 3 then
             --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 3, running NEAR_SB.BlockOnMaxCrux') end
             block = NEAR_SB.BlockOnMaxCrux()
+        elseif blockType == 4 then
+            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 4, running NEAR_SB.BlockOnNotMaxCrux') end
+            block = NEAR_SB.BlockOnNotMaxCrux()
         end
     end
 

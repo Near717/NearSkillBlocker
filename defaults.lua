@@ -28,6 +28,7 @@ local function createSkillEntry(addCrux)
 
     if addCrux then
         data.block_onMaxCrux = false
+        data.block_onNotMaxCrux = false
     end
 
     return {

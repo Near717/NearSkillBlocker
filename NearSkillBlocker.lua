@@ -69,10 +69,10 @@ local function register(skillType, ability, morph, blockType)
 
             local abilityId = v[ability][morph].id
 
-            if (block and blockType == 1 and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
-               (block_recast and blockType == 2 and not block_onMaxCrux and not block_onNotMaxCrux) or
-               (block_onMaxCrux and blockType == 3 and not block_onNotMaxCrux) or
-               (block_onNotMaxCrux and blockType == 4) then
+            if (blockType == 1 and block and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
+               (blockType == 2 and block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
+               (blockType == 4 and block_onMaxCrux and not block_onNotMaxCrux) or
+               (blockType == 5 and block_onNotMaxCrux) then
                 -- Register block
                 registerBlock(abilityId, skillLine)
 
@@ -88,8 +88,8 @@ local function register(skillType, ability, morph, blockType)
                 if (sv.message and morphData.msg.re_cast) or
                    (blockType == 1 and sv.debug_init_cast) or
                    (blockType == 2 and sv.debug_init_recast) or
-                   ((blockType == 3 or blockType == 4) and sv.debug_init_crux) then
-                    d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_maxcrux or blockType == 4 and str_notmaxcrux or ''))
+                   ((blockType == 4 or blockType == 5) and sv.debug_init_crux) then
+                    d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name .. ((blockType == 2 and str_recast) or (blockType == 4 and str_maxcrux) or (blockType == 5 and str_notmaxcrux) or ''))
                 end
 
                 morphData.msg.re_cast = false
@@ -109,8 +109,8 @@ local function register(skillType, ability, morph, blockType)
                 if (sv.message and morphData.msg.re_cast) or
                    (blockType == 1 and sv.debug_init_cast) or
                    (blockType == 2 and sv.debug_init_recast) or
-                   ((blockType == 3 or blockType == 4) and sv.debug_init_crux and (morphData.block_onMaxCrux ~= nil or morphData.block_onNotMaxCrux ~= nil)) then
-                    d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. (blockType == 2 and str_recast or blockType == 3 and str_maxcrux or blockType == 4 and str_notmaxcrux or ''))
+                   ((blockType == 4 or blockType == 5) and sv.debug_init_crux and (morphData.block_onMaxCrux ~= nil or morphData.block_onNotMaxCrux ~= nil)) then
+                    d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name .. ((blockType == 2 and str_recast) or (blockType == 4 and str_maxcrux) or (blockType == 5 and str_notmaxcrux) or ''))
                 end
 
                 morphData.msg.re_cast = false
@@ -126,12 +126,12 @@ function NEAR_SB.Initialize()
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.Initialize') end
 
     local skillTypeBlockTypes = {
-        ['class']   = { 1, 2, 3, 4 },  -- Cast, Recast, onMaxCrux and onNotMaxCrux
-        ['weapon']  = { 1, 2 },     -- Cast and Recast
-        ['armor']   = { 1, 2 },     -- Cast and Recast
-        ['world']   = { 1, 2 },     -- Cast and Recast
-        ['guild']   = { 1, 2 },     -- Cast and Recast
-        ['ava']     = { 1, 2 }      -- Cast and Recast
+        ['class']   = { 1, 2, 3, 4, 5 },    -- Cast, Recast, OutOfCombat, onMaxCrux and onNotMaxCrux
+        ['weapon']  = { 1, 2, 3 },          -- Cast, OutOfCombat and Recast
+        ['armor']   = { 1, 2, 3 },          -- Cast, OutOfCombat and Recast
+        ['world']   = { 1, 2, 3 },          -- Cast, OutOfCombat and Recast
+        ['guild']   = { 1, 2, 3 },          -- Cast, OutOfCombat and Recast
+        ['ava']     = { 1, 2, 3 },          -- Cast, OutOfCombat and Recast
     }
 
     -- Execute register functions

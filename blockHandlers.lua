@@ -194,11 +194,11 @@ function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, 
         elseif blockType == 2 then
             --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 2, running NEAR_SB.BlockRecasts') end
             block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
-        elseif blockType == 3 then
-            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 3, running NEAR_SB.BlockOnMaxCrux') end
-            block = NEAR_SB.BlockOnMaxCrux()
         elseif blockType == 4 then
-            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 4, running NEAR_SB.BlockOnNotMaxCrux') end
+            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 4, running NEAR_SB.BlockOnMaxCrux') end
+            block = NEAR_SB.BlockOnMaxCrux()
+        elseif blockType == 5 then
+            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 5, running NEAR_SB.BlockOnNotMaxCrux') end
             block = NEAR_SB.BlockOnNotMaxCrux()
         end
     end

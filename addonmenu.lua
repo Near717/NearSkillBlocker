@@ -105,6 +105,13 @@ function NEAR_SB.SetupSettings()
 				(choice).block, (choice).msg.re_cast = v, true
 				UpdateVars()
 			end,
+			disabled = function()
+				if not (choice == '') then
+					return false
+				else
+					return true
+				end
+			end
 		},
 		b_recast = {
 			type	= 'checkbox',
@@ -115,6 +122,30 @@ function NEAR_SB.SetupSettings()
 				(choice).block_recast, (choice).msg.re_cast = v, true
 				UpdateVars()
 			end,
+			disabled = function()
+				if not (choice == '') then
+					return false
+				else
+					return true
+				end
+			end
+		},
+		b_notInCombat = {
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_co_bnotInCombat_name),
+			tooltip = GetString(NEARSB_LAM_co_bnotInCombat_tooltip),
+			getFunc = function() return (choice).block_notInCombat end,
+			setFunc = function(v)
+				(choice).block_notInCombat, (choice).msg.re_cast = v, true
+				UpdateVars()
+			end,
+			disabled = function()
+				if not (choice == '') then
+					return false
+				else
+					return true
+				end
+			end
 		},
 		b_pvp = {
 			type	= 'checkbox',
@@ -125,6 +156,13 @@ function NEAR_SB.SetupSettings()
 				(choice).pvp, (choice).msg.pvp = v, true
 				UpdateVars()
 			end,
+			disabled = function()
+				if not (choice == '') then
+					return false
+				else
+					return true
+				end
+			end
 		},
 		b_onMaxCrux = {
 			type	= 'checkbox',
@@ -136,7 +174,7 @@ function NEAR_SB.SetupSettings()
 				UpdateVars()
 			end,
 			disabled = function()
-				if choice_class == 'ar' and (choice).block_onMaxCrux ~= nil then
+				if not (choice == '') or choice_class == 'ar' and (choice).block_onMaxCrux ~= nil then
 					return false
 				else
 					return true
@@ -153,7 +191,7 @@ function NEAR_SB.SetupSettings()
 				UpdateVars()
 			end,
 			disabled = function()
-				if choice_class == 'ar' and (choice).block_onNotMaxCrux ~= nil then
+				if not (choice == '') or choice_class == 'ar' and (choice).block_onNotMaxCrux ~= nil then
 					return false
 				else
 					return true
@@ -305,6 +343,7 @@ function NEAR_SB.SetupSettings()
 				},
 				control_options.b_cast,
 				control_options.b_recast,
+				control_options.b_notInCombat,
 				control_options.b_pvp,
 				control_options.b_onMaxCrux,
 				control_options.b_onNotMaxCrux,
@@ -325,6 +364,7 @@ function NEAR_SB.SetupSettings()
 				control_options.weapon[6],
 				control_options.b_cast,
 				control_options.b_recast,
+				control_options.b_notInCombat,
 				control_options.b_pvp,
 			},
 		},
@@ -340,6 +380,7 @@ function NEAR_SB.SetupSettings()
 				control_options.armor[3],
 				control_options.b_cast,
 				control_options.b_recast,
+				control_options.b_notInCombat,
 				control_options.b_pvp,
 			},
 		},
@@ -355,6 +396,7 @@ function NEAR_SB.SetupSettings()
 				control_options.world[3],
 				control_options.b_cast,
 				control_options.b_recast,
+				control_options.b_notInCombat,
 				control_options.b_pvp,
 			},
 		},
@@ -371,6 +413,7 @@ function NEAR_SB.SetupSettings()
 				control_options.guild[4],
 				control_options.b_cast,
 				control_options.b_recast,
+				control_options.b_notInCombat,
 				control_options.b_pvp,
 			},
 		},
@@ -385,6 +428,7 @@ function NEAR_SB.SetupSettings()
 				control_options.ava[2],
 				control_options.b_cast,
 				control_options.b_recast,
+				control_options.b_notInCombat,
 				control_options.b_pvp,
 			},
 		},

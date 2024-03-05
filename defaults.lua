@@ -12,6 +12,7 @@ NEAR_SB.defaults = {
     debug_recast = false,
     debug_pvp = false,
     debug_crux = false,
+    debug_combat = false,
     message = false,
     blockPvP = true,
     showError = true,
@@ -24,7 +25,7 @@ NEAR_SB.defaults = {
 NEAR_SB.defaults.skilldata = {}  -- Toggle block skills/messages
 
 local function createSkillEntry(addCrux)
-    local data = { block = false, block_recast = false, pvp = true, msg = { re_cast = false, pvp = true, } }
+    local data = { block = false, block_recast = false, block_notInCombat = false , pvp = true, msg = { re_cast = false, pvp = true, } }
 
     if addCrux then
         data.block_onMaxCrux = false

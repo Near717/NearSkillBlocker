@@ -6,6 +6,7 @@ local strings = {
     NEARSB_registered               = 'Registrado',
     NEARSB_unregistered             = 'Desregistrado',
     -- NEARSB_un_reg_recast            = ' recast', -- manter o original
+    NEARSB_un_reg_notInCombat       = ' quando fora de combate',
     NEARSB_un_reg_MaxCrux           = ' quando em Crux máximo',
     NEARSB_un_reg_NotMaxCrux        = ' quando não em Crux máximo',
 
@@ -55,6 +56,8 @@ local strings = {
     NEARSB_LAM_co_bcast_name        = 'Bloquear cast',
     NEARSB_LAM_co_brecast_name      = 'Bloquear recast',
     NEARSB_LAM_co_brecast_warning   = 'Esta opção depende da configuração do jogo "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" estar ATIVADA! \n(no painel de configuração: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
+    NEARSB_LAM_co_bnotInCombat_name = 'Bloquear quando fora de combate',
+    NEARSB_LAM_co_bnotInCombat_tooltip = 'Previne uso da habilidade se o player estiver fora de combate',
     NEARSB_LAM_co_bpvp_name         = 'Bloquear em PvP',
     NEARSB_LAM_co_bpvp_tooltip      = 'Essa configuração é sobrescrita por: "Alternar bloqueio em zonas de PvP"'..'\nE sobrescreve: "Bloquear cast"'..'\n"Bloquear recast" atualmente não suportado.',
     NEARSB_LAM_co_bonMaxCrux_name   = 'Bloquear quando em Crux máximo',

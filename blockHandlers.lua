@@ -103,6 +103,32 @@ end
 
 
 ---@return boolean
+function NEAR_SB.BlockNotInCombat()
+    local sv = NEAR_SB.ASV
+
+    --[[ Debug ]] if sv.debug_combat then d(dbg.open) d(dbg.lightGrey .. 'start of BlockNotInCombat') end
+
+    local blockHandler = false
+
+    local unitTag = 'player'
+    local incombat = IsUnitInCombat(unitTag)
+
+    if not incombat then
+        blockHandler = true
+    end
+
+    --[[ Debug ]] if sv.debug_combat then d(dbg.white.. 'blockHandler = '.. tostring(blockHandler)) end
+
+    --[[ Debug ]] if sv.debug_combat then d(dbg.grey.. 'end of BlockNotInCombat') d(dbg.close) end
+
+    return blockHandler
+end
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+---@return boolean
 function NEAR_SB.BlockOnMaxCrux()
     local sv = NEAR_SB.ASV
 
@@ -194,6 +220,9 @@ function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, 
         elseif blockType == 2 then
             --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 2, running NEAR_SB.BlockRecasts') end
             block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
+        elseif blockType == 3 then
+            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 3, running NEAR_SB.BlockNotInCombat') end
+            block = NEAR_SB.BlockNotInCombat()
         elseif blockType == 4 then
             --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 4, running NEAR_SB.BlockOnMaxCrux') end
             block = NEAR_SB.BlockOnMaxCrux()

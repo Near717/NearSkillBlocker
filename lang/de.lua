@@ -9,10 +9,6 @@ local strings = {
     NEARSB_LAM_bpvp_name            = 'Blockieren in PvP zones AN/AUS',
     NEARSB_LAM_bpvp_tooltip         = 'Ausgewählte Fähigkeiten in AvA und Schlachtfeldern blockieren',
 
-    NEARSB_LAM_brc_name             = 'Blockiere erneutes Casten AN/AUS',
-    NEARSB_LAM_brc_tooltip          = 'Das erneute Ausführen von ausgewählte Fähigkeiten blockieren',
-    NEARSB_LAM_brc_warning          = 'AUS: Wird das erneute Ausführen nicht blockieren aber wird möglicherweise die Performance verbessern.',
-
     NEARSB_LAM_msg_name             = 'Registrierte/Unregistrierte Nachrichten',
 
     NEARSB_LAM_showE_name           = 'Ungültige Fähigkeitswarnung',

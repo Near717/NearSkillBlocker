@@ -35,6 +35,11 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
         end
     end
 
+    -- check status of blockPvP and overrides the handler if needed
+    if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+        recastHandler = false
+    end
+
 	--[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'recastHandler = '.. tostring(recastHandler)) end
 
 	--[[ Debug ]] if sv.debug_recast then d(dbg.grey.. 'end of BlockRecasts') d(dbg.close) end
@@ -102,8 +107,12 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+---@param skillType string
+---@param skillLine string|integer
+---@param ability integer
+---@param morph integer
 ---@return boolean
-function NEAR_SB.BlockNotInCombat()
+function NEAR_SB.BlockNotInCombat(skillType, skillLine, ability, morph)
     local sv = NEAR_SB.ASV
 
     --[[ Debug ]] if sv.debug_combat then d(dbg.open) d(dbg.lightGrey .. 'start of BlockNotInCombat') end
@@ -117,6 +126,11 @@ function NEAR_SB.BlockNotInCombat()
         blockHandler = true
     end
 
+    -- check status of blockPvP and overrides the handler if needed
+    if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+        blockHandler = false
+    end
+
     --[[ Debug ]] if sv.debug_combat then d(dbg.white.. 'blockHandler = '.. tostring(blockHandler)) end
 
     --[[ Debug ]] if sv.debug_combat then d(dbg.grey.. 'end of BlockNotInCombat') d(dbg.close) end
@@ -128,8 +142,12 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+---@param skillType string
+---@param skillLine string|integer
+---@param ability integer
+---@param morph integer
 ---@return boolean
-function NEAR_SB.BlockOnMaxCrux()
+function NEAR_SB.BlockOnMaxCrux(skillType, skillLine, ability, morph)
     local sv = NEAR_SB.ASV
 
 	--[[ Debug ]] if sv.debug_crux then d(dbg.open) d(dbg.lightGrey .. 'start of BlockOnMaxCrux') end
@@ -144,6 +162,11 @@ function NEAR_SB.BlockOnMaxCrux()
         end
     end
 
+    -- check status of blockPvP and overrides the handler if needed
+    if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+        blockHandler = false
+    end
+
     --[[ Debug ]] if sv.debug_crux then d(dbg.white.. 'blockHandler = '.. tostring(blockHandler)) end
 
 	--[[ Debug ]] if sv.debug_crux then d(dbg.grey.. 'end of BlockOnMaxCrux') d(dbg.close) end
@@ -155,8 +178,12 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+---@param skillType string
+---@param skillLine string|integer
+---@param ability integer
+---@param morph integer
 ---@return boolean
-function NEAR_SB.BlockOnNotMaxCrux()
+function NEAR_SB.BlockOnNotMaxCrux(skillType, skillLine, ability, morph)
     local sv = NEAR_SB.ASV
 
 	--[[ Debug ]] if sv.debug_crux then d(dbg.open) d(dbg.lightGrey .. 'start of BlockOnNotMaxCrux') end
@@ -186,6 +213,11 @@ function NEAR_SB.BlockOnNotMaxCrux()
         if not buffExists then
             blockHandler = true
         end
+    end
+
+    -- check status of blockPvP and overrides the handler if needed
+    if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+        blockHandler = false
     end
 
     --[[ Debug ]] if sv.debug_crux then d(dbg.white.. 'blockHandler = '.. tostring(blockHandler)) end
@@ -222,13 +254,13 @@ function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, 
             block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId)
         elseif blockType == 3 then
             --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 3, running NEAR_SB.BlockNotInCombat') end
-            block = NEAR_SB.BlockNotInCombat()
+            block = NEAR_SB.BlockNotInCombat(skillType, skillLine, ability, morph)
         elseif blockType == 4 then
             --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 4, running NEAR_SB.BlockOnMaxCrux') end
-            block = NEAR_SB.BlockOnMaxCrux()
+            block = NEAR_SB.BlockOnMaxCrux(skillType, skillLine, ability, morph)
         elseif blockType == 5 then
             --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 5, running NEAR_SB.BlockOnNotMaxCrux') end
-            block = NEAR_SB.BlockOnNotMaxCrux()
+            block = NEAR_SB.BlockOnNotMaxCrux(skillType, skillLine, ability, morph)
         end
     end
 

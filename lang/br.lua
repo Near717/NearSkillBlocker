@@ -33,10 +33,6 @@ local strings = {
     NEARSB_LAM_cmdmsgs_name         = 'Som para o alerta',
     NEARSB_LAM_cmdmsgs_tooltip      = 'Se deve ou não reproduzir som para a opção "Alerta" (mensagens no canto superior direito)',
 
-    NEARSB_LAM_brc_name             = 'Bloqueio de recast',
-    NEARSB_LAM_brc_tooltip          = 'Bloquear recast para habilidades selecionadas',
-    NEARSB_LAM_brc_warning          = 'DESATIVADO: Não irá bloquear recast, mas pode melhorar o desempenho.',
-
     NEARSB_LAM_msg_name             = 'Mensagens de registrado/desregistrado',
 
     NEARSB_LAM_showE_name           = 'Alerta de habilidade inválida',
@@ -59,7 +55,7 @@ local strings = {
     NEARSB_LAM_co_bnotInCombat_name = 'Bloquear quando fora de combate',
     NEARSB_LAM_co_bnotInCombat_tooltip = 'Previne uso da habilidade se o player estiver fora de combate',
     NEARSB_LAM_co_bpvp_name         = 'Bloquear em PvP',
-    NEARSB_LAM_co_bpvp_tooltip      = 'Essa configuração é sobrescrita por: "Alternar bloqueio em zonas de PvP"'..'\nE sobrescreve: "Bloquear cast"'..'\n"Bloquear recast" atualmente não suportado.',
+    NEARSB_LAM_co_bpvp_tooltip      = 'Essa configuração é sobrescrita por: "Alternar bloqueio em zonas de PvP"'..'\nDefine se suas escolhas de bloqueio devem ser considerados em zonas PvP ou não.',
     NEARSB_LAM_co_bonMaxCrux_name   = 'Bloquear quando em Crux máximo',
     NEARSB_LAM_co_bonMaxCrux_tooltip = 'Previne uso da habilidade se o player tiver 3 stacks de Crux',
     NEARSB_LAM_co_bonNotMaxCrux_name = 'Bloquear quando não em Crux máximo',

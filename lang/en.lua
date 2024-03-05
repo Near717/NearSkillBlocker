@@ -33,10 +33,6 @@ local strings = {
     NEARSB_LAM_cmdmsgs_name         = 'Alert sounds',
     NEARSB_LAM_cmdmsgs_tooltip      = 'Whether to output or not sound for the "Alert" option (top right messages)',
 
-    NEARSB_LAM_brc_name             = 'Block recast',
-    NEARSB_LAM_brc_tooltip          = 'Block recast for selected abilities',
-    NEARSB_LAM_brc_warning          = 'OFF: Won\'t block recasts but might improve performance.',
-
     NEARSB_LAM_msg_name             = 'Registered/Unregistered messages',
 
     NEARSB_LAM_showE_name           = 'Invalid ability alert',
@@ -59,7 +55,7 @@ local strings = {
     NEARSB_LAM_co_bnotInCombat_name = 'Block when out of combat',
     NEARSB_LAM_co_bnotInCombat_tooltip = 'Prevents ability cast if player is out of combat',
     NEARSB_LAM_co_bpvp_name         = 'Block in PvP',
-    NEARSB_LAM_co_bpvp_tooltip      = 'This setting is overwritten by: "'..GetString(NEARSB_LAM_bpvp_name)..'"'..'\nAnd overwrites: "'..GetString(NEARSB_LAM_co_bcast_name)..'"'..'\n"'..GetString(NEARSB_LAM_co_brecast_name)..'" currently not supported.',
+    NEARSB_LAM_co_bpvp_tooltip      = 'This setting is overwritten by: "'..GetString(NEARSB_LAM_bpvp_name)..'"'..'\nDefines if your block choices should be considered on PvP zones or not.',
     NEARSB_LAM_co_bonMaxCrux_name   = 'Block when on max Crux',
     NEARSB_LAM_co_bonMaxCrux_tooltip = 'Prevents ability cast if player has 3 stacks of Crux',
     NEARSB_LAM_co_bonNotMaxCrux_name   = 'Block when not on max Crux',

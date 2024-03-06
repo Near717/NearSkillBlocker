@@ -2,8 +2,8 @@
 local strings = {
     SI_BINDING_NAME_NEARSB_blockPvP = 'An/Aus: PvP',
 
-    NEARSB_registered               = 'Registriert',
-    NEARSB_unregistered             = 'Unregistriert',
+    NEARSB_registered               = 'Registriert ',
+    NEARSB_unregistered             = 'Unregistriert ',
 
 
     NEARSB_LAM_bpvp_name            = 'Blockieren in PvP zones AN/AUS',

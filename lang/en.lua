@@ -3,8 +3,8 @@ local strings = {
     SI_BINDING_NAME_NEARSB_suppressblock = 'Toggle block suppression',
     SI_BINDING_NAME_NEARSB_blockPvP      = 'Toggle PvP',
 
-    NEARSB_registered               = 'Registered',
-    NEARSB_unregistered             = 'Unregistered',
+    NEARSB_registered               = 'Registered ',
+    NEARSB_unregistered             = 'Unregistered ',
     NEARSB_un_reg_recast            = ' recast',
     NEARSB_un_reg_notInCombat       = ' when out of combat',
     NEARSB_un_reg_MaxCrux           = ' for max Crux',
@@ -49,16 +49,17 @@ local strings = {
     NEARSB_LAM_reglist_name         = 'Currently registered',
 
 
-    NEARSB_LAM_co_bcast_name        = 'Block cast',
-    NEARSB_LAM_co_brecast_name      = 'Block recast',
-    NEARSB_LAM_co_brecast_warning   = 'This option relies on the game setting "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" being ON! \n(under the setting panel: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
-    NEARSB_LAM_co_bnotInCombat_name = 'Block when out of combat',
-    NEARSB_LAM_co_bnotInCombat_tooltip = 'Prevents ability cast if player is out of combat',
-    NEARSB_LAM_co_bpvp_name         = 'Block in PvP',
-    NEARSB_LAM_co_bpvp_tooltip      = 'This setting is overwritten by: "'..GetString(NEARSB_LAM_bpvp_name)..'"'..'\nDefines if your block choices should be considered on PvP zones or not.',
-    NEARSB_LAM_co_bonMaxCrux_name   = 'Block when on max Crux',
-    NEARSB_LAM_co_bonMaxCrux_tooltip = 'Prevents ability cast if player has 3 stacks of Crux',
-    NEARSB_LAM_co_bonNotMaxCrux_name   = 'Block when not on max Crux',
+    NEARSB_LAM_co_bcast_name            = 'Block cast',
+    NEARSB_LAM_co_bcast_tooltip         = 'This setting is overwritten by other types of block',
+    NEARSB_LAM_co_brecast_name          = 'Block recast',
+    NEARSB_LAM_co_brecast_warning       = 'This option relies on the game setting "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" being ON! \n(under the setting panel: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
+    NEARSB_LAM_co_bnotInCombat_name     = 'Block when out of combat',
+    NEARSB_LAM_co_bnotInCombat_tooltip  = 'Can be paired with other types of block',
+    NEARSB_LAM_co_bpvp_name             = 'Block in PvP',
+    NEARSB_LAM_co_bpvp_tooltip          = 'This setting is overwritten by: "'..GetString(NEARSB_LAM_bpvp_name)..'"'..'\nDefines if your block choices should be considered on PvP zones or not.',
+    NEARSB_LAM_co_bonMaxCrux_name       = 'Block when on max Crux',
+    NEARSB_LAM_co_bonMaxCrux_tooltip    = 'Prevents ability cast if player has 3 stacks of Crux',
+    NEARSB_LAM_co_bonNotMaxCrux_name    = 'Block when not on max Crux',
     NEARSB_LAM_co_bonNotMaxCrux_tooltip = 'Prevents ability cast if player doesn\'t have 3 stacks of Crux',
 }
 

@@ -3,8 +3,8 @@ local strings = {
     SI_BINDING_NAME_NEARSB_suppressblock = 'Alternar supressão de bloqueio',
     SI_BINDING_NAME_NEARSB_blockPvP      = 'Alternar PvP',
 
-    NEARSB_registered               = 'Registrado',
-    NEARSB_unregistered             = 'Desregistrado',
+    NEARSB_registered               = 'Registrado ',
+    NEARSB_unregistered             = 'Desregistrado ',
     -- NEARSB_un_reg_recast            = ' recast', -- manter o original
     NEARSB_un_reg_notInCombat       = ' quando fora de combate',
     NEARSB_un_reg_MaxCrux           = ' quando em Crux máximo',
@@ -49,16 +49,17 @@ local strings = {
     NEARSB_LAM_reglist_name         = 'Atualmente registrado',
 
 
-    NEARSB_LAM_co_bcast_name        = 'Bloquear cast',
-    NEARSB_LAM_co_brecast_name      = 'Bloquear recast',
-    NEARSB_LAM_co_brecast_warning   = 'Esta opção depende da configuração do jogo "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" estar ATIVADA! \n(no painel de configuração: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
-    NEARSB_LAM_co_bnotInCombat_name = 'Bloquear quando fora de combate',
-    NEARSB_LAM_co_bnotInCombat_tooltip = 'Previne uso da habilidade se o player estiver fora de combate',
-    NEARSB_LAM_co_bpvp_name         = 'Bloquear em PvP',
-    NEARSB_LAM_co_bpvp_tooltip      = 'Essa configuração é sobrescrita por: "Alternar bloqueio em zonas de PvP"'..'\nDefine se suas escolhas de bloqueio devem ser considerados em zonas PvP ou não.',
-    NEARSB_LAM_co_bonMaxCrux_name   = 'Bloquear quando em Crux máximo',
-    NEARSB_LAM_co_bonMaxCrux_tooltip = 'Previne uso da habilidade se o player tiver 3 stacks de Crux',
-    NEARSB_LAM_co_bonNotMaxCrux_name = 'Bloquear quando não em Crux máximo',
+    NEARSB_LAM_co_bcast_name            = 'Bloquear cast',
+    NEARSB_LAM_co_bcast_tooltip         = 'Essa configuração é sobrescrita por outros tipos de bloqueio',
+    NEARSB_LAM_co_brecast_name          = 'Bloquear recast',
+    NEARSB_LAM_co_brecast_warning       = 'Esta opção depende da configuração do jogo "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" estar ATIVADA! \n(no painel de configuração: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
+    NEARSB_LAM_co_bnotInCombat_name     = 'Bloquear quando fora de combate',
+    NEARSB_LAM_co_bnotInCombat_tooltip  = 'Pode ser combinado com outros tipos de bloqueio',
+    NEARSB_LAM_co_bpvp_name             = 'Bloquear em PvP',
+    NEARSB_LAM_co_bpvp_tooltip          = 'Essa configuração é sobrescrita por: "Alternar bloqueio em zonas de PvP"'..'\nDefine se suas escolhas de bloqueio devem ser considerados em zonas PvP ou não.',
+    NEARSB_LAM_co_bonMaxCrux_name       = 'Bloquear quando em Crux máximo',
+    NEARSB_LAM_co_bonMaxCrux_tooltip    = 'Previne uso da habilidade se o player tiver 3 stacks de Crux',
+    NEARSB_LAM_co_bonNotMaxCrux_name    = 'Bloquear quando não em Crux máximo',
     NEARSB_LAM_co_bonNotMaxCrux_tooltip = 'Previne uso da habilidade se o player não tiver 3 stacks de Crux',
 }
 

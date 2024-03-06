@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.4.0",
+	version		= "3.4.1",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -50,9 +50,9 @@ local function register(skillType, ability, morph, blockType)
     local skilldata    = addon.skilldata[skillType]
 	local sv_skilldata = sv.skilldata[skillType]
 
-    local function registerBlock(id, skillLine)
+    local function registerBlock(id, skillLine, block_notInCombat)
         LSB.RegisterSkillBlock(addon.name, id, function()
-            return addon.suppressCheck(skillType, skillLine, ability, morph, id, blockType)
+            return addon.suppressCheck(skillType, skillLine, ability, morph, id, blockType, block_notInCombat)
         end, sv.showError)
     end
 
@@ -71,19 +71,19 @@ local function register(skillType, ability, morph, blockType)
 
             local abilityId = v[ability][morph].id
 
-            if (blockType == 1 and block and not block_recast and not block_notInCombat and not block_onMaxCrux and not block_onNotMaxCrux) or
-               (blockType == 2 and block_recast and not block_notInCombat and not block_onMaxCrux and not block_onNotMaxCrux) or
-               (blockType == 3 and block_notInCombat and not block_onMaxCrux and not block_onNotMaxCrux) or
+            if (blockType == 1 and block and not block_notInCombat and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
+               (blockType == 2 and block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
+               (blockType == 3 and block_notInCombat and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
                (blockType == 4 and block_onMaxCrux and not block_onNotMaxCrux) or
                (blockType == 5 and block_onNotMaxCrux) then
                 -- Register block
-                registerBlock(abilityId, skillLine)
+                registerBlock(abilityId, skillLine, block_notInCombat)
 
                 -- Register variant ids if there are any
                 for i = 1, 3 do
                     local variantId = v[ability][morph]["id"..i]
                     if variantId ~= nil then
-                        registerBlock(variantId, skillLine)
+                        registerBlock(variantId, skillLine, block_notInCombat)
                     end
                 end
 
@@ -93,8 +93,11 @@ local function register(skillType, ability, morph, blockType)
                    (blockType == 2 and sv.debug_init_recast) or
                    (blockType == 3 and sv.debug_combat) or
                    ((blockType == 4 or blockType == 5) and sv.debug_init_crux) then
-                    d(dbg.white .. str_reg .. ' ' .. v[ability][morph].name ..
-                        ((blockType == 2 and str_recast) or (blockType == 3 and str_notincombat) or (blockType == 4 and str_maxcrux) or (blockType == 5 and str_notmaxcrux) or '')
+                    d(dbg.white .. str_reg .. v[ability][morph].name ..
+                        ((blockType == 3 and str_notincombat) or
+                         (blockType == 2 and str_recast .. (block_notInCombat and ' +' .. str_notincombat or '')) or
+                         (blockType == 4 and str_maxcrux .. (block_notInCombat and ' +' .. str_notincombat or '')) or
+                         (blockType == 5 and str_notmaxcrux .. (block_notInCombat and ' +' .. str_notincombat or '')) or '')
                     )
                 end
 
@@ -117,8 +120,12 @@ local function register(skillType, ability, morph, blockType)
                    (blockType == 2 and sv.debug_init_recast) or
                    (blockType == 3 and sv.debug_combat) or
                    ((blockType == 4 or blockType == 5) and sv.debug_init_crux and (morphData.block_onMaxCrux ~= nil or morphData.block_onNotMaxCrux ~= nil)) then
-                    d(dbg.white .. str_unreg .. ' ' .. v[ability][morph].name ..
-                        ((blockType == 2 and str_recast) or (blockType == 3 and str_notincombat) or (blockType == 4 and str_maxcrux) or (blockType == 5 and str_notmaxcrux) or '')
+                    d(dbg.white .. str_unreg .. v[ability][morph].name ..
+                        -- these are only for debug
+                        ((blockType == 2 and str_recast) or
+                         (blockType == 3 and str_notincombat) or
+                         (blockType == 4 and str_maxcrux) or
+                         (blockType == 5 and str_notmaxcrux) or '')
                     )
                 end
 

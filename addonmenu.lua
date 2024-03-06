@@ -100,6 +100,7 @@ function NEAR_SB.SetupSettings()
 		b_cast = {
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_co_bcast_name),
+			tooltip = GetString(NEARSB_LAM_co_bcast_tooltip),
 			getFunc = function() return (choice).block end,
 			setFunc = function(v)
 				(choice).block, (choice).msg.re_cast = v, true
@@ -171,6 +172,7 @@ function NEAR_SB.SetupSettings()
 			getFunc = function() return (choice).block_onMaxCrux end,
 			setFunc = function(v)
 				(choice).block_onMaxCrux, (choice).msg.re_cast = v, true
+				if (choice).block_onNotMaxCrux == true then (choice).block_onNotMaxCrux = false end
 				UpdateVars()
 			end,
 			disabled = function()
@@ -188,6 +190,7 @@ function NEAR_SB.SetupSettings()
 			getFunc = function() return (choice).block_onNotMaxCrux end,
 			setFunc = function(v)
 				(choice).block_onNotMaxCrux, (choice).msg.re_cast = v, true
+				if (choice).block_onMaxCrux == true then (choice).block_onMaxCrux = false end
 				UpdateVars()
 			end,
 			disabled = function()

@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.4.1",
+	version		= "3.4.2",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -18,7 +18,7 @@ function NEAR_SB.UpdateRegistered()
     local abilityNames_table = {} -- Create a table to store ability names
 	if abilityIds ~= nil then
         for k, v in pairs(abilityIds) do
-            local abilityName = GetAbilityName(k)
+            local abilityName = zo_strformat("<<C:1>>", GetAbilityName(k))
             table.insert(abilityNames_table, abilityName)
         end
     end

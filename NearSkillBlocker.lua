@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.4.2",
+	version		= "3.5.0",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -23,6 +23,7 @@ function NEAR_SB.UpdateRegistered()
         end
     end
     table.sort(abilityNames_table) -- Sort the ability names alphabetically
+    -- TODO: filter out repeated names
 
     local abilityNames = table.concat(abilityNames_table, '\n') -- Join the sorted names with '\n'
 	NEAR_SB.registeredAbilityNames = abilityNames
@@ -44,6 +45,7 @@ local function register(skillType, ability, morph, blockType)
 	local str_unreg = GetString(NEARSB_unregistered)
     local str_maxcrux = GetString(NEARSB_un_reg_MaxCrux)
     local str_notmaxcrux = GetString(NEARSB_un_reg_NotMaxCrux)
+    local str_stacks = GetString(NEARSB_un_reg_stacks)
     local str_recast = GetString(NEARSB_un_reg_recast)
     local str_notincombat = GetString(NEARSB_un_reg_notInCombat)
 
@@ -68,14 +70,17 @@ local function register(skillType, ability, morph, blockType)
             local block_notInCombat = morphData.block_notInCombat
             local block_onMaxCrux = morphData.block_onMaxCrux or false
             local block_onNotMaxCrux = morphData.block_onNotMaxCrux or false
+            local block_onStacks = morphData.block_onStacks or false
 
             local abilityId = v[ability][morph].id
 
-            if (blockType == 1 and block and not block_notInCombat and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
-               (blockType == 2 and block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
-               (blockType == 3 and block_notInCombat and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux) or
+            -- TODO: make this more readable
+            if (blockType == 1 and block and not block_notInCombat and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux and not block_onStacks) or
+               (blockType == 2 and block_recast and not block_onMaxCrux and not block_onNotMaxCrux and not block_onStacks) or
+               (blockType == 3 and block_notInCombat and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux and not block_onStacks) or
                (blockType == 4 and block_onMaxCrux and not block_onNotMaxCrux) or
-               (blockType == 5 and block_onNotMaxCrux) then
+               (blockType == 5 and block_onNotMaxCrux) or
+               (blockType == 6 and block_onStacks) then
                 -- Register block
                 registerBlock(abilityId, skillLine, block_notInCombat)
 
@@ -97,12 +102,13 @@ local function register(skillType, ability, morph, blockType)
                         ((blockType == 3 and str_notincombat) or
                          (blockType == 2 and str_recast .. (block_notInCombat and ' +' .. str_notincombat or '')) or
                          (blockType == 4 and str_maxcrux .. (block_notInCombat and ' +' .. str_notincombat or '')) or
-                         (blockType == 5 and str_notmaxcrux .. (block_notInCombat and ' +' .. str_notincombat or '')) or '')
+                         (blockType == 5 and str_notmaxcrux .. (block_notInCombat and ' +' .. str_notincombat or '')) or
+                         (blockType == 6 and str_stacks .. (block_notInCombat and ' +' .. str_notincombat or '')) or '')
                     )
                 end
 
                 morphData.msg.re_cast = false
-            elseif not block and not block_recast and not block_notInCombat and not block_onMaxCrux and not block_onNotMaxCrux then
+            elseif not block and not block_recast and not block_notInCombat and not block_onMaxCrux and not block_onNotMaxCrux and not block_onStacks then
                 -- Unregister block
                 unregisterBlock(abilityId)
 
@@ -142,7 +148,7 @@ function NEAR_SB.Initialize()
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.Initialize') end
 
     local skillTypeBlockTypes = {
-        ['class']   = { 1, 2, 3, 4, 5 },    -- Cast, Recast, NotInCombat, onMaxCrux, onNotMaxCrux
+        ['class']   = { 1, 2, 3, 4, 5, 6 },    -- Cast, Recast, NotInCombat, onMaxCrux, onNotMaxCrux, onStacks
         ['weapon']  = { 1, 2, 3 },          -- Cast, Recast, NotInCombat
         ['armor']   = { 1, 2, 3 },          -- Cast, Recast, NotInCombat
         ['world']   = { 1, 2, 3 },          -- Cast, Recast, NotInCombat

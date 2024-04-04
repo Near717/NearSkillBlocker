@@ -201,6 +201,40 @@ function NEAR_SB.SetupSettings()
 				end
 			end
 		},
+
+		b_onStacks = {
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_co_bonStacks_name),
+			tooltip	= GetString(NEARSB_LAM_co_bonStacks_tooltip),
+			getFunc = function() return (choice).block_onStacks end,
+			setFunc = function(v)
+				(choice).block_onStacks, (choice).msg.re_cast = v, true
+				UpdateVars()
+			end,
+			disabled = function()
+				if not (choice == '') and (choice).block_onStacks ~= nil then
+					return false
+				else
+					return true
+				end
+			end
+		},
+
+		s_onStacks = {
+			type	= 'slider',
+			name	= GetString(NEARSB_LAM_co_sonStacks_name),
+			getFunc = function() return (choice).stacks end,
+			setFunc = function(v) (choice).stacks = v end,
+			min = 1,
+			max = 4,
+			disabled = function()
+				if not (choice == '') and (choice).block_onStacks ~= nil then
+					return false
+				else
+					return true
+				end
+			end
+		},
 	}
 
 	-- Merge the existing control_options and the additional_control_options
@@ -348,8 +382,18 @@ function NEAR_SB.SetupSettings()
 				control_options.b_cast,
 				control_options.b_recast,
 				control_options.b_notInCombat,
+				{
+					type = 'divider',
+					height = '5',
+				},
 				control_options.b_onMaxCrux,
 				control_options.b_onNotMaxCrux,
+				{
+					type = 'divider',
+					height = '5',
+				},
+				control_options.b_onStacks,
+				control_options.s_onStacks,
 			},
 		},
 		---------------------------------------------------------------------------------

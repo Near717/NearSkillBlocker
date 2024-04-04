@@ -220,6 +220,75 @@ end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+local stackAbilityIds = {
+    ['24165'] = 203447, -- Bound Armaments
+    ['117624'] = 117625, -- Venom Skull
+    ['123699'] = 117625, -- Venom Skull
+    ['123704'] = 117625, -- Venom Skull
+}
+
+---@param skillType string
+---@param skillLine string|integer
+---@param ability integer
+---@param morph integer
+---@param abilityId integer
+---@param block_notInCombat boolean
+---@return boolean
+function NEAR_SB.BlockOnStacks(skillType, skillLine, ability, morph, abilityId, block_notInCombat)
+    local sv = NEAR_SB.ASV
+    local sv_skilldata = sv.skilldata[skillType]
+
+	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of BlockOnStacks') end
+
+    local blockHandler = false
+    local unitTag = 'player'
+
+    if block_notInCombat then
+        if not IsUnitInCombat(unitTag) then
+            blockHandler = true
+        end
+    end
+
+    local stacks = sv_skilldata[skillLine][ability][morph].stacks
+    local stackAbilityId = stackAbilityIds[tostring(abilityId)]
+
+    local buffExists = false
+
+    if blockHandler == false then
+        for buffIndex = 1, GetNumBuffs(unitTag) do
+            local _, _, _, _, stackCount, _, _, _, _, _, buffAbilityId, _, _ = GetUnitBuffInfo(unitTag, buffIndex)
+            if (buffAbilityId == stackAbilityId) then
+                buffExists = true
+                if not (stackCount == stacks) then
+                    blockHandler = true
+                end
+                break
+            end
+        end
+    end
+
+    if not buffExists then -- for Venom Skull, Bound Armaments can't be used anyways if theres no buff
+        blockHandler = true
+    end
+
+    -- check status of blockPvP and overrides the handler if needed
+    if blockHandler == true then
+        if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+            blockHandler = false
+        end
+    end
+
+    --[[ Debug ]] if sv.debug then
+        d(dbg.white.. 'blockHandler = '.. tostring(blockHandler))
+        d(dbg.grey.. 'end of BlockOnStacks') d(dbg.close)
+    end
+
+    return blockHandler
+end
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ---@param skillType string
 ---@param skillLine string|integer
@@ -248,6 +317,9 @@ function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, 
         elseif blockType == 4 or blockType == 5 then
             --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == '.. tostring(blockType) ..', running NEAR_SB.BlockOnCrux') end
             block = NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, block_notInCombat)
+        elseif blockType == 6 then
+            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 6, running NEAR_SB.BlockOnStacks') end
+            block = NEAR_SB.BlockOnStacks(skillType, skillLine, ability, morph, abilityId, block_notInCombat)
         end
     end
 

@@ -488,7 +488,7 @@ NEAR_SB.skilldata = {
             },
             [2] = { -- 
                 [0] = { id = 114108, name = zo_strformat("<<C:1>>", GetAbilityName(114108)), }, -- 
-                [1] = { id = 117624, name = zo_strformat("<<C:1>>", GetAbilityName(117624)), }, -- 
+                [1] = { id = 117624, name = zo_strformat("<<C:1>>", GetAbilityName(117624)), id1 = 123699, id2 = 123704, }, -- Venom Skull
                 [2] = { id = 117637, name = zo_strformat("<<C:1>>", GetAbilityName(117637)), }, -- 
             },
             [3] = { -- 

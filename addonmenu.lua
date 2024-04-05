@@ -204,17 +204,17 @@ function NEAR_SB.SetupSettings()
 			end
 		},
 
-		b_onStacks = {
+		b_onStacksEqual = {
 			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_co_bonStacks_name),
-			tooltip	= GetString(NEARSB_LAM_co_bonStacks_tooltip),
-			getFunc = function() return (choice).block_onStacks end,
+			name	= GetString(NEARSB_LAM_co_bonStacksEqual_name),
+			tooltip	= GetString(NEARSB_LAM_co_bonStacksEqual_tooltip),
+			getFunc = function() return (choice).block_onStacksEqual end,
 			setFunc = function(v)
-				(choice).block_onStacks, (choice).msg.re_cast = v, true
+				(choice).block_onStacksEqual, (choice).msg.re_cast = v, true
 				UpdateVars()
 			end,
 			disabled = function()
-				if not (choice == '') and (choice).block_onStacks ~= nil then
+				if not (choice == '') and (choice).block_onStacksEqual ~= nil then
 					return false
 				else
 					return true
@@ -222,15 +222,15 @@ function NEAR_SB.SetupSettings()
 			end
 		},
 
-		s_onStacks = {
+		s_onStacksEqual = {
 			type	= 'slider',
-			name	= GetString(NEARSB_LAM_co_sonStacks_name),
+			name	= GetString(NEARSB_LAM_co_sonStacksEqual_name),
 			getFunc = function() return (choice).stacks end,
 			setFunc = function(v) (choice).stacks = v end,
 			min = 1,
 			max = 4,
 			disabled = function()
-				if not (choice == '') and (choice).block_onStacks ~= nil then
+				if not (choice == '') and (choice).block_onStacksEqual ~= nil then
 					return false
 				else
 					return true
@@ -394,8 +394,8 @@ function NEAR_SB.SetupSettings()
 					type = 'divider',
 					height = '5',
 				},
-				control_options.b_onStacks,
-				control_options.s_onStacks,
+				control_options.b_onStacksEqual,
+				control_options.s_onStacksEqual,
 			},
 		},
 		---------------------------------------------------------------------------------

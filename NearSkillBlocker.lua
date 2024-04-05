@@ -45,16 +45,16 @@ local function checkConditions(morphData, blockType)
     local block_notInCombat = morphData.block_notInCombat
     local block_onMaxCrux = morphData.block_onMaxCrux or false
     local block_onNotMaxCrux = morphData.block_onNotMaxCrux or false
-    local block_onStacks = morphData.block_onStacks or false
+    local block_onStacksEqual = morphData.block_onStacksEqual or false
 
     local conditions = {
-        [0] = {not block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacks}, -- Conditions for unregisterBlock
-        [1] = {block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacks}, -- Conditions for blockType 1
-        [2] = {block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacks}, -- Conditions for blockType 2
-        [3] = {block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacks}, -- Conditions for blockType 3
+        [0] = {not block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual}, -- Conditions for unregisterBlock
+        [1] = {block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual}, -- Conditions for blockType 1
+        [2] = {block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual}, -- Conditions for blockType 2
+        [3] = {block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual}, -- Conditions for blockType 3
         [4] = {block_onMaxCrux, not block_onNotMaxCrux}, -- Conditions for blockType 4
         [5] = {block_onNotMaxCrux}, -- Conditions for blockType 5
-        [6] = {block_onStacks}, -- Conditions for blockType 6
+        [6] = {block_onStacksEqual}, -- Conditions for blockType 6
     }
 
     local cond = conditions[blockType]
@@ -178,7 +178,7 @@ function NEAR_SB.Initialize()
 	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.Initialize') end
 
     local skillTypeBlockTypes = {
-        ['class']   = { 1, 2, 3, 4, 5, 6 },    -- Cast, Recast, NotInCombat, onMaxCrux, onNotMaxCrux, onStacks
+        ['class']   = { 1, 2, 3, 4, 5, 6 },    -- Cast, Recast, NotInCombat, onMaxCrux, onNotMaxCrux, onStacksEqual
         ['weapon']  = { 1, 2, 3 },          -- Cast, Recast, NotInCombat
         ['armor']   = { 1, 2, 3 },          -- Cast, Recast, NotInCombat
         ['world']   = { 1, 2, 3 },          -- Cast, Recast, NotInCombat

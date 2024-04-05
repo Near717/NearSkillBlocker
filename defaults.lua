@@ -33,7 +33,7 @@ local function createSkillEntry(addCrux, addStacks)
     end
 
     if addStacks then
-        data.block_onStacks = false
+        data.block_onStacksEqual = false
         data.stacks = 1
     end
 

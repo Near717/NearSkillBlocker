@@ -9,7 +9,7 @@ local strings = {
     NEARSB_un_reg_notInCombat       = ' when out of combat',
     NEARSB_un_reg_MaxCrux           = ' for max Crux',
     NEARSB_un_reg_NotMaxCrux        = ' for not max Crux',
-    NEARSB_un_reg_stacks            = ' for not x stacks',
+    NEARSB_un_reg_stacks            = ' for stacks',
 
     NEARSB_suppressblock_enabled    = 'Enabled suppress block',
     NEARSB_suppressblock_disabled   = 'Disabled suppress block ',
@@ -62,9 +62,9 @@ local strings = {
     NEARSB_LAM_co_bonMaxCrux_tooltip    = 'Prevents ability cast if player has 3 stacks of Crux',
     NEARSB_LAM_co_bonNotMaxCrux_name    = 'Block when not on max Crux',
     NEARSB_LAM_co_bonNotMaxCrux_tooltip = 'Prevents ability cast if player doesn\'t have 3 stacks of Crux',
-    NEARSB_LAM_co_sonStacks_name        = 'Stacks',
-    NEARSB_LAM_co_bonStacks_name        = 'Block when not X stacks',
-    NEARSB_LAM_co_bonStacks_tooltip     = 'Prevents ability cast if player doesn\'t have the exact defined amount of stacks.\nAvailable for "Bound Armaments" and "Venom Skull"',
+    NEARSB_LAM_co_sonStacksEqual_name       = 'Stacks',
+    NEARSB_LAM_co_bonStacksEqual_name       = 'Block if not equal to X stacks',
+    NEARSB_LAM_co_bonStacksEqual_tooltip    = 'Prevents ability cast if player doesn\'t have the exact defined amount of stacks.\nAvailable for "Bound Armaments" and "Venom Skull"',
 }
 
 

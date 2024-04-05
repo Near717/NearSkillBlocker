@@ -63,7 +63,7 @@ for _, skillType in ipairs({ 'class', 'weapon', 'armor', 'world', 'guild', 'ava'
         for ability in pairs(v) do
             if type(ability) == 'number' then
                 local addStacks
-                for index, value in ipairs(addon.skilldata[skillType][skillLine][ability]) do
+                for _, value in ipairs(addon.skilldata[skillType][skillLine][ability]) do
                     if shouldAddStacks[tostring(value.id)] then
                         addStacks = true
                         break

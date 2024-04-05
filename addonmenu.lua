@@ -48,6 +48,7 @@ function NEAR_SB.SetupSettings()
 	        choicesValues = {},
 	        getFunc = function() return choice end,
 	        setFunc = function(v) choice = v end,
+			scrollable = 21,
 	    }
 
 		for ability in ipairs(skillLine) do
@@ -165,6 +166,7 @@ function NEAR_SB.SetupSettings()
 				end
 			end
 		},
+
 		b_onMaxCrux = {
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_co_bonMaxCrux_name),
@@ -176,7 +178,7 @@ function NEAR_SB.SetupSettings()
 				UpdateVars()
 			end,
 			disabled = function()
-				if not (choice == '') or choice_class == 'ar' and (choice).block_onMaxCrux ~= nil then
+				if not (choice == '') and choice_class == 'ar' and (choice).block_onMaxCrux ~= nil then
 					return false
 				else
 					return true
@@ -194,7 +196,7 @@ function NEAR_SB.SetupSettings()
 				UpdateVars()
 			end,
 			disabled = function()
-				if not (choice == '') or choice_class == 'ar' and (choice).block_onNotMaxCrux ~= nil then
+				if not (choice == '') and choice_class == 'ar' and (choice).block_onNotMaxCrux ~= nil then
 					return false
 				else
 					return true

@@ -15,15 +15,21 @@ local LSB		= LibSkillBlocker
 
 function NEAR_SB.UpdateRegistered()
 	local abilityIds = LSB.GetRegisteredAbilityIdsByAddon(addon.name)
-    local abilityNames_table = {} -- Create a table to store ability names
+    local abilityNames_set = {} -- Create a set to store unique ability names
+
 	if abilityIds ~= nil then
-        for k, v in pairs(abilityIds) do
+        for k, _ in pairs(abilityIds) do
             local abilityName = zo_strformat("<<C:1>>", GetAbilityName(k))
-            table.insert(abilityNames_table, abilityName)
+            abilityNames_set[abilityName] = true -- Add the name to the set
         end
     end
+
+    -- Convert the set to a sorted list
+    local abilityNames_table = {}
+    for name, _ in pairs(abilityNames_set) do
+        table.insert(abilityNames_table, name)
+    end
     table.sort(abilityNames_table) -- Sort the ability names alphabetically
-    -- TODO: filter out repeated names
 
     local abilityNames = table.concat(abilityNames_table, '\n') -- Join the sorted names with '\n'
 	NEAR_SB.registeredAbilityNames = abilityNames
@@ -33,6 +39,42 @@ end
 -- Skill Blocker
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+local function checkConditions(morphData, blockType)
+    local block = morphData.block
+    local block_recast = morphData.block_recast
+    local block_notInCombat = morphData.block_notInCombat
+    local block_onMaxCrux = morphData.block_onMaxCrux or false
+    local block_onNotMaxCrux = morphData.block_onNotMaxCrux or false
+    local block_onStacks = morphData.block_onStacks or false
+
+    local conditions = {
+        [0] = {not block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacks}, -- Conditions for unregisterBlock
+        [1] = {block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacks}, -- Conditions for blockType 1
+        [2] = {block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacks}, -- Conditions for blockType 2
+        [3] = {block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacks}, -- Conditions for blockType 3
+        [4] = {block_onMaxCrux, not block_onNotMaxCrux}, -- Conditions for blockType 4
+        [5] = {block_onNotMaxCrux}, -- Conditions for blockType 5
+        [6] = {block_onStacks}, -- Conditions for blockType 6
+    }
+
+    local cond = conditions[blockType]
+    if not cond then return false end -- If invalid blockType
+    for _, c in ipairs(cond) do
+        if not c then
+            return false
+        end
+    end
+    return true
+end
+
+local str_reg = GetString(NEARSB_registered)
+local str_unreg = GetString(NEARSB_unregistered)
+local str_maxcrux = GetString(NEARSB_un_reg_MaxCrux)
+local str_notmaxcrux = GetString(NEARSB_un_reg_NotMaxCrux)
+local str_stacks = GetString(NEARSB_un_reg_stacks)
+local str_recast = GetString(NEARSB_un_reg_recast)
+local str_notincombat = GetString(NEARSB_un_reg_notInCombat)
+
 ---@param skillType string
 ---@param ability integer
 ---@param morph integer
@@ -40,14 +82,6 @@ end
 local function register(skillType, ability, morph, blockType)
     local sv = NEAR_SB.ASV
 	local dbg = NEAR_SB.utils.dbg
-
-    local str_reg = GetString(NEARSB_registered)
-	local str_unreg = GetString(NEARSB_unregistered)
-    local str_maxcrux = GetString(NEARSB_un_reg_MaxCrux)
-    local str_notmaxcrux = GetString(NEARSB_un_reg_NotMaxCrux)
-    local str_stacks = GetString(NEARSB_un_reg_stacks)
-    local str_recast = GetString(NEARSB_un_reg_recast)
-    local str_notincombat = GetString(NEARSB_un_reg_notInCombat)
 
     local skilldata    = addon.skilldata[skillType]
 	local sv_skilldata = sv.skilldata[skillType]
@@ -65,22 +99,11 @@ local function register(skillType, ability, morph, blockType)
     for skillLine, v in pairs(skilldata) do
         if sv_skilldata[skillLine][ability] ~= nil then
             local morphData = sv_skilldata[skillLine][ability][morph]
-            local block = morphData.block
-            local block_recast = morphData.block_recast
             local block_notInCombat = morphData.block_notInCombat
-            local block_onMaxCrux = morphData.block_onMaxCrux or false
-            local block_onNotMaxCrux = morphData.block_onNotMaxCrux or false
-            local block_onStacks = morphData.block_onStacks or false
 
             local abilityId = v[ability][morph].id
 
-            -- TODO: make this more readable
-            if (blockType == 1 and block and not block_notInCombat and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux and not block_onStacks) or
-               (blockType == 2 and block_recast and not block_onMaxCrux and not block_onNotMaxCrux and not block_onStacks) or
-               (blockType == 3 and block_notInCombat and not block_recast and not block_onMaxCrux and not block_onNotMaxCrux and not block_onStacks) or
-               (blockType == 4 and block_onMaxCrux and not block_onNotMaxCrux) or
-               (blockType == 5 and block_onNotMaxCrux) or
-               (blockType == 6 and block_onStacks) then
+            if checkConditions(morphData, blockType) then
                 -- Register block
                 registerBlock(abilityId, skillLine, block_notInCombat)
 
@@ -98,17 +121,24 @@ local function register(skillType, ability, morph, blockType)
                    (blockType == 2 and sv.debug_init_recast) or
                    (blockType == 3 and sv.debug_combat) or
                    ((blockType == 4 or blockType == 5) and sv.debug_init_crux) then
-                    d(dbg.white .. str_reg .. v[ability][morph].name ..
-                        ((blockType == 3 and str_notincombat) or
-                         (blockType == 2 and str_recast .. (block_notInCombat and ' +' .. str_notincombat or '')) or
-                         (blockType == 4 and str_maxcrux .. (block_notInCombat and ' +' .. str_notincombat or '')) or
-                         (blockType == 5 and str_notmaxcrux .. (block_notInCombat and ' +' .. str_notincombat or '')) or
-                         (blockType == 6 and str_stacks .. (block_notInCombat and ' +' .. str_notincombat or '')) or '')
-                    )
+                    local message = dbg.white .. str_reg .. v[ability][morph].name
+                    if blockType == 3 then
+                        message = message .. str_notincombat
+                    end
+                    if blockType ~= 1 and blockType ~= 3 then
+                        local prefix = (blockType == 2 and str_recast) or
+                                       (blockType == 4 and str_maxcrux) or
+                                       (blockType == 5 and str_notmaxcrux) or
+                                       (blockType == 6 and str_stacks) or ''
+                        local sufix = block_notInCombat and ' +' .. str_notincombat or ''
+
+                        message = message .. prefix .. sufix
+                    end
+                    d(message)
                 end
 
                 morphData.msg.re_cast = false
-            elseif not block and not block_recast and not block_notInCombat and not block_onMaxCrux and not block_onNotMaxCrux and not block_onStacks then
+            elseif checkConditions(morphData, 0) then
                 -- Unregister block
                 unregisterBlock(abilityId)
 

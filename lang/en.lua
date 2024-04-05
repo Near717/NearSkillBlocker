@@ -64,7 +64,7 @@ local strings = {
     NEARSB_LAM_co_bonNotMaxCrux_tooltip = 'Prevents ability cast if player doesn\'t have 3 stacks of Crux',
     NEARSB_LAM_co_sonStacks_name        = 'Stacks',
     NEARSB_LAM_co_bonStacks_name        = 'Block when not X stacks',
-    NEARSB_LAM_co_bonStacks_tooltip     = 'Prevents ability cast if player doesn\'t have the defined amount of stacks.\nAvailable for "Bound Armaments" and "Venom Skull"',
+    NEARSB_LAM_co_bonStacks_tooltip     = 'Prevents ability cast if player doesn\'t have the exact defined amount of stacks.\nAvailable for "Bound Armaments" and "Venom Skull"',
 }
 
 

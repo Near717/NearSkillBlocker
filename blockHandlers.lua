@@ -8,6 +8,7 @@ local skilldata = NEAR_SB.skilldata
 ---@param ability integer
 ---@param morph integer
 ---@param abilityId integer
+---@param block_notInCombat boolean
 ---@return boolean
 function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, block_notInCombat)
     local sv = NEAR_SB.ASV
@@ -162,6 +163,8 @@ end
 ---@param skillLine string|integer
 ---@param ability integer
 ---@param morph integer
+---@param blockType integer
+---@param block_notInCombat boolean
 ---@return boolean
 function NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, block_notInCombat)
     local sv = NEAR_SB.ASV
@@ -296,6 +299,7 @@ end
 ---@param morph integer
 ---@param abilityId integer|nil
 ---@param blockType integer
+---@param block_notInCombat boolean
 ---@return boolean
 function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, blockType, block_notInCombat)
     local sv = NEAR_SB.ASV

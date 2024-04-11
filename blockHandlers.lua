@@ -173,7 +173,6 @@ function NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, bl
 
     local blockHandler = false
     local unitTag = 'player'
-    local listBuffs = {}
 
     if block_notInCombat then
         if not IsUnitInCombat(unitTag) then
@@ -181,27 +180,22 @@ function NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, bl
         end
     end
 
+    local buffExists = false
+
     if blockHandler == false then
         for buffIndex = 1, GetNumBuffs(unitTag) do
             local _, _, _, _, stackCount, _, _, _, _, _, buffAbilityId, _, _ = GetUnitBuffInfo(unitTag, buffIndex)
-            table.insert(listBuffs, buffAbilityId)
-            if (buffAbilityId == 184220) and ((blockType == 4 and stackCount == 3) or (blockType == 5 and not (stackCount == 3))) then -- Crux abilityId = 184220
-                blockHandler = true
+            if buffAbilityId == 184220 then -- Crux abilityId = 184220
+                buffExists = true
+                if (blockType == 4 and stackCount == 3) or (blockType == 5 and not (stackCount == 3)) then
+                    blockHandler = true
+                end
+                break
             end
         end
 
-        if blockType == 5 and blockHandler == false then
-            local buffExists = false
-            for _, id in ipairs(listBuffs) do
-                if id == 184220 then
-                    buffExists = true
-                    break
-                end
-            end
-
-            if not buffExists then
-                blockHandler = true
-            end
+        if blockType == 5 and not buffExists then
+            blockHandler = true
         end
     end
 

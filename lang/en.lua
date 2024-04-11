@@ -53,6 +53,7 @@ local strings = {
     NEARSB_LAM_co_bcast_name            = 'Block cast',
     NEARSB_LAM_co_bcast_tooltip         = 'This setting is overwritten by other types of block',
     NEARSB_LAM_co_brecast_name          = 'Block recast',
+    NEARSB_LAM_co_brecast_tooltip       = 'Prevents ability cast if it has an effect time remaining',
     NEARSB_LAM_co_brecast_warning       = 'This option relies on the game setting "'..GetString(SI_INTERFACE_OPTIONS_ACTION_BAR_TIMERS)..'" being ON! \n(under the setting panel: "'..GetString(SI_SETTINGSYSTEMPANEL9)..'")',
     NEARSB_LAM_co_bnotInCombat_name     = 'Block when out of combat',
     NEARSB_LAM_co_bnotInCombat_tooltip  = 'Can be paired with other types of block',
@@ -65,6 +66,11 @@ local strings = {
     NEARSB_LAM_co_sonStacksEqual_name       = 'Stacks',
     NEARSB_LAM_co_bonStacksEqual_name       = 'Block if not equal to X stacks',
     NEARSB_LAM_co_bonStacksEqual_tooltip    = 'Prevents ability cast if player doesn\'t have the exact defined amount of stacks.\nAvailable for "Bound Armaments" and "Venom Skull"',
+
+    -- Custom ability names
+    NEARSB_abilityName_78338            = zo_strformat("<<2>> <<1>>", GetAbilityName(61511), "Remove"), -- Guard
+    NEARSB_abilityName_81415            = zo_strformat("<<2>> <<1>>", GetAbilityName(61536), "Remove"), -- Mystic Guard
+    NEARSB_abilityName_81420            = zo_strformat("<<2>> <<1>>", GetAbilityName(61529), "Remove"), -- Stalwart Guard 
 }
 
 

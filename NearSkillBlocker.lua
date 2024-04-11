@@ -2,7 +2,7 @@ NEAR_SB = {
 	name		= "NearSkillBlocker",
 	title 		= "Near's Skill Blocker",
 	shortTitle	= "Skill Blocker",
-	version		= "3.5.0",
+	version		= "3.6.0",
 	author		= "|cCC99FFnotnear|r",
 }
 
@@ -13,13 +13,25 @@ local LSB		= LibSkillBlocker
 -- Registered list
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function NEAR_SB.UpdateRegistered()
+local function updateRegistered()
+
+    local customNames = {
+        [addon.skilldata["ava"][3][6][0].id] = addon.skilldata["ava"][3][6][0].name,
+        [addon.skilldata["ava"][3][6][1].id] = addon.skilldata["ava"][3][6][1].name,
+        [addon.skilldata["ava"][3][6][2].id] = addon.skilldata["ava"][3][6][2].name,
+    }
+
 	local abilityIds = LSB.GetRegisteredAbilityIdsByAddon(addon.name)
     local abilityNames_set = {} -- Create a set to store unique ability names
 
 	if abilityIds ~= nil then
         for k, _ in pairs(abilityIds) do
-            local abilityName = zo_strformat("<<C:1>>", GetAbilityName(k))
+            local abilityName
+            if customNames[k] then
+                abilityName = customNames[k]
+            else
+                abilityName = zo_strformat("<<C:1>>", GetAbilityName(k))
+            end
             abilityNames_set[abilityName] = true -- Add the name to the set
         end
     end
@@ -197,7 +209,7 @@ function NEAR_SB.Initialize()
         end
     end
 
-	addon.UpdateRegistered()
+	updateRegistered()
 
 	--[[ Debug ]] if sv.debug then d(dbg.grey .. 'end of addon.Initialize') d(dbg.close) end
 end

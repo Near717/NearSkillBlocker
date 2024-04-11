@@ -69,6 +69,11 @@ local skillLineId = {
 
 ]]
 
+local function GetCustomAbilityName(id)
+    local string = _G["NEARSB_abilityName_" .. id]
+    return GetString(string)
+end
+
 NEAR_SB.classdata = {
     ["name"] = {
         [1] = zo_strformat("<<C:1>>", GetClassName(0, 1)), -- "Dragonknight"
@@ -1249,10 +1254,15 @@ NEAR_SB.skilldata = {
                 [1] = { id = 40232, name = zo_strformat("<<C:1>>", GetAbilityName(40232)), }, -- 
                 [2] = { id = 40234, name = zo_strformat("<<C:1>>", GetAbilityName(40234)), }, -- 
             },
-            [4] = { -- 
-                [0] = { id = 61511, name = zo_strformat("<<C:1>>", GetAbilityName(61511)), }, -- 
-                [1] = { id = 61536, name = zo_strformat("<<C:1>>", GetAbilityName(61536)), }, -- 
-                [2] = { id = 61529, name = zo_strformat("<<C:1>>", GetAbilityName(61529)), }, -- 
+            [4] = { -- Guard
+                [0] = { id = 61511, name = zo_strformat("<<C:1>>", GetAbilityName(61511)), }, -- Guard
+                [1] = { id = 61536, name = zo_strformat("<<C:1>>", GetAbilityName(61536)), }, -- Mystic Guard
+                [2] = { id = 61529, name = zo_strformat("<<C:1>>", GetAbilityName(61529)), }, -- Stalwart Guard 
+            },
+            [6] = { -- remove guard
+                [0] = { id = 78338, name = zo_strformat("<<C:1>>", GetCustomAbilityName(78338)), }, -- Guard
+                [1] = { id = 81415, name = zo_strformat("<<C:1>>", GetCustomAbilityName(81415)), }, -- Mystic Guard
+                [2] = { id = 81420, name = zo_strformat("<<C:1>>", GetCustomAbilityName(81420)), }, -- Stalwart Guard 
             },
             [5] = { -- Revealing Flare
                 [0] = { id = 61489, name = zo_strformat("<<C:1>>", GetAbilityName(61489)), }, -- Revealing Flare

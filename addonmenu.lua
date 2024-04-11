@@ -118,6 +118,7 @@ function NEAR_SB.SetupSettings()
 		b_recast = {
 			type	= 'checkbox',
 			name	= GetString(NEARSB_LAM_co_brecast_name),
+			tooltip	= GetString(NEARSB_LAM_co_brecast_tooltip),
 			warning = GetString(NEARSB_LAM_co_brecast_warning),
 			getFunc = function() return (choice).block_recast end,
 			setFunc = function(v)

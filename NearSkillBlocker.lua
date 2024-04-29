@@ -227,6 +227,7 @@ local function OnAddonLoaded(event, name)
 
 	NEAR_SB.Initialize()
 
+	NEAR_SB.AbilityBarTimers.Init()
 	NEAR_SB.RegisterSlashCommands()
 	NEAR_SB.SetupSettings()
 end

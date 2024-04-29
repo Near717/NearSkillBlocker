@@ -1,5 +1,4 @@
 local addon = NEAR_SB
-local dbg = NEAR_SB.utils.dbg
 
 local function cmdMessageTypeExample()
 	local sv = NEAR_SB.ASV
@@ -7,7 +6,7 @@ local function cmdMessageTypeExample()
 	local str = "Example message"
 
 	if sv.cmdMessageType == 1 then
-		CHAT_SYSTEM:AddMessage(dbg.white .. str)
+		addon.AddMessage(str)
 	elseif sv.cmdMessageType == 2 then
 		ZO_Alert(UI_ALERT_CATEGORY_ALERT, SOUNDS.GENERAL_ALERT_ERROR, str)
 	end

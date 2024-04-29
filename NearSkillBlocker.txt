@@ -13,11 +13,9 @@ NearSkillBlocker.lua
 
 skilldata.lua
 defaults.lua
-utils.lua
 
 blockHandlers.lua
-slashcommands.lua
-
+helperFunctions.lua
 abilityBarTimers.lua
 
 Bindings.xml

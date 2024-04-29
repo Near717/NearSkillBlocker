@@ -93,7 +93,6 @@ local str_notincombat = GetString(NEARSB_un_reg_notInCombat)
 ---@param blockType any
 local function register(skillType, ability, morph, blockType)
     local sv = NEAR_SB.ASV
-	local dbg = NEAR_SB.utils.dbg
 
     local skilldata    = addon.skilldata[skillType]
 	local sv_skilldata = sv.skilldata[skillType]
@@ -132,7 +131,7 @@ local function register(skillType, ability, morph, blockType)
 
                 -- Send message if toggled
                 if sv.message and morphData.msg.re_cast then
-                    local message = dbg.white .. str_reg .. v[ability][morph].name
+                    local message = str_reg .. v[ability][morph].name
                     if blockType == 3 then
                         message = message .. str_notincombat
                     elseif blockType ~= 1 then
@@ -143,7 +142,7 @@ local function register(skillType, ability, morph, blockType)
                         local suffix = block_notInCombat and ' +' .. str_notincombat or ''
                         message = message .. prefix .. suffix
                     end
-                    CHAT_SYSTEM:AddMessage(message)
+                    addon.AddMessage(message)
                 end
 
                 morphData.msg.re_cast = false
@@ -164,8 +163,8 @@ local function register(skillType, ability, morph, blockType)
 
                 -- Send message if toggled
                 if sv.message and morphData.msg.re_cast then
-                    local message = dbg.white .. str_unreg .. v[ability][morph].name
-                    CHAT_SYSTEM:AddMessage(message)
+                    local message = str_unreg .. v[ability][morph].name
+                    addon.AddMessage(message)
                 end
 
                 morphData.msg.re_cast = false

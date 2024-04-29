@@ -1,4 +1,4 @@
-local dbg = NEAR_SB.utils.dbg
+local addon = NEAR_SB
 local skilldata = NEAR_SB.skilldata
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -74,7 +74,8 @@ function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
 
             -- send this only the first time after entering pvp zone
             if sv.message and sv_skilldata[skillLine][ability][morph].msg.pvp then
-                CHAT_SYSTEM:AddMessage(dbg.white .. str_unreg .. abilityName .. ' *PvP')
+                local message = str_unreg .. abilityName .. ' *PvP'
+                addon.AddMessage(message)
                 sv_skilldata[skillLine][ability][morph].msg.pvp = false
             end
 		else

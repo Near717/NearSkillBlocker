@@ -20,6 +20,7 @@ NEAR_SB.defaults = {
     suppressBlockReset = false,
     cmdMessageType = 1,
     cmdMessageSound = true,
+    recastTimeRemainingThreshold = 0,
 }
 
 NEAR_SB.defaults.skilldata = {}  -- Toggle block skills/messages

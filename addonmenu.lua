@@ -323,6 +323,17 @@ function NEAR_SB.SetupSettings()
 			setFunc = function(v) sv.showError = v libSkillBlockUpdateNeeded = true end,
 			default = addon.defaults.showError,
 		},
+		{
+			type	 = 'slider',
+			name	 = GetString(NEARSB_LAM_recastThreshold_name),
+			tooltip	 = GetString(NEARSB_LAM_recastThreshold_tooltip),
+			getFunc	 = function() return sv.recastTimeRemainingThreshold end,
+			setFunc	 = function(v) sv.recastTimeRemainingThreshold = v end,
+			step	 = 0.1,
+			decimals = 1,
+			min = 0,
+			max = 10,
+		},
 		---------------------------------------------------------------------------------
 		{
 			type = 'header',

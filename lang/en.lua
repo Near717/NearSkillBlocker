@@ -39,6 +39,8 @@ local strings = {
     NEARSB_LAM_showE_name           = 'Invalid ability alert',
     NEARSB_LAM_showE_tooltip        = 'Show an alert when a suppressed ability is used, when disabled the ability will fail silently.',
 
+    NEARSB_LAM_recastThreshold_name     = 'Block recast threshold',
+    NEARSB_LAM_recastThreshold_tooltip  = 'Define minimum time remaining (in seconds) for abilities to be blocked',
 
     NEARSB_LAM_skillsel_name        = 'Skill selector',
     NEARSB_LAM_classsel_name        = 'Class selector',

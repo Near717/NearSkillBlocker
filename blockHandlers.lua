@@ -33,7 +33,8 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, b
         local function UpdateRecastHandler(slotNum)
             local timeRemainingMS = GetActionSlotEffectTimeRemaining(slotNum)
             --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'timeRemainingMS = '..timeRemainingMS) end
-            recastHandler = timeRemainingMS > 0
+            local thresholdMS = sv.recastTimeRemainingThreshold * 1000
+            recastHandler = timeRemainingMS > thresholdMS
         end
 
         for slotNum = 3, 8 do

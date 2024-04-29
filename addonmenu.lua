@@ -324,6 +324,14 @@ function NEAR_SB.SetupSettings()
 			default = addon.defaults.showError,
 		},
 		{
+			type	= 'checkbox',
+			name	= GetString(NEARSB_LAM_abHideTimers_name),
+			tooltip	= GetString(NEARSB_LAM_abHideTimers_tooltip),
+			getFunc	= function() return sv.abilityBarHideTimers end,
+			setFunc	= function(v) sv.abilityBarHideTimers = v return addon.AbilityBarTimers.Init() end,
+			default	= addon.defaults.abilityBarHideTimers,
+		},
+		{
 			type	 = 'slider',
 			name	 = GetString(NEARSB_LAM_recastThreshold_name),
 			tooltip	 = GetString(NEARSB_LAM_recastThreshold_tooltip),

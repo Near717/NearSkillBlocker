@@ -39,6 +39,9 @@ local strings = {
     NEARSB_LAM_showE_name           = 'Invalid ability alert',
     NEARSB_LAM_showE_tooltip        = 'Show an alert when a suppressed ability is used, when disabled the ability will fail silently.',
 
+    NEARSB_LAM_abHideTimers_name     = 'Hide ZOS Ability Bar timers',
+    NEARSB_LAM_abHideTimers_tooltip  = 'Timers are needed for "Block recast", if you prefer using timers from addons this will hide the base game ones while keeping the recast functionality',
+
     NEARSB_LAM_recastThreshold_name     = 'Block recast threshold',
     NEARSB_LAM_recastThreshold_tooltip  = 'Define minimum time remaining (in seconds) for abilities to be blocked',
 

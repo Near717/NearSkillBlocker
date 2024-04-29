@@ -21,6 +21,7 @@ NEAR_SB.defaults = {
     cmdMessageType = 1,
     cmdMessageSound = true,
     recastTimeRemainingThreshold = 0,
+    abilityBarHideTimers = false,
 }
 
 NEAR_SB.defaults.skilldata = {}  -- Toggle block skills/messages

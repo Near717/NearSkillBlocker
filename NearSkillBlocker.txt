@@ -17,6 +17,9 @@ utils.lua
 
 blockHandlers.lua
 slashcommands.lua
+
+abilityBarTimers.lua
+
 Bindings.xml
 addonmenu.lua
 

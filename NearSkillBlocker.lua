@@ -120,11 +120,14 @@ local function register(skillType, ability, morph, blockType)
                 registerBlock(abilityId, skillLine, block_notInCombat)
 
                 -- Register variant ids if there are any
-                for i = 1, 3 do
+                local i = 1
+                while true do
                     local variantId = v[ability][morph]["id"..i]
-                    if variantId ~= nil then
-                        registerBlock(variantId, skillLine, block_notInCombat)
+                    if variantId == nil then
+                        break -- Exit the loop if there's no variant id
                     end
+                    registerBlock(variantId, skillLine, block_notInCombat)
+                    i = i + 1
                 end
 
                 -- Send message if toggled
@@ -155,12 +158,15 @@ local function register(skillType, ability, morph, blockType)
                 unregisterBlock(abilityId)
 
                 -- Unregister variant ids if there are any
-                for i = 1, 3 do
+				local i = 1
+				while true do
                     local variantId = v[ability][morph]["id"..i]
-                    if variantId ~= nil then
-                        unregisterBlock(variantId)
-                    end
-                end
+					if variantId == nil then
+						break -- Exit the loop if there's no variant id
+					end
+                    unregisterBlock(variantId)
+					i = i + 1
+				end
 
                 -- Send message if toggled
                 if (sv.message and morphData.msg.re_cast) or

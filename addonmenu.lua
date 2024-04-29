@@ -7,11 +7,9 @@ local function cmdMessageTypeExample()
 	local str = "Example message"
 
 	if sv.cmdMessageType == 1 then
-		d(dbg.white .. str)
+		CHAT_SYSTEM:AddMessage(dbg.white .. str)
 	elseif sv.cmdMessageType == 2 then
 		ZO_Alert(UI_ALERT_CATEGORY_ALERT, SOUNDS.GENERAL_ALERT_ERROR, str)
-	elseif sv.cmdMessageType == 3 then
-		if sv.debug then d(dbg.white .. "this should only show if debug mode is on") end
 	end
 end
 
@@ -32,9 +30,6 @@ function NEAR_SB.SetupSettings()
 	---------------------------------------------------------------------------------
 
 	local function UpdateVars()
-		-- d('block: '.. tostring((choice).block) .. ' msg: '.. tostring((choice).msg))
-		-- d('block recast: '.. tostring((choice).block_recast) .. ' msg: '.. tostring((choice).msg))
-		-- d('block pvp: '.. tostring((choice).pvp) .. ' msg: '.. tostring((choice).msg))
 		libSkillBlockUpdateNeeded = true
 	end
 

@@ -1,5 +1,4 @@
 local dbg = NEAR_SB.utils.dbg
-local color = NEAR_SB.utils.color
 local skilldata = NEAR_SB.skilldata
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -13,13 +12,6 @@ local skilldata = NEAR_SB.skilldata
 function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, block_notInCombat)
     local sv = NEAR_SB.ASV
 
-	--[[ Debug ]] if sv.debug_recast then
-        d(dbg.open) d(dbg.lightGrey .. 'start of BlockRecasts')
-        d(dbg.white.. 'skillType: '..skillType.. '     skillLine: '..skillLine.. '\n'..color.white..'          ability: '..ability.. '     morph: '..morph)
-        local abilityName = skilldata[skillType][skillLine][ability][morph].name
-        d(dbg.white.. 'abilityId: '..abilityId.. '     abilityName: '..abilityName)
-    end
-
     local recastHandler = false
 
     if block_notInCombat then
@@ -32,14 +24,12 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, b
     if recastHandler == false then
         local function UpdateRecastHandler(slotNum)
             local timeRemainingMS = GetActionSlotEffectTimeRemaining(slotNum)
-            --[[ Debug ]] if sv.debug_recast then d(dbg.white.. 'timeRemainingMS = '..timeRemainingMS) end
             local thresholdMS = sv.recastTimeRemainingThreshold * 1000
             recastHandler = timeRemainingMS > thresholdMS
         end
 
         for slotNum = 3, 8 do
             if abilityId == GetSlotBoundId(slotNum) then
-                --[[ Debug ]] if sv.debug_recast then d(dbg.white .. 'slotNum = ' .. slotNum) end
                 UpdateRecastHandler(slotNum)
                 break
             end
@@ -51,11 +41,6 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, b
         if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
             recastHandler = false
         end
-    end
-
-	--[[ Debug ]] if sv.debug_recast then
-        d(dbg.white.. 'recastHandler = '.. tostring(recastHandler))
-        d(dbg.grey.. 'end of BlockRecasts') d(dbg.close)
     end
 
     return recastHandler
@@ -76,31 +61,23 @@ function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
 
 	local str_unreg = GetString(NEARSB_unregistered)
 
-	--[[ Debug ]] if sv.debug_pvp then d(dbg.open) d(dbg.lightGrey .. 'start of BlockPvP') end
-
     local block = true
 
     -- check if its not blocking the skill in pvp zones and not blocking everything in pvp
 	if not sv_skilldata[skillLine][ability][morph].pvp and not sv.blockPvP then
 
-	    --[[ Debug ]] if sv.debug_pvp then d(dbg.white.. 'skillType: '..skillType.. '     skillLine: '..skillLine.. '\n'..color.white..'          ability: '..ability.. '     morph: '..morph) end
-
-        local abilityId = skilldata[skillType][skillLine][ability][morph].id
         local abilityName = skilldata[skillType][skillLine][ability][morph].name
-	    --[[ Debug ]] if sv.debug_pvp then d(dbg.white.. 'abilityId: '..abilityId.. '     abilityName: '..abilityName) end
 
         -- check if player is in a pvp zone
 		if IsPlayerInAvAWorld() or IsActiveWorldBattleground() then
-			--[[ Debug ]] if sv.debug_pvp then d(dbg.white .. 'player is on pvp zone') end
             block = false -- tell libsb to not block
 
             -- send this only the first time after entering pvp zone
-            if (sv.message and sv_skilldata[skillLine][ability][morph].msg.pvp) or sv.debug_pvp then
-                d(dbg.white .. str_unreg .. abilityName .. ' *PvP')
+            if sv.message and sv_skilldata[skillLine][ability][morph].msg.pvp then
+                CHAT_SYSTEM:AddMessage(dbg.white .. str_unreg .. abilityName .. ' *PvP')
                 sv_skilldata[skillLine][ability][morph].msg.pvp = false
             end
 		else
-			--[[ Debug ]] if sv.debug_pvp then d(dbg.white .. 'player is NOT on pvp zone') end
             block = true -- tell libsb to block
 
             -- set the PvP message to true
@@ -109,11 +86,6 @@ function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
             end
 		end
 	end
-
-	--[[ Debug ]] if sv.debug_pvp then
-        d(dbg.white.. 'block = '.. tostring(block))
-        d(dbg.grey.. 'end of BlockPvP') d(dbg.close)
-    end
 
     return block
 end
@@ -128,10 +100,6 @@ end
 ---@param morph integer
 ---@return boolean
 function NEAR_SB.BlockNotInCombat(skillType, skillLine, ability, morph)
-    local sv = NEAR_SB.ASV
-
-    --[[ Debug ]] if sv.debug_combat then d(dbg.open) d(dbg.lightGrey .. 'start of BlockNotInCombat') end
-
     local blockHandler = false
 
     local unitTag = 'player'
@@ -146,11 +114,6 @@ function NEAR_SB.BlockNotInCombat(skillType, skillLine, ability, morph)
         if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
             blockHandler = false
         end
-    end
-
-    --[[ Debug ]] if sv.debug_combat then
-        d(dbg.white.. 'blockHandler = '.. tostring(blockHandler))
-        d(dbg.grey.. 'end of BlockNotInCombat') d(dbg.close)
     end
 
     return blockHandler
@@ -168,10 +131,6 @@ end
 ---@param block_notInCombat boolean
 ---@return boolean
 function NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, block_notInCombat)
-    local sv = NEAR_SB.ASV
-
-	--[[ Debug ]] if sv.debug_crux then d(dbg.open) d(dbg.lightGrey .. 'start of BlockOnCrux') end
-
     local blockHandler = false
     local unitTag = 'player'
 
@@ -207,11 +166,6 @@ function NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, bl
         end
     end
 
-    --[[ Debug ]] if sv.debug_crux then
-        d(dbg.white.. 'blockHandler = '.. tostring(blockHandler))
-        d(dbg.grey.. 'end of BlockOnCrux') d(dbg.close)
-    end
-
     return blockHandler
 end
 
@@ -233,10 +187,7 @@ local stackAbilityIds = {
 ---@param block_notInCombat boolean
 ---@return boolean
 function NEAR_SB.BlockOnStacks(skillType, skillLine, ability, morph, abilityId, block_notInCombat)
-    local sv = NEAR_SB.ASV
-    local sv_skilldata = sv.skilldata[skillType]
-
-	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of BlockOnStacks') end
+    local sv_skilldata = NEAR_SB.ASV.skilldata[skillType]
 
     local blockHandler = false
     local unitTag = 'player'
@@ -276,11 +227,6 @@ function NEAR_SB.BlockOnStacks(skillType, skillLine, ability, morph, abilityId, 
         end
     end
 
-    --[[ Debug ]] if sv.debug then
-        d(dbg.white.. 'blockHandler = '.. tostring(blockHandler))
-        d(dbg.grey.. 'end of BlockOnStacks') d(dbg.close)
-    end
-
     return blockHandler
 end
 
@@ -299,32 +245,21 @@ end
 function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, blockType, block_notInCombat)
     local sv = NEAR_SB.ASV
 
-	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of suppressCheck') end
-
     local block = false
 
     if not sv.suppressBlock then
         if blockType == 1 then
-            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 1, running NEAR_SB.BlockPvP') end
             block = NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) -- for cast blocks check only pvp since it is already skipped if block_notInCombat is true
         elseif blockType == 2 then
-            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 2, running NEAR_SB.BlockRecasts') end
             block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, block_notInCombat)
         elseif blockType == 3 then
-            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 3, running NEAR_SB.BlockNotInCombat') end
             block = NEAR_SB.BlockNotInCombat(skillType, skillLine, ability, morph)
         elseif blockType == 4 or blockType == 5 then
-            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == '.. tostring(blockType) ..', running NEAR_SB.BlockOnCrux') end
             block = NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, block_notInCombat)
         elseif blockType == 6 then
-            --[[ Debug ]] if sv.debug then d(dbg.grey .. 'sv.suppressBlock == false, blockType == 6, running NEAR_SB.BlockOnStacks') end
             block = NEAR_SB.BlockOnStacks(skillType, skillLine, ability, morph, abilityId, block_notInCombat)
         end
     end
-
-    --[[ Debug ]] if sv.debug then d(dbg.white.. 'block = '.. tostring(block)) end
-
-	--[[ Debug ]] if sv.debug then d(dbg.grey.. 'end of suppressCheck') d(dbg.close) end
 
     return block
 end

@@ -131,11 +131,7 @@ local function register(skillType, ability, morph, blockType)
                 end
 
                 -- Send message if toggled
-                if sv.message and morphData.msg.re_cast or
-                   (blockType == 1 and sv.debug_init_cast) or
-                   (blockType == 2 and sv.debug_init_recast) or
-                   (blockType == 3 and sv.debug_combat) or
-                   ((blockType == 4 or blockType == 5) and sv.debug_init_crux) then
+                if sv.message and morphData.msg.re_cast then
                     local message = dbg.white .. str_reg .. v[ability][morph].name
                     if blockType == 3 then
                         message = message .. str_notincombat
@@ -147,7 +143,7 @@ local function register(skillType, ability, morph, blockType)
                         local suffix = block_notInCombat and ' +' .. str_notincombat or ''
                         message = message .. prefix .. suffix
                     end
-                    d(message)
+                    CHAT_SYSTEM:AddMessage(message)
                 end
 
                 morphData.msg.re_cast = false
@@ -167,18 +163,9 @@ local function register(skillType, ability, morph, blockType)
 				end
 
                 -- Send message if toggled
-                if sv.message and morphData.msg.re_cast or
-                   (blockType == 1 and sv.debug_init_cast) or
-                   (blockType == 2 and sv.debug_init_recast) or
-                   (blockType == 3 and sv.debug_combat) or
-                   ((blockType == 4 or blockType == 5) and sv.debug_init_crux and (morphData.block_onMaxCrux or morphData.block_onNotMaxCrux)) then
-                    d(dbg.white .. str_unreg .. v[ability][morph].name ..
-                        -- these are only for debug
-                        (blockType == 2 and str_recast or
-                         blockType == 3 and str_notincombat or
-                         blockType == 4 and str_maxcrux or
-                         blockType == 5 and str_notmaxcrux or '')
-                    )
+                if sv.message and morphData.msg.re_cast then
+                    local message = dbg.white .. str_unreg .. v[ability][morph].name
+                    CHAT_SYSTEM:AddMessage(message)
                 end
 
                 morphData.msg.re_cast = false
@@ -188,11 +175,6 @@ local function register(skillType, ability, morph, blockType)
 end
 
 function NEAR_SB.Initialize()
-	local sv = NEAR_SB.ASV
-	local dbg = NEAR_SB.utils.dbg
-
-	--[[ Debug ]] if sv.debug then d(dbg.open) d(dbg.lightGrey .. 'start of addon.Initialize') end
-
     local skillTypeBlockTypes = {
         ['class']   = { 1, 2, 3, 4, 5, 6 },    -- Cast, Recast, NotInCombat, onMaxCrux, onNotMaxCrux, onStacksEqual
         ['weapon']  = { 1, 2, 3 },          -- Cast, Recast, NotInCombat
@@ -214,8 +196,6 @@ function NEAR_SB.Initialize()
     end
 
 	updateRegistered()
-
-	--[[ Debug ]] if sv.debug then d(dbg.grey .. 'end of addon.Initialize') d(dbg.close) end
 end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------

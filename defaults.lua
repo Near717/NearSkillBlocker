@@ -3,16 +3,6 @@ local addon		= NEAR_SB
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 NEAR_SB.defaults = {
-    debug = false,
-    debug_init = false,
-    debug_init_cast = false,
-    debug_init_recast = false,
-    debug_init_pvp = false,
-    debug_init_crux = false,
-    debug_recast = false,
-    debug_pvp = false,
-    debug_crux = false,
-    debug_combat = false,
     message = false,
     blockPvP = true,
     showError = true,

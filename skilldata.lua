@@ -695,9 +695,9 @@ NEAR_SB.skilldata = {
                 [2] = { id = 182977, name = zo_strformat("<<C:1>>", GetAbilityName(182977)), }, -- Escalating Runeblades
             },
             [3] = { -- 
-                [0] = { id = 185805, name = zo_strformat("<<C:1>>", GetAbilityName(185805)), }, -- Fatecarver
-                [1] = { id = 183122, name = zo_strformat("<<C:1>>", GetAbilityName(183122)), }, -- Exhausting Fatecarver
-                [2] = { id = 186366, name = zo_strformat("<<C:1>>", GetAbilityName(186366)), }, -- Pragmatic Fatecarver
+                [0] = { id = 185805, name = zo_strformat("<<C:1>>", GetAbilityName(185805)), id1 = 193331, }, -- Fatecarver
+                [1] = { id = 183122, name = zo_strformat("<<C:1>>", GetAbilityName(183122)), id1 = 193397, }, -- Exhausting Fatecarver
+                [2] = { id = 186366, name = zo_strformat("<<C:1>>", GetAbilityName(186366)), id1 = 193398, }, -- Pragmatic Fatecarver
             },
             [4] = { -- 
                 [0] = { id = 185817, name = zo_strformat("<<C:1>>", GetAbilityName(185817)), }, -- Abyssal Impact

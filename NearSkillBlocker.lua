@@ -131,7 +131,7 @@ local function register(skillType, ability, morph, blockType)
                 end
 
                 -- Send message if toggled
-                if (sv.message and morphData.msg.re_cast) or
+                if sv.message and morphData.msg.re_cast or
                    (blockType == 1 and sv.debug_init_cast) or
                    (blockType == 2 and sv.debug_init_recast) or
                    (blockType == 3 and sv.debug_combat) or
@@ -139,15 +139,13 @@ local function register(skillType, ability, morph, blockType)
                     local message = dbg.white .. str_reg .. v[ability][morph].name
                     if blockType == 3 then
                         message = message .. str_notincombat
-                    end
-                    if blockType ~= 1 and blockType ~= 3 then
+                    elseif blockType ~= 1 then
                         local prefix = (blockType == 2 and str_recast) or
                                        (blockType == 4 and str_maxcrux) or
                                        (blockType == 5 and str_notmaxcrux) or
                                        (blockType == 6 and str_stacks) or ''
-                        local sufix = block_notInCombat and ' +' .. str_notincombat or ''
-
-                        message = message .. prefix .. sufix
+                        local suffix = block_notInCombat and ' +' .. str_notincombat or ''
+                        message = message .. prefix .. suffix
                     end
                     d(message)
                 end
@@ -169,17 +167,17 @@ local function register(skillType, ability, morph, blockType)
 				end
 
                 -- Send message if toggled
-                if (sv.message and morphData.msg.re_cast) or
+                if sv.message and morphData.msg.re_cast or
                    (blockType == 1 and sv.debug_init_cast) or
                    (blockType == 2 and sv.debug_init_recast) or
                    (blockType == 3 and sv.debug_combat) or
-                   ((blockType == 4 or blockType == 5) and sv.debug_init_crux and (morphData.block_onMaxCrux ~= nil or morphData.block_onNotMaxCrux ~= nil)) then
+                   ((blockType == 4 or blockType == 5) and sv.debug_init_crux and (morphData.block_onMaxCrux or morphData.block_onNotMaxCrux)) then
                     d(dbg.white .. str_unreg .. v[ability][morph].name ..
                         -- these are only for debug
-                        ((blockType == 2 and str_recast) or
-                         (blockType == 3 and str_notincombat) or
-                         (blockType == 4 and str_maxcrux) or
-                         (blockType == 5 and str_notmaxcrux) or '')
+                        (blockType == 2 and str_recast or
+                         blockType == 3 and str_notincombat or
+                         blockType == 4 and str_maxcrux or
+                         blockType == 5 and str_notmaxcrux or '')
                     )
                 end
 

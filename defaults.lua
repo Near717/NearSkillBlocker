@@ -1,5 +1,5 @@
 NEAR_SB.defaults = {}
-local addon		= NEAR_SB
+local addon = NEAR_SB
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 NEAR_SB.defaults = {
@@ -14,10 +14,10 @@ NEAR_SB.defaults = {
     abilityBarHideTimers = false,
 }
 
-NEAR_SB.defaults.skilldata = {}  -- Toggle block skills/messages
+NEAR_SB.defaults.skilldata = {} -- Toggle block skills/messages
 
 local function createSkillEntry(addCrux, addStacks)
-    local data = { block = false, block_recast = false, block_notInCombat = false , pvp = true, msg = { re_cast = false, pvp = true, } }
+    local data = { block = false, block_recast = false, block_notInCombat = false, pvp = true, msg = { re_cast = false, pvp = true, } }
 
     if addCrux then
         data.block_onMaxCrux = false
@@ -65,6 +65,5 @@ for _, skillType in ipairs({ 'class', 'weapon', 'armor', 'world', 'guild', 'ava'
                 NEAR_SB.defaults.skilldata[skillType][skillLine][ability] = createSkillEntry(addCrux, addStacks)
             end
         end
-
     end
 end

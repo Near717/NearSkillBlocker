@@ -21,12 +21,9 @@ function NEAR_SB.SetupSettings()
 
 	local libSkillBlockUpdateNeeded = false
 
-	---------------------------------------------------------------------------------
-	local choice		= ''
-	local choice_class	= 'dk'
-	---------------------------------------------------------------------------------
-	local class_name	= NEAR_SB.classdata.name
-	---------------------------------------------------------------------------------
+	local choice = ''
+	local choice_class = 'dk'
+	local class_name = NEAR_SB.classdata.name
 
 	local function UpdateVars()
 		libSkillBlockUpdateNeeded = true
@@ -35,43 +32,44 @@ function NEAR_SB.SetupSettings()
 	local control_options = {}
 
 	local function createDropdown(skillLine, sv_skillLine)
-	    local dropdown = {
-	        type = 'dropdown',
-	        name = skillLine.name,
-	        choices = {},
-	        choicesValues = {},
-	        getFunc = function() return choice end,
-	        setFunc = function(v) choice = v end,
+		local dropdown = {
+			type = 'dropdown',
+			name = skillLine.name,
+			choices = {},
+			choicesValues = {},
+			getFunc = function() return choice end,
+			setFunc = function(v) choice = v end,
 			scrollable = 21,
-	    }
+		}
 
 		for ability in ipairs(skillLine) do
-	    	if type(ability) == 'number' then
+			if type(ability) == 'number' then
 				for morph = 0, 2 do
 					table.insert(dropdown.choices, skillLine[ability][morph].name)
 					table.insert(dropdown.choicesValues, sv_skillLine[ability][morph])
 				end
 			end
-	    end
+		end
 
-	    return dropdown
+		return dropdown
 	end
 
 	local classes = {
-		{class = 'dk', "Flame", "Draconic", "Earth"},
-		{class = 'sc', "Dark", "Daedric", "Storm"},
-		{class = 'nb', "Assassin", "Shadow", "Siphon"},
-		{class = 'wa', "Animal", "Green", "Winter"},
-		{class = 'nm', "Grave", "Bone", "Living"},
-		{class = 'tp', "Spear", "Dawn", "Resto"},
-		{class = 'ar', "Herald", "Soldier", "Curative"}
+		{ class = 'dk', "Flame",    "Draconic", "Earth" },
+		{ class = 'sc', "Dark",     "Daedric",  "Storm" },
+		{ class = 'nb', "Assassin", "Shadow",   "Siphon" },
+		{ class = 'wa', "Animal",   "Green",    "Winter" },
+		{ class = 'nm', "Grave",    "Bone",     "Living" },
+		{ class = 'tp', "Spear",    "Dawn",     "Resto" },
+		{ class = 'ar', "Herald",   "Soldier",  "Curative" }
 	}
 
 	for _, skillLine in ipairs(classes) do
-	    control_options[skillLine.class] = {}
-	    for i = 1, 3 do
-	        control_options[skillLine.class][i] = createDropdown(addon.skilldata['class'][(skillLine[i])], addon.ASV.skilldata["class"][(skillLine[i])])
-	    end
+		control_options[skillLine.class] = {}
+		for i = 1, 3 do
+			control_options[skillLine.class][i] = createDropdown(addon.skilldata['class'][(skillLine[i])],
+				addon.ASV.skilldata["class"][(skillLine[i])])
+		end
 	end
 
 	for _, skillType in ipairs({ 'weapon', 'armor', 'world', 'guild', 'ava' }) do
@@ -87,14 +85,15 @@ function NEAR_SB.SetupSettings()
 
 		for _, skillLineIndex in ipairs(sortedSkillLineIndices) do
 			i = i + 1
-			control_options[skillType][i] = createDropdown(addon.skilldata[skillType][skillLineIndex], addon.ASV.skilldata[skillType][skillLineIndex])
+			control_options[skillType][i] = createDropdown(addon.skilldata[skillType][skillLineIndex],
+				addon.ASV.skilldata[skillType][skillLineIndex])
 		end
 	end
 
 	local additional_control_options = {
 		b_cast = {
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_co_bcast_name),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_bcast_name),
 			tooltip = GetString(NEARSB_LAM_co_bcast_tooltip),
 			getFunc = function() return (choice).block end,
 			setFunc = function(v)
@@ -110,9 +109,9 @@ function NEAR_SB.SetupSettings()
 			end
 		},
 		b_recast = {
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_co_brecast_name),
-			tooltip	= GetString(NEARSB_LAM_co_brecast_tooltip),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_brecast_name),
+			tooltip = GetString(NEARSB_LAM_co_brecast_tooltip),
 			warning = GetString(NEARSB_LAM_co_brecast_warning),
 			getFunc = function() return (choice).block_recast end,
 			setFunc = function(v)
@@ -128,8 +127,8 @@ function NEAR_SB.SetupSettings()
 			end
 		},
 		b_notInCombat = {
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_co_bnotInCombat_name),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_bnotInCombat_name),
 			tooltip = GetString(NEARSB_LAM_co_bnotInCombat_tooltip),
 			getFunc = function() return (choice).block_notInCombat end,
 			setFunc = function(v)
@@ -145,9 +144,9 @@ function NEAR_SB.SetupSettings()
 			end
 		},
 		b_pvp = {
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_co_bpvp_name),
-			tooltip	= GetString(NEARSB_LAM_co_bpvp_tooltip),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_bpvp_name),
+			tooltip = GetString(NEARSB_LAM_co_bpvp_tooltip),
 			getFunc = function() return (choice).pvp end,
 			setFunc = function(v)
 				(choice).pvp, (choice).msg.pvp = v, true
@@ -163,9 +162,9 @@ function NEAR_SB.SetupSettings()
 		},
 
 		b_onMaxCrux = {
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_co_bonMaxCrux_name),
-			tooltip	= GetString(NEARSB_LAM_co_bonMaxCrux_tooltip),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_bonMaxCrux_name),
+			tooltip = GetString(NEARSB_LAM_co_bonMaxCrux_tooltip),
 			getFunc = function() return (choice).block_onMaxCrux end,
 			setFunc = function(v)
 				(choice).block_onMaxCrux, (choice).msg.re_cast = v, true
@@ -181,9 +180,9 @@ function NEAR_SB.SetupSettings()
 			end
 		},
 		b_onNotMaxCrux = {
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_co_bonNotMaxCrux_name),
-			tooltip	= GetString(NEARSB_LAM_co_bonNotMaxCrux_tooltip),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_bonNotMaxCrux_name),
+			tooltip = GetString(NEARSB_LAM_co_bonNotMaxCrux_tooltip),
 			getFunc = function() return (choice).block_onNotMaxCrux end,
 			setFunc = function(v)
 				(choice).block_onNotMaxCrux, (choice).msg.re_cast = v, true
@@ -200,9 +199,9 @@ function NEAR_SB.SetupSettings()
 		},
 
 		b_onStacksEqual = {
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_co_bonStacksEqual_name),
-			tooltip	= GetString(NEARSB_LAM_co_bonStacksEqual_tooltip),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_bonStacksEqual_name),
+			tooltip = GetString(NEARSB_LAM_co_bonStacksEqual_tooltip),
 			getFunc = function() return (choice).block_onStacksEqual end,
 			setFunc = function(v)
 				(choice).block_onStacksEqual, (choice).msg.re_cast = v, true
@@ -218,8 +217,8 @@ function NEAR_SB.SetupSettings()
 		},
 
 		s_onStacksEqual = {
-			type	= 'slider',
-			name	= GetString(NEARSB_LAM_co_sonStacksEqual_name),
+			type = 'slider',
+			name = GetString(NEARSB_LAM_co_sonStacksEqual_name),
 			getFunc = function() return (choice).stacks end,
 			setFunc = function(v) (choice).stacks = v end,
 			min = 1,
@@ -236,18 +235,18 @@ function NEAR_SB.SetupSettings()
 
 	-- Merge the existing control_options and the additional_control_options
 	for key, value in pairs(additional_control_options) do
-	    control_options[key] = value
+		control_options[key] = value
 	end
 
 
 	local panelData = {
-		type 				= 'panel',
-		name 				= addon.title,
-		displayName 		= addon.title,
-		author 				= addon.author,
-		version 			= addon.version,
-		slashCommand 		= '/skillblocker',
-		registerForRefresh 	= true,
+		type = 'panel',
+		name = addon.title,
+		displayName = addon.title,
+		author = addon.author,
+		version = addon.version,
+		slashCommand = '/skillblocker',
+		registerForRefresh = true,
 		registerForDefaults = true,
 	}
 
@@ -261,24 +260,24 @@ function NEAR_SB.SetupSettings()
 
 	local optionsTable = {
 		{
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_supb_name),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_supb_name),
 			tooltip = GetString(NEARSB_LAM_supb_tooltip),
 			getFunc = function() return sv.suppressBlock end,
 			setFunc = function(v) sv.suppressBlock = v end,
 			default = addon.defaults.suppressBlock,
 		},
 		{
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_supbr_name),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_supbr_name),
 			tooltip = GetString(NEARSB_LAM_supbr_tooltip),
 			getFunc = function() return sv.suppressBlockReset end,
 			setFunc = function(v) sv.suppressBlockReset = v end,
 			default = addon.defaults.suppressBlockReset,
 		},
 		{
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_bpvp_name),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_bpvp_name),
 			tooltip = GetString(NEARSB_LAM_bpvp_tooltip),
 			getFunc = function() return sv.blockPvP end,
 			setFunc = function(v) sv.blockPvP = v end,
@@ -291,47 +290,56 @@ function NEAR_SB.SetupSettings()
 			choices = { GetString(NEARSB_LAM_cmdmsgt_choices1), GetString(NEARSB_LAM_cmdmsgt_choices2), GetString(NEARSB_LAM_cmdmsgt_choices3) },
 			choicesValues = { 1, 2, 3 },
 			getFunc = function() return sv.cmdMessageType end,
-			setFunc = function(v) sv.cmdMessageType = v cmdMessageTypeExample() end,
+			setFunc = function(v)
+				sv.cmdMessageType = v
+				cmdMessageTypeExample()
+			end,
 			default = addon.defaults.cmdMessageType,
 		},
 		{
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_cmdmsgs_name),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_cmdmsgs_name),
 			tooltip = GetString(NEARSB_LAM_cmdmsgs_tooltip),
 			getFunc = function() return sv.cmdMessageSound end,
 			setFunc = function(v) sv.cmdMessageSound = v end,
 			default = addon.defaults.cmdMessageSound,
 		},
 		{
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_msg_name),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_msg_name),
 			getFunc = function() return sv.message end,
 			setFunc = function(v) sv.message = v end,
 			default = addon.defaults.message,
 		},
 		{
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_showE_name),
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_showE_name),
 			tooltip = GetString(NEARSB_LAM_showE_tooltip),
 			getFunc = function() return sv.showError end,
-			setFunc = function(v) sv.showError = v libSkillBlockUpdateNeeded = true end,
+			setFunc = function(v)
+				sv.showError = v
+				libSkillBlockUpdateNeeded = true
+			end,
 			default = addon.defaults.showError,
 		},
 		{
-			type	= 'checkbox',
-			name	= GetString(NEARSB_LAM_abHideTimers_name),
-			tooltip	= GetString(NEARSB_LAM_abHideTimers_tooltip),
-			getFunc	= function() return sv.abilityBarHideTimers end,
-			setFunc	= function(v) sv.abilityBarHideTimers = v return addon.AbilityBarTimers.Init() end,
-			default	= addon.defaults.abilityBarHideTimers,
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_abHideTimers_name),
+			tooltip = GetString(NEARSB_LAM_abHideTimers_tooltip),
+			getFunc = function() return sv.abilityBarHideTimers end,
+			setFunc = function(v)
+				sv.abilityBarHideTimers = v
+				return addon.AbilityBarTimers.Init()
+			end,
+			default = addon.defaults.abilityBarHideTimers,
 		},
 		{
-			type	 = 'slider',
-			name	 = GetString(NEARSB_LAM_recastThreshold_name),
-			tooltip	 = GetString(NEARSB_LAM_recastThreshold_tooltip),
-			getFunc	 = function() return sv.recastTimeRemainingThreshold end,
-			setFunc	 = function(v) sv.recastTimeRemainingThreshold = v end,
-			step	 = 0.1,
+			type = 'slider',
+			name = GetString(NEARSB_LAM_recastThreshold_name),
+			tooltip = GetString(NEARSB_LAM_recastThreshold_tooltip),
+			getFunc = function() return sv.recastTimeRemainingThreshold end,
+			setFunc = function(v) sv.recastTimeRemainingThreshold = v end,
+			step = 0.1,
 			decimals = 1,
 			min = 0,
 			max = 10,
@@ -349,50 +357,53 @@ function NEAR_SB.SetupSettings()
 			name = GetString(SI_SKILLTYPE1),
 			controls = {
 				{
-					type			= 'dropdown',
-					name			= GetString(NEARSB_LAM_classsel_name),
-					choices			= {class_name[1], class_name[2], class_name[3], class_name[4], class_name[5], class_name[6], class_name[7]},
-					choicesValues	= {'dk', 'sc', 'nb', 'wa', 'nm', 'tp', 'ar'},
+					type = 'dropdown',
+					name = GetString(NEARSB_LAM_classsel_name),
+					choices = { class_name[1], class_name[2], class_name[3], class_name[4], class_name[5], class_name[6], class_name[7] },
+					choicesValues = { 'dk', 'sc', 'nb', 'wa', 'nm', 'tp', 'ar' },
 					getFunc = function() return choice_class end,
 					setFunc = function(v)
 						choice_class = v
 
-						NEARSB_LAM_DROPDOWN_CLASS1:UpdateChoices(control_options[choice_class][1].choices, control_options[choice_class][1].choicesValues)
+						NEARSB_LAM_DROPDOWN_CLASS1:UpdateChoices(control_options[choice_class][1].choices,
+							control_options[choice_class][1].choicesValues)
 						NEARSB_LAM_DROPDOWN_CLASS1.label:SetText(control_options[choice_class][1].name)
 
-						NEARSB_LAM_DROPDOWN_CLASS2:UpdateChoices(control_options[choice_class][2].choices, control_options[choice_class][2].choicesValues)
+						NEARSB_LAM_DROPDOWN_CLASS2:UpdateChoices(control_options[choice_class][2].choices,
+							control_options[choice_class][2].choicesValues)
 						NEARSB_LAM_DROPDOWN_CLASS2.label:SetText(control_options[choice_class][2].name)
 
-						NEARSB_LAM_DROPDOWN_CLASS3:UpdateChoices(control_options[choice_class][3].choices, control_options[choice_class][3].choicesValues)
+						NEARSB_LAM_DROPDOWN_CLASS3:UpdateChoices(control_options[choice_class][3].choices,
+							control_options[choice_class][3].choicesValues)
 						NEARSB_LAM_DROPDOWN_CLASS3.label:SetText(control_options[choice_class][3].name)
 					end,
 				},
 				{
-					type			= 'dropdown',
-					reference		= 'NEARSB_LAM_DROPDOWN_CLASS1',
-					name			= control_options[choice_class][1].name,
-					choices			= control_options[choice_class][1].choices,
-					choicesValues	= control_options[choice_class][1].choicesValues,
+					type = 'dropdown',
+					reference = 'NEARSB_LAM_DROPDOWN_CLASS1',
+					name = control_options[choice_class][1].name,
+					choices = control_options[choice_class][1].choices,
+					choicesValues = control_options[choice_class][1].choicesValues,
 					getFunc = function() return choice end,
 					setFunc = function(v) choice = v end,
 				},
 				{
-					type			= 'dropdown',
-					reference		= 'NEARSB_LAM_DROPDOWN_CLASS2',
-					name			= control_options[choice_class][2].name,
-					choices			= control_options[choice_class][2].choices,
-					choicesValues	= control_options[choice_class][2].choicesValues,
+					type = 'dropdown',
+					reference = 'NEARSB_LAM_DROPDOWN_CLASS2',
+					name = control_options[choice_class][2].name,
+					choices = control_options[choice_class][2].choices,
+					choicesValues = control_options[choice_class][2].choicesValues,
 					getFunc = function() return choice end,
 					setFunc = function(v) choice = v end,
 				},
 				{
-					type			= 'dropdown',
-					reference		= 'NEARSB_LAM_DROPDOWN_CLASS3',
-					name			= control_options[choice_class][3].name,
-					choices			= control_options[choice_class][3].choices,
-					choicesValues	= control_options[choice_class][3].choicesValues,
+					type = 'dropdown',
+					reference = 'NEARSB_LAM_DROPDOWN_CLASS3',
+					name = control_options[choice_class][3].name,
+					choices = control_options[choice_class][3].choices,
+					choicesValues = control_options[choice_class][3].choicesValues,
 					getFunc = function() return choice end,
-					setFunc	= function(v) choice = v end,
+					setFunc = function(v) choice = v end,
 				},
 				control_options.b_pvp,
 				control_options.b_cast,

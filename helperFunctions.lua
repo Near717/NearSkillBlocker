@@ -1,4 +1,3 @@
-
 local addon = NEAR_SB
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -45,8 +44,8 @@ function NEAR_SB.slash_commands.blockPvP()
 end
 
 function NEAR_SB.RegisterSlashCommands()
-    -- suppressBlock
-    SLASH_COMMANDS["/sb/suppressblock"] = addon.slash_commands.suppressBlock
-    -- blockPvP
-    SLASH_COMMANDS["/sb/blockpvp"] = addon.slash_commands.blockPvP
+	-- suppressBlock
+	SLASH_COMMANDS["/sb/suppressblock"] = addon.slash_commands.suppressBlock
+	-- blockPvP
+	SLASH_COMMANDS["/sb/blockpvp"] = addon.slash_commands.blockPvP
 end

@@ -2,8 +2,8 @@ local addon = NEAR_SB
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function NEAR_SB.AddMessage(message)
-	local prefix = string.format('%s %s %s', addon.shortTitle, ': ', "|cFFFFFF")
-	CHAT_SYSTEM:AddMessage(string.format('%s %s', prefix, message))
+	local prefix = string.format('%s%s %s', addon.shortTitle, ':', "|cFFFFFF")
+	CHAT_SYSTEM:AddMessage(string.format('%s%s', prefix, message))
 end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------

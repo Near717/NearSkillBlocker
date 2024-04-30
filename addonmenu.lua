@@ -329,7 +329,7 @@ function NEAR_SB.SetupSettings()
 			getFunc = function() return sv.abilityBarHideTimers end,
 			setFunc = function(v)
 				sv.abilityBarHideTimers = v
-				return addon.AbilityBarTimers.Init()
+				addon.AbilityBarTimers.Init()
 			end,
 			default = addon.defaults.abilityBarHideTimers,
 		},

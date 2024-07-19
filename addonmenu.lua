@@ -133,6 +133,25 @@ function NEAR_SB.SetupSettings()
 			getFunc = function() return (choice).block_notInCombat end,
 			setFunc = function(v)
 				(choice).block_notInCombat, (choice).msg.re_cast = v, true
+				if (choice).block_inCombat == true then (choice).block_inCombat = false end
+				UpdateVars()
+			end,
+			disabled = function()
+				if not (choice == '') then
+					return false
+				else
+					return true
+				end
+			end
+		},
+		b_inCombat = {
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_binCombat_name),
+			tooltip = GetString(NEARSB_LAM_co_binCombat_tooltip),
+			getFunc = function() return (choice).block_inCombat end,
+			setFunc = function(v)
+				(choice).block_inCombat, (choice).msg.re_cast = v, true
+				if (choice).block_notInCombat == true then (choice).block_notInCombat = false end
 				UpdateVars()
 			end,
 			disabled = function()
@@ -409,6 +428,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_cast,
 				control_options.b_recast,
 				control_options.b_notInCombat,
+				control_options.b_inCombat,
 				{
 					type = 'divider',
 					height = '5',
@@ -440,6 +460,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_cast,
 				control_options.b_recast,
 				control_options.b_notInCombat,
+				control_options.b_inCombat,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -456,6 +477,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_cast,
 				control_options.b_recast,
 				control_options.b_notInCombat,
+				control_options.b_inCombat,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -472,6 +494,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_cast,
 				control_options.b_recast,
 				control_options.b_notInCombat,
+				control_options.b_inCombat,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -489,6 +512,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_cast,
 				control_options.b_recast,
 				control_options.b_notInCombat,
+				control_options.b_inCombat,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -504,6 +528,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_cast,
 				control_options.b_recast,
 				control_options.b_notInCombat,
+				control_options.b_inCombat,
 			},
 		},
 		---------------------------------------------------------------------------------

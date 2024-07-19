@@ -54,6 +54,7 @@ local function checkConditions(morphData, blockType)
 	local block = morphData.block
 	local block_recast = morphData.block_recast
 	local block_notInCombat = morphData.block_notInCombat
+	local block_inCombat = morphData.block_inCombat
 	local block_onMaxCrux = morphData.block_onMaxCrux or false
 	local block_onNotMaxCrux = morphData.block_onNotMaxCrux or false
 	local block_onStacksEqual = morphData.block_onStacksEqual or false
@@ -62,7 +63,7 @@ local function checkConditions(morphData, blockType)
 		[0] = { not block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual }, -- Conditions for unregisterBlock
 		[1] = { block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
 		[2] = { block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
-		[3] = { block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
+		[3] = { block_notInCombat or block_inCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
 		[4] = { block_onMaxCrux, not block_onNotMaxCrux },
 		[5] = { block_onNotMaxCrux },
 		[6] = { block_onStacksEqual },
@@ -85,6 +86,7 @@ local str_notmaxcrux = GetString(NEARSB_un_reg_NotMaxCrux)
 local str_stacks = GetString(NEARSB_un_reg_stacks)
 local str_recast = GetString(NEARSB_un_reg_recast)
 local str_notincombat = GetString(NEARSB_un_reg_notInCombat)
+local str_incombat = GetString(NEARSB_un_reg_inCombat)
 
 ---@param skillType string
 ---@param ability integer
@@ -96,9 +98,9 @@ local function register(skillType, ability, morph, blockType)
 	local skilldata = addon.skilldata[skillType]
 	local sv_skilldata = sv.skilldata[skillType]
 
-	local function registerBlock(id, skillLine, block_notInCombat)
+	local function registerBlock(id, skillLine, block_notInCombat, block_inCombat)
 		LSB.RegisterSkillBlock(addon.name, id,
-			function() return addon.suppressCheck(skillType, skillLine, ability, morph, id, blockType, block_notInCombat) end,
+			function() return addon.suppressCheck(skillType, skillLine, ability, morph, id, blockType, block_notInCombat, block_inCombat) end,
 			sv.showError
 		)
 	end
@@ -111,12 +113,13 @@ local function register(skillType, ability, morph, blockType)
 		if sv_skilldata[skillLine][ability] ~= nil then
 			local morphData = sv_skilldata[skillLine][ability][morph]
 			local block_notInCombat = morphData.block_notInCombat
+			local block_inCombat = morphData.block_inCombat
 
 			local abilityId = v[ability][morph].id
 
 			if checkConditions(morphData, blockType) then
 				-- Register block
-				registerBlock(abilityId, skillLine, block_notInCombat)
+				registerBlock(abilityId, skillLine, block_notInCombat, block_inCombat)
 
 				-- Register variant ids if there are any
 				local i = 1
@@ -125,7 +128,7 @@ local function register(skillType, ability, morph, blockType)
 					if variantId == nil then
 						break -- Exit the loop if there's no variant id
 					end
-					registerBlock(variantId, skillLine, block_notInCombat)
+					registerBlock(variantId, skillLine, block_notInCombat, block_inCombat)
 					i = i + 1
 				end
 
@@ -139,7 +142,7 @@ local function register(skillType, ability, morph, blockType)
 							(blockType == 4 and str_maxcrux) or
 							(blockType == 5 and str_notmaxcrux) or
 							(blockType == 6 and str_stacks) or ''
-						local suffix = block_notInCombat and ' +' .. str_notincombat or ''
+						local suffix = block_notInCombat and ' +' .. str_notincombat or block_inCombat and ' +' .. str_incombat or ''
 						message = message .. prefix .. suffix
 					end
 					addon.AddMessage(message)
@@ -175,7 +178,7 @@ end
 
 function NEAR_SB.Initialize()
 	local skillTypeBlockTypes = {
-		['class'] = { 1, 2, 3, 4, 5, 6 }, -- Cast, Recast, NotInCombat, onMaxCrux, onNotMaxCrux, onStacksEqual
+		['class'] = { 1, 2, 3, 4, 5, 6 }, -- Cast, Recast, inCombat, onMaxCrux, onNotMaxCrux, onStacksEqual
 		['weapon'] = { 1, 2, 3 },
 		['armor'] = { 1, 2, 3 },
 		['world'] = { 1, 2, 3 },

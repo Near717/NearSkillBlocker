@@ -2,7 +2,7 @@ NEAR_SB = {
 	name = "NearSkillBlocker",
 	title = "Near's Skill Blocker",
 	shortTitle = "Skill Blocker",
-	version = "3.7.0",
+	version = "3.8.0",
 	author = "|cCC99FFnotnear|r",
 }
 

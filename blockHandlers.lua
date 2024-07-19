@@ -11,7 +11,7 @@ local skilldata = NEAR_SB.skilldata
 ---@param block_inCombat boolean
 ---@param block_isBracing boolean
 ---@return boolean
-function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, block_notInCombat, block_inCombat, block_isBracing)
+function NEAR_SB.HandleRecasts(skillType, skillLine, ability, morph, abilityId, block_notInCombat, block_inCombat, block_isBracing)
 	local sv = NEAR_SB.ASV
 
 	local recastHandler = false
@@ -47,7 +47,7 @@ function NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, b
 
 	-- check status of blockPvP and overrides the handler if needed
 	if recastHandler == true then
-		if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+		if NEAR_SB.HandlePvP(skillType, skillLine, ability, morph) == false then
 			recastHandler = false
 		end
 	end
@@ -63,7 +63,7 @@ end
 ---@param ability integer
 ---@param morph integer
 ---@return boolean
-function NEAR_SB.BlockPvP(skillType, skillLine, ability, morph)
+function NEAR_SB.HandlePvP(skillType, skillLine, ability, morph)
 	local sv = NEAR_SB.ASV
 	local sv_skilldata = sv.skilldata[skillType]
 
@@ -109,7 +109,7 @@ end
 ---@param block_inCombat boolean
 ---@param block_isBracing boolean
 ---@return boolean
-function NEAR_SB.BlockIsInCombatOrBracing(skillType, skillLine, ability, morph, block_notInCombat, block_inCombat, block_isBracing)
+function NEAR_SB.HandleIsInCombatOrBracing(skillType, skillLine, ability, morph, block_notInCombat, block_inCombat, block_isBracing)
 	local blockHandler = false
 
 	if block_notInCombat or block_inCombat then
@@ -128,7 +128,7 @@ function NEAR_SB.BlockIsInCombatOrBracing(skillType, skillLine, ability, morph, 
 
 	-- check status of blockPvP and overrides the handler if needed
 	if blockHandler == true then
-		if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+		if NEAR_SB.HandlePvP(skillType, skillLine, ability, morph) == false then
 			blockHandler = false
 		end
 	end
@@ -148,7 +148,7 @@ end
 ---@param block_inCombat boolean
 ---@param block_isBracing boolean
 ---@return boolean
-function NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, block_notInCombat, block_inCombat, block_isBracing)
+function NEAR_SB.HandleOnCrux(skillType, skillLine, ability, morph, blockType, block_notInCombat, block_inCombat, block_isBracing)
 	local blockHandler = false
 	local unitTag = 'player'
 
@@ -186,7 +186,7 @@ function NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, bl
 
 	-- check status of blockPvP and overrides the handler if needed
 	if blockHandler == true then
-		if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+		if NEAR_SB.HandlePvP(skillType, skillLine, ability, morph) == false then
 			blockHandler = false
 		end
 	end
@@ -212,7 +212,7 @@ local stackAbilityIds = {
 ---@param block_inCombat boolean
 ---@param block_isBracing boolean
 ---@return boolean
-function NEAR_SB.BlockOnStacks(skillType, skillLine, ability, morph, abilityId, block_notInCombat, block_inCombat, block_isBracing)
+function NEAR_SB.HandleOnStacks(skillType, skillLine, ability, morph, abilityId, block_notInCombat, block_inCombat, block_isBracing)
 	local sv_skilldata = NEAR_SB.ASV.skilldata[skillType]
 
 	local blockHandler = false
@@ -255,7 +255,7 @@ function NEAR_SB.BlockOnStacks(skillType, skillLine, ability, morph, abilityId, 
 
 	-- check status of blockPvP and overrides the handler if needed
 	if blockHandler == true then
-		if NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) == false then
+		if NEAR_SB.HandlePvP(skillType, skillLine, ability, morph) == false then
 			blockHandler = false
 		end
 	end
@@ -283,15 +283,15 @@ function NEAR_SB.suppressCheck(skillType, skillLine, ability, morph, abilityId, 
 
 	if not sv.suppressBlock then
 		if blockType == 1 then
-			block = NEAR_SB.BlockPvP(skillType, skillLine, ability, morph) -- for cast blocks check only pvp since it is already skipped if block_notInCombat is true
+			block = NEAR_SB.HandlePvP(skillType, skillLine, ability, morph) -- for cast blocks check only pvp since it is already skipped if block_notInCombat is true
 		elseif blockType == 2 then
-			block = NEAR_SB.BlockRecasts(skillType, skillLine, ability, morph, abilityId, block_notInCombat, block_inCombat, block_isBracing)
+			block = NEAR_SB.HandleRecasts(skillType, skillLine, ability, morph, abilityId, block_notInCombat, block_inCombat, block_isBracing)
 		elseif blockType == 3 then
-			block = NEAR_SB.BlockIsInCombatOrBracing(skillType, skillLine, ability, morph, block_notInCombat, block_inCombat, block_isBracing)
+			block = NEAR_SB.HandleIsInCombatOrBracing(skillType, skillLine, ability, morph, block_notInCombat, block_inCombat, block_isBracing)
 		elseif blockType == 4 or blockType == 5 then
-			block = NEAR_SB.BlockOnCrux(skillType, skillLine, ability, morph, blockType, block_notInCombat, block_inCombat, block_isBracing)
+			block = NEAR_SB.HandleOnCrux(skillType, skillLine, ability, morph, blockType, block_notInCombat, block_inCombat, block_isBracing)
 		elseif blockType == 6 then
-			block = NEAR_SB.BlockOnStacks(skillType, skillLine, ability, morph, abilityId, block_notInCombat, block_inCombat, block_isBracing)
+			block = NEAR_SB.HandleOnStacks(skillType, skillLine, ability, morph, abilityId, block_notInCombat, block_inCombat, block_isBracing)
 		end
 	end
 

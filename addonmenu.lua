@@ -162,6 +162,23 @@ function NEAR_SB.SetupSettings()
 				end
 			end
 		},
+		b_isBracing = {
+			type = 'checkbox',
+			name = GetString(NEARSB_LAM_co_bisBracing_name),
+			tooltip = GetString(NEARSB_LAM_co_bisBracing_tooltip),
+			getFunc = function() return (choice).block_isBracing end,
+			setFunc = function(v)
+				(choice).block_isBracing, (choice).msg.re_cast = v, true
+				UpdateVars()
+			end,
+			disabled = function()
+				if not (choice == '') then
+					return false
+				else
+					return true
+				end
+			end
+		},
 		b_pvp = {
 			type = 'checkbox',
 			name = GetString(NEARSB_LAM_co_bpvp_name),
@@ -429,6 +446,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_recast,
 				control_options.b_notInCombat,
 				control_options.b_inCombat,
+				control_options.b_isBracing,
 				{
 					type = 'divider',
 					height = '5',
@@ -461,6 +479,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_recast,
 				control_options.b_notInCombat,
 				control_options.b_inCombat,
+				control_options.b_isBracing,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -478,6 +497,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_recast,
 				control_options.b_notInCombat,
 				control_options.b_inCombat,
+				control_options.b_isBracing,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -495,6 +515,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_recast,
 				control_options.b_notInCombat,
 				control_options.b_inCombat,
+				control_options.b_isBracing,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -513,6 +534,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_recast,
 				control_options.b_notInCombat,
 				control_options.b_inCombat,
+				control_options.b_isBracing,
 			},
 		},
 		---------------------------------------------------------------------------------
@@ -529,6 +551,7 @@ function NEAR_SB.SetupSettings()
 				control_options.b_recast,
 				control_options.b_notInCombat,
 				control_options.b_inCombat,
+				control_options.b_isBracing,
 			},
 		},
 		---------------------------------------------------------------------------------

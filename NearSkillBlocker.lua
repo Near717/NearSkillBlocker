@@ -62,7 +62,7 @@ local function checkConditions(morphData, blockType)
 
 	local conditions = {
 		[0] = { not block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual }, -- Conditions for unregisterBlock
-		[1] = { block, not block_notInCombat, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
+		[1] = { block, not block_notInCombat, not block_inCombat, not block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
 		[2] = { block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
 		[3] = { block_notInCombat or block_inCombat or block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
 		[4] = { block_onMaxCrux, not block_onNotMaxCrux },

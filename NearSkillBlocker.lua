@@ -139,7 +139,9 @@ local function register(skillType, ability, morph, blockType)
 				if sv.message and morphData.msg.re_cast then
 					local message = str_reg .. v[ability][morph].name
 					if blockType == 3 then
-						message = message .. str_notincombat
+						local suffix = block_notInCombat and str_notincombat or block_inCombat and str_incombat or ''
+						suffix = block_isBracing and suffix .. str_isbracing or suffix
+						message = message .. suffix
 					elseif blockType ~= 1 then
 						local prefix = (blockType == 2 and str_recast) or
 							(blockType == 4 and str_maxcrux) or

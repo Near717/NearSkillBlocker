@@ -137,8 +137,8 @@ local function register(skillType, ability, morph, blockType)
 							(blockType == 4 and str_maxcrux) or
 							(blockType == 5 and str_notmaxcrux) or
 							(blockType == 6 and str_stacks) or ''
-						local suffix = morphData.block_notInCombat and ' +' .. str_notincombat or morphData.block_inCombat and ' +' .. str_incombat or ''
-						suffix = morphData.block_isBracing and suffix .. ' +' .. str_isbracing or suffix
+						local suffix = morphData.block_notInCombat and str_notincombat or morphData.block_inCombat and str_incombat or ''
+						suffix = morphData.block_isBracing and suffix .. str_isbracing or suffix
 						message = message .. prefix .. suffix
 					end
 					addon.AddMessage(message)

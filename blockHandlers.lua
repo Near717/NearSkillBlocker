@@ -25,7 +25,7 @@ function NEAR_SB.HandleRecasts(abilityId, msg_pvp, block_pvp, block_notInCombat,
 	local isBracing = IsBlockActive()
 	local recastHandler = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
 
-	if not recastHandler then
+	if recastHandler then
 		local function UpdateRecastHandler(slotNum)
 			local timeRemainingMS = GetActionSlotEffectTimeRemaining(slotNum)
 			local thresholdMS = sv.recastTimeRemainingThreshold * 1000
@@ -124,7 +124,7 @@ function NEAR_SB.HandleOnCrux(blockType, abilityId, msg_pvp, block_pvp, block_no
 	local blockHandler = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
 	local buffExists = false
 
-	if not blockHandler then
+	if blockHandler then
 		for buffIndex = 1, GetNumBuffs(unitTag) do
 			local _, _, _, _, stackCount, _, _, _, _, _, buffAbilityId, _, _ = GetUnitBuffInfo(unitTag, buffIndex)
 			if buffAbilityId == 184220 then -- Crux abilityId = 184220
@@ -177,7 +177,7 @@ function NEAR_SB.HandleOnStacks(skillType, skillLine, ability, morph, abilityId,
 	local stackAbilityId = stackAbilityIds[tostring(abilityId)]
 	local buffExists = false
 
-	if not blockHandler then
+	if blockHandler then
 		for buffIndex = 1, GetNumBuffs(unitTag) do
 			local _, _, _, _, stackCount, _, _, _, _, _, buffAbilityId, _, _ = GetUnitBuffInfo(unitTag, buffIndex)
 			if buffAbilityId == stackAbilityId then

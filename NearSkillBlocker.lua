@@ -51,14 +51,23 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 local function checkConditions(morphData, blockType)
+	local block = morphData.block
+	local block_recast = morphData.block_recast
+	local block_notInCombat = morphData.block_notInCombat
+	local block_inCombat = morphData.block_inCombat
+	local block_isBracing = morphData.block_isBracing
+	local block_onMaxCrux = morphData.block_onMaxCrux or false
+	local block_onNotMaxCrux = morphData.block_onNotMaxCrux or false
+	local block_onStacksEqual = morphData.block_onStacksEqual or false
+
 	local conditions = {
-		[0] = { not morphData.block, not morphData.block_notInCombat, not morphData.block_inCombat, not morphData.block_isBracing, not morphData.block_recast, not morphData.block_onMaxCrux, not morphData.block_onNotMaxCrux, not morphData.block_onStacksEqual }, -- Conditions for unregisterBlock
-		[1] = { morphData.block, not morphData.block_notInCombat, not morphData.block_inCombat, not morphData.block_isBracing, not morphData.block_recast, not morphData.block_onMaxCrux, not morphData.block_onNotMaxCrux, not morphData.block_onStacksEqual },
-		[2] = { morphData.block_notInCombat or morphData.block_inCombat or morphData.block_isBracing, not morphData.block_recast, not morphData.block_onMaxCrux, not morphData.block_onNotMaxCrux, not morphData.block_onStacksEqual },
-		[3] = { morphData.block_recast, not morphData.block_onMaxCrux, not morphData.block_onNotMaxCrux, not morphData.block_onStacksEqual },
-		[4] = { morphData.block_onMaxCrux },
-		[5] = { morphData.block_onNotMaxCrux },
-		[6] = { morphData.block_onStacksEqual },
+		[0] = { not block, not block_notInCombat, not block_inCombat, not block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual }, -- Conditions for unregisterBlock
+		[1] = { block, not block_notInCombat, not block_inCombat, not block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
+		[2] = { block_notInCombat or block_inCombat or block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
+		[3] = { block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
+		[4] = { block_onMaxCrux },
+		[5] = { block_onNotMaxCrux },
+		[6] = { block_onStacksEqual },
 	}
 
 	local cond = conditions[blockType]

@@ -1,6 +1,16 @@
 local addon = NEAR_SB
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+local function checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
+	return (block_notInCombat and not isInCombat and not block_isBracing) or
+		(block_notInCombat and not isInCombat and block_isBracing and isBracing) or
+		(block_inCombat and isInCombat and not block_isBracing) or
+		(block_inCombat and isInCombat and block_isBracing and isBracing) or
+		(block_isBracing and isBracing and not block_notInCombat and not block_inCombat)
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ---@param abilityId integer
 ---@param msg_pvp boolean
 ---@param block_pvp boolean
@@ -10,23 +20,12 @@ local addon = NEAR_SB
 ---@return boolean
 function NEAR_SB.HandleRecasts(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 	local sv = NEAR_SB.ASV
-
-	local recastHandler = false
-
 	local unitTag = 'player'
 	local isInCombat = IsUnitInCombat(unitTag)
 	local isBracing = IsBlockActive()
+	local recastHandler = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
 
-	-- Check for in combat, out of combat, and bracing conditions
-	if (block_notInCombat and not isInCombat and not block_isBracing) or
-		(block_notInCombat and not isInCombat and block_isBracing and isBracing) or
-		(block_inCombat and isInCombat and not block_isBracing) or
-		(block_inCombat and isInCombat and block_isBracing and isBracing) or
-		(block_isBracing and isBracing and not block_notInCombat and not block_inCombat) then
-		recastHandler = true
-	end
-
-	if recastHandler == false then
+	if not recastHandler then
 		local function UpdateRecastHandler(slotNum)
 			local timeRemainingMS = GetActionSlotEffectTimeRemaining(slotNum)
 			local thresholdMS = sv.recastTimeRemainingThreshold * 1000
@@ -42,10 +41,8 @@ function NEAR_SB.HandleRecasts(abilityId, msg_pvp, block_pvp, block_notInCombat,
 	end
 
 	-- check status of blockPvP and overrides the handler if needed
-	if recastHandler == true then
-		if NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp) == false then
-			recastHandler = false
-		end
+	if recastHandler then
+		recastHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
 	end
 
 	return recastHandler
@@ -70,7 +67,7 @@ function NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
 
 		-- check if player is in a pvp zone
 		if IsPlayerInAvAWorld() or IsActiveWorldBattleground() then
-			block = false -- tell libsb to not block
+			block = false
 
 			-- send this only the first time after entering pvp zone
 			if sv.message and msg_pvp then
@@ -79,12 +76,8 @@ function NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
 				msg_pvp = false
 			end
 		else
-			block = true -- tell libsb to block
-
-			-- set the PvP message to true
-			if msg_pvp ~= true then
-				msg_pvp = true
-			end
+			block = true
+			msg_pvp = true
 		end
 	end
 
@@ -101,26 +94,14 @@ end
 ---@param block_isBracing boolean
 ---@return boolean
 function NEAR_SB.HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
-	local blockHandler = false
-
 	local unitTag = 'player'
 	local isInCombat = IsUnitInCombat(unitTag)
 	local isBracing = IsBlockActive()
-
-	-- Check for in combat, out of combat, and bracing conditions
-	if (block_notInCombat and not isInCombat and not block_isBracing) or
-		(block_notInCombat and not isInCombat and block_isBracing and isBracing) or
-		(block_inCombat and isInCombat and not block_isBracing) or
-		(block_inCombat and isInCombat and block_isBracing and isBracing) or
-		(block_isBracing and isBracing and not block_notInCombat and not block_inCombat) then
-		blockHandler = true
-	end
+	local blockHandler = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
 
 	-- check status of blockPvP and overrides the handler if needed
-	if blockHandler == true then
-		if NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp) == false then
-			blockHandler = false
-		end
+	if blockHandler then
+		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
 	end
 
 	return blockHandler
@@ -137,24 +118,13 @@ end
 ---@param block_isBracing boolean
 ---@return boolean
 function NEAR_SB.HandleOnCrux(blockType, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
-	local blockHandler = false
 	local unitTag = 'player'
-
 	local isInCombat = IsUnitInCombat(unitTag)
 	local isBracing = IsBlockActive()
-
-	-- Check for in combat, out of combat, and bracing conditions
-	if (block_notInCombat and not isInCombat and not block_isBracing) or
-		(block_notInCombat and not isInCombat and block_isBracing and isBracing) or
-		(block_inCombat and isInCombat and not block_isBracing) or
-		(block_inCombat and isInCombat and block_isBracing and isBracing) or
-		(block_isBracing and isBracing and not block_notInCombat and not block_inCombat) then
-		blockHandler = true
-	end
-
+	local blockHandler = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
 	local buffExists = false
 
-	if blockHandler == false then
+	if not blockHandler then
 		for buffIndex = 1, GetNumBuffs(unitTag) do
 			local _, _, _, _, stackCount, _, _, _, _, _, buffAbilityId, _, _ = GetUnitBuffInfo(unitTag, buffIndex)
 			if buffAbilityId == 184220 then -- Crux abilityId = 184220
@@ -172,10 +142,8 @@ function NEAR_SB.HandleOnCrux(blockType, abilityId, msg_pvp, block_pvp, block_no
 	end
 
 	-- check status of blockPvP and overrides the handler if needed
-	if blockHandler == true then
-		if NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp) == false then
-			blockHandler = false
-		end
+	if blockHandler then
+		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
 	end
 
 	return blockHandler
@@ -201,31 +169,18 @@ local stackAbilityIds = {
 ---@return boolean
 function NEAR_SB.HandleOnStacks(skillType, skillLine, ability, morph, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 	local sv_skilldata = NEAR_SB.ASV.skilldata[skillType]
-
-	local blockHandler = false
 	local unitTag = 'player'
-
 	local isInCombat = IsUnitInCombat(unitTag)
 	local isBracing = IsBlockActive()
-
-	-- Check for in combat, out of combat, and bracing conditions
-	if (block_notInCombat and not isInCombat and not block_isBracing) or
-		(block_notInCombat and not isInCombat and block_isBracing and isBracing) or
-		(block_inCombat and isInCombat and not block_isBracing) or
-		(block_inCombat and isInCombat and block_isBracing and isBracing) or
-		(block_isBracing and isBracing and not block_notInCombat and not block_inCombat) then
-		blockHandler = true
-	end
-
+	local blockHandler = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
 	local stacks = sv_skilldata[skillLine][ability][morph].stacks
 	local stackAbilityId = stackAbilityIds[tostring(abilityId)]
-
 	local buffExists = false
 
-	if blockHandler == false then
+	if not blockHandler then
 		for buffIndex = 1, GetNumBuffs(unitTag) do
 			local _, _, _, _, stackCount, _, _, _, _, _, buffAbilityId, _, _ = GetUnitBuffInfo(unitTag, buffIndex)
-			if (buffAbilityId == stackAbilityId) then
+			if buffAbilityId == stackAbilityId then
 				buffExists = true
 				if not (stackCount == stacks) then
 					blockHandler = true
@@ -240,17 +195,14 @@ function NEAR_SB.HandleOnStacks(skillType, skillLine, ability, morph, abilityId,
 	end
 
 	-- check status of blockPvP and overrides the handler if needed
-	if blockHandler == true then
-		if NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp) == false then
-			blockHandler = false
-		end
+	if blockHandler then
+		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
 	end
 
 	return blockHandler
 end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 ---@param skillType string
 ---@param skillLine string|integer
@@ -264,12 +216,11 @@ end
 ---@return boolean
 function NEAR_SB.suppressCheck(blockType, skillType, skillLine, ability, morph, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 	local sv = NEAR_SB.ASV
-
 	local block = false
 
 	if not sv.suppressBlock then
 		if blockType == 1 then
-			block = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp) -- for cast blocks check only pvp since it is already skipped if anything else is true
+			block = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
 		elseif blockType == 2 then
 			block = NEAR_SB.HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 		elseif blockType == 3 then

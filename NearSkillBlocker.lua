@@ -63,9 +63,9 @@ local function checkConditions(morphData, blockType)
 	local conditions = {
 		[0] = { not block, not block_notInCombat, not block_inCombat, not block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual }, -- Conditions for unregisterBlock
 		[1] = { block, not block_notInCombat, not block_inCombat, not block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
-		[2] = { block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
-		[3] = { block_notInCombat or block_inCombat or block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
-		[4] = { block_onMaxCrux, not block_onNotMaxCrux },
+		[2] = { block_notInCombat or block_inCombat or block_isBracing, not block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
+		[3] = { block_recast, not block_onMaxCrux, not block_onNotMaxCrux, not block_onStacksEqual },
+		[4] = { block_onMaxCrux },
 		[5] = { block_onNotMaxCrux },
 		[6] = { block_onStacksEqual },
 	}
@@ -114,15 +114,15 @@ local function register(skillType, ability, morph, blockType)
 	for skillLine, v in pairs(skilldata) do
 		if sv_skilldata[skillLine][ability] ~= nil then
 			local morphData = sv_skilldata[skillLine][ability][morph]
-			local msg_pvp = morphData.msg.pvp
-			local block_pvp = morphData.pvp
-			local block_notInCombat = morphData.block_notInCombat
-			local block_inCombat = morphData.block_inCombat
-			local block_isBracing = morphData.block_isBracing
-
 			local abilityId = v[ability][morph].id
 
 			if checkConditions(morphData, blockType) then
+				local msg_pvp = morphData.msg.pvp
+				local block_pvp = morphData.pvp
+				local block_notInCombat = morphData.block_notInCombat
+				local block_inCombat = morphData.block_inCombat
+				local block_isBracing = morphData.block_isBracing
+
 				-- Register block
 				registerBlock(abilityId, skillLine, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 
@@ -186,7 +186,7 @@ end
 
 function NEAR_SB.Initialize()
 	local skillTypeBlockTypes = {
-		['class'] = { 1, 2, 3, 4, 5, 6 }, -- Cast, Recast, combat / bracing, onMaxCrux, onNotMaxCrux, onStacksEqual
+		['class'] = { 1, 2, 3, 4, 5, 6 }, -- Cast, combat / bracing, Recast, onMaxCrux, onNotMaxCrux, onStacksEqual
 		['weapon'] = { 1, 2, 3 },
 		['armor'] = { 1, 2, 3 },
 		['world'] = { 1, 2, 3 },

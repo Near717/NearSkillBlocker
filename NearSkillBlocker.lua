@@ -100,9 +100,9 @@ local function register(skillType, ability, morph, blockType)
 	local skilldata = addon.skilldata[skillType]
 	local sv_skilldata = sv.skilldata[skillType]
 
-	local function registerBlock(id, skillLine, block_notInCombat, block_inCombat, block_isBracing)
+	local function registerBlock(id, skillLine, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 		LSB.RegisterSkillBlock(addon.name, id,
-			function() return addon.suppressCheck(skillType, skillLine, ability, morph, id, blockType, block_notInCombat, block_inCombat, block_isBracing) end,
+			function() return addon.suppressCheck(blockType, skillType, skillLine, ability, morph, id, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing) end,
 			sv.showError
 		)
 	end
@@ -114,6 +114,8 @@ local function register(skillType, ability, morph, blockType)
 	for skillLine, v in pairs(skilldata) do
 		if sv_skilldata[skillLine][ability] ~= nil then
 			local morphData = sv_skilldata[skillLine][ability][morph]
+			local msg_pvp = morphData.msg.pvp
+			local block_pvp = morphData.pvp
 			local block_notInCombat = morphData.block_notInCombat
 			local block_inCombat = morphData.block_inCombat
 			local block_isBracing = morphData.block_isBracing
@@ -122,7 +124,7 @@ local function register(skillType, ability, morph, blockType)
 
 			if checkConditions(morphData, blockType) then
 				-- Register block
-				registerBlock(abilityId, skillLine, block_notInCombat, block_inCombat, block_isBracing)
+				registerBlock(abilityId, skillLine, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 
 				-- Register variant ids if there are any
 				local i = 1
@@ -131,7 +133,7 @@ local function register(skillType, ability, morph, blockType)
 					if variantId == nil then
 						break -- Exit the loop if there's no variant id
 					end
-					registerBlock(variantId, skillLine, block_notInCombat, block_inCombat, block_isBracing)
+					registerBlock(variantId, skillLine, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 					i = i + 1
 				end
 

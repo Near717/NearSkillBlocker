@@ -2,7 +2,7 @@ NEAR_SB = {
 	name = "NearSkillBlocker",
 	title = "Near's Skill Blocker",
 	shortTitle = "Skill Blocker",
-	version = "3.8.1",
+	version = "3.9.0",
 	author = "|cCC99FFnotnear|r",
 }
 
@@ -201,6 +201,10 @@ local function OnAddonLoaded(event, name)
 	EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
 	addon.ASV = ZO_SavedVars:NewAccountWide(addon.name .. "_Data", 4, GetWorldName(), addon.defaults)
+
+	if AddonCategory then
+		AddonCategory.AssignAddonToCategory(addon.name, AddonCategory.baseCategories.Combat)
+	end
 
 	if addon.ASV.suppressBlockReset then addon.ASV.suppressBlock = addon.defaults.suppressBlock end
 

@@ -28,58 +28,7 @@ end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
----@param abilityId integer
----@param msg_pvp boolean
----@param block_pvp boolean
----@param block_notInCombat boolean
----@param block_inCombat boolean
----@param block_isBracing boolean
----@return boolean
-function NEAR_SB.HandleRecasts(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
-	local sv = NEAR_SB.ASV
-	local unitTag = 'player'
-	local isInCombat = IsUnitInCombat(unitTag)
-	local isBracing = IsBlockActive()
-	local blockHandler = false
-
-	local function UpdateRecastHandler(slotNum)
-		local timeRemainingMS = GetActionSlotEffectTimeRemaining(slotNum)
-		local thresholdMS = sv.recastTimeRemainingThreshold * 1000
-		blockHandler = timeRemainingMS > thresholdMS
-	end
-
-	for slotNum = 3, 8 do
-		if abilityId == GetSlotBoundId(slotNum) then
-			UpdateRecastHandler(slotNum)
-			break
-		end
-	end
-
-	local combatorbracing = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
-
-	if blockHandler == true and combatorbracing ~= nil then
-		blockHandler = combatorbracing
-	end
-
-	if blockHandler == true then
-		blockHandler = checkWerewolfTransformConditions(abilityId)
-	end
-
-	-- check status of blockPvP and overrides the handler if needed
-	if blockHandler == true then
-		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
-	end
-
-	return blockHandler
-end
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
----@param abilityId integer
----@param msg_pvp boolean
----@param block_pvp boolean
----@return boolean
-function NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
+local function HandlePvP(abilityId, msg_pvp, block_pvp)
 	local sv = NEAR_SB.ASV
 
 	local str_unreg = GetString(NEARSB_unregistered)
@@ -111,11 +60,38 @@ end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-local function HandleBlock(abilityId, msg_pvp, block_pvp)
-	local blockHandler = checkWerewolfTransformConditions(abilityId)
+local function HandleRecasts(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
+	local sv = NEAR_SB.ASV
+	local unitTag = 'player'
+	local isInCombat = IsUnitInCombat(unitTag)
+	local isBracing = IsBlockActive()
+	local blockHandler = false
+
+	local function UpdateRecastHandler(slotNum)
+		local timeRemainingMS = GetActionSlotEffectTimeRemaining(slotNum)
+		local thresholdMS = sv.recastTimeRemainingThreshold * 1000
+		blockHandler = timeRemainingMS > thresholdMS
+	end
+
+	for slotNum = 3, 8 do
+		if abilityId == GetSlotBoundId(slotNum) then
+			UpdateRecastHandler(slotNum)
+			break
+		end
+	end
+
+	local combatorbracing = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
+
+	if blockHandler == true and combatorbracing ~= nil then
+		blockHandler = combatorbracing
+	end
 
 	if blockHandler == true then
-		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
+		blockHandler = checkWerewolfTransformConditions(abilityId)
+	end
+
+	if blockHandler == true then
+		blockHandler = HandlePvP(abilityId, msg_pvp, block_pvp)
 	end
 
 	return blockHandler
@@ -123,14 +99,19 @@ end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
----@param abilityId integer
----@param msg_pvp boolean
----@param block_pvp boolean
----@param block_notInCombat boolean
----@param block_inCombat boolean
----@param block_isBracing boolean
----@return boolean
-function NEAR_SB.HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
+local function HandleBlock(abilityId, msg_pvp, block_pvp)
+	local blockHandler = checkWerewolfTransformConditions(abilityId)
+
+	if blockHandler == true then
+		blockHandler = HandlePvP(abilityId, msg_pvp, block_pvp)
+	end
+
+	return blockHandler
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+local function HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 	local unitTag = 'player'
 	local isInCombat = IsUnitInCombat(unitTag)
 	local isBracing = IsBlockActive()
@@ -143,9 +124,8 @@ function NEAR_SB.HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_not
 		blockHandler = checkWerewolfTransformConditions(abilityId)
 	end
 
-	-- check status of blockPvP and overrides the handler if needed
 	if blockHandler == true then
-		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
+		blockHandler = HandlePvP(abilityId, msg_pvp, block_pvp)
 	end
 
 	return blockHandler
@@ -153,15 +133,7 @@ end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
----@param blockType integer
----@param abilityId integer
----@param msg_pvp boolean
----@param block_pvp boolean
----@param block_notInCombat boolean
----@param block_inCombat boolean
----@param block_isBracing boolean
----@return boolean
-function NEAR_SB.HandleOnCrux(blockType, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
+local function HandleOnCrux(blockType, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 	local unitTag = 'player'
 	local isInCombat = IsUnitInCombat(unitTag)
 	local isBracing = IsBlockActive()
@@ -189,9 +161,8 @@ function NEAR_SB.HandleOnCrux(blockType, abilityId, msg_pvp, block_pvp, block_no
 		blockHandler = combatorbracing
 	end
 
-	-- check status of blockPvP and overrides the handler if needed
 	if blockHandler == true then
-		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
+		blockHandler = HandlePvP(abilityId, msg_pvp, block_pvp)
 	end
 
 	return blockHandler
@@ -206,16 +177,7 @@ local stackAbilityIds = {
 	['123704'] = 117625, -- Venom Skull
 }
 
----@param skillType string
----@param skillLine string|integer
----@param ability integer
----@param morph integer
----@param abilityId integer
----@param block_notInCombat boolean
----@param block_inCombat boolean
----@param block_isBracing boolean
----@return boolean
-function NEAR_SB.HandleOnStacks(skillType, skillLine, ability, morph, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
+local function HandleOnStacks(skillType, skillLine, ability, morph, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 	local sv_skilldata = NEAR_SB.ASV.skilldata[skillType]
 	local unitTag = 'player'
 	local isInCombat = IsUnitInCombat(unitTag)
@@ -246,9 +208,8 @@ function NEAR_SB.HandleOnStacks(skillType, skillLine, ability, morph, abilityId,
 		blockHandler = combatorbracing
 	end
 
-	-- check status of blockPvP and overrides the handler if needed
 	if blockHandler == true then
-		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
+		blockHandler = HandlePvP(abilityId, msg_pvp, block_pvp)
 	end
 
 	return blockHandler
@@ -274,13 +235,13 @@ function NEAR_SB.suppressCheck(blockType, skillType, skillLine, ability, morph, 
 		if blockType == 1 then
 			block = HandleBlock(abilityId, msg_pvp, block_pvp)
 		elseif blockType == 2 then
-			block = NEAR_SB.HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
+			block = HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 		elseif blockType == 3 then
-			block = NEAR_SB.HandleRecasts(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
+			block = HandleRecasts(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 		elseif blockType == 4 or blockType == 5 then
-			block = NEAR_SB.HandleOnCrux(blockType, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
+			block = HandleOnCrux(blockType, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 		elseif blockType == 6 then
-			block = NEAR_SB.HandleOnStacks(skillType, skillLine, ability, morph, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
+			block = HandleOnStacks(skillType, skillLine, ability, morph, abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 		end
 	end
 

@@ -16,6 +16,18 @@ end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+local wwTransformationIds = {[32455] = true, [39075] = true, [39076] = true}
+
+local function checkWerewolfTransformConditions(abilityId)
+    if not wwTransformationIds[abilityId] then
+        return true
+    end
+
+    return IsPlayerInWerewolfForm()
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ---@param abilityId integer
 ---@param msg_pvp boolean
 ---@param block_pvp boolean
@@ -47,6 +59,10 @@ function NEAR_SB.HandleRecasts(abilityId, msg_pvp, block_pvp, block_notInCombat,
 
 	if blockHandler == true and combatorbracing ~= nil then
 		blockHandler = combatorbracing
+	end
+
+	if blockHandler == true then
+		blockHandler = checkWerewolfTransformConditions(abilityId)
 	end
 
 	-- check status of blockPvP and overrides the handler if needed
@@ -95,6 +111,18 @@ end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+local function HandleBlock(abilityId, msg_pvp, block_pvp)
+	local blockHandler = checkWerewolfTransformConditions(abilityId)
+
+	if blockHandler == true then
+		blockHandler = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
+	end
+
+	return blockHandler
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ---@param abilityId integer
 ---@param msg_pvp boolean
 ---@param block_pvp boolean
@@ -110,6 +138,10 @@ function NEAR_SB.HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_not
 	local combatorbracing = checkCombatAndBracingConditions(isInCombat, isBracing, block_notInCombat, block_inCombat, block_isBracing)
 
 	local blockHandler = combatorbracing ~= nil and combatorbracing or false
+
+	if blockHandler == true then
+		blockHandler = checkWerewolfTransformConditions(abilityId)
+	end
 
 	-- check status of blockPvP and overrides the handler if needed
 	if blockHandler == true then
@@ -240,7 +272,7 @@ function NEAR_SB.suppressCheck(blockType, skillType, skillLine, ability, morph, 
 
 	if not sv.suppressBlock then
 		if blockType == 1 then
-			block = NEAR_SB.HandlePvP(abilityId, msg_pvp, block_pvp)
+			block = HandleBlock(abilityId, msg_pvp, block_pvp)
 		elseif blockType == 2 then
 			block = NEAR_SB.HandleCombatAndBracing(abilityId, msg_pvp, block_pvp, block_notInCombat, block_inCombat, block_isBracing)
 		elseif blockType == 3 then

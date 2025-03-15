@@ -1,5 +1,5 @@
 ## Title: Near's Skill Blocker
-## APIVersion: 101043
+## APIVersion: 101045
 ## Version: 3.9.0
 ## AddOnVersion: 390
 ## SavedVariables: NearSkillBlocker_Data

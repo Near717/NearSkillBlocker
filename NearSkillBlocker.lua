@@ -2,36 +2,37 @@ NEAR_SB = {
 	name = "NearSkillBlocker",
 	title = "Near's Skill Blocker",
 	shortTitle = "Skill Blocker",
-	version = "3.9.0",
+	version = "3.9.1",
 	author = "|cCC99FFnotnear|r",
 }
 
 local addon = NEAR_SB
 local LSB = LibSkillBlocker
 
+local function GetCustomAbilityName(id)
+    local string = _G["NEARSB_abilityName_" .. id]
+    return GetString(string)
+end
+
+local function FormatAbilityName(id)
+	if addon.hasCustomName[id] then
+		return GetCustomAbilityName(id)
+	else
+		return zo_strformat("<<C:1>>", GetAbilityName(id))
+	end
+end
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Registered list
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 local function updateRegistered()
-	local customNames = {
-		[addon.skilldata["ava"][3][6][0].id] = addon.skilldata["ava"][3][6][0].name,
-		[addon.skilldata["ava"][3][6][1].id] = addon.skilldata["ava"][3][6][1].name,
-		[addon.skilldata["ava"][3][6][2].id] = addon.skilldata["ava"][3][6][2].name,
-	}
-
 	local abilityIds = LSB.GetRegisteredAbilityIdsByAddon(addon.name)
 	local abilityNames_set = {}
 
 	if abilityIds ~= nil then
-		for k, _ in pairs(abilityIds) do
-			local abilityName
-			if customNames[k] then
-				abilityName = customNames[k]
-			else
-				abilityName = zo_strformat("<<C:1>>", GetAbilityName(k))
-			end
-			abilityNames_set[abilityName] = true
+		for id, _ in pairs(abilityIds) do
+			abilityNames_set[FormatAbilityName(id)] = true
 		end
 	end
 
@@ -136,7 +137,7 @@ local function register(skillType, ability, morph, blockType)
 				handleVariants(skillLine, morphData, true)
 
 				if sv.message and morphData.msg.re_cast then
-					local message = str_reg .. v[ability][morph].name
+					local message = str_reg .. FormatAbilityName(v[ability][morph].id)
 					if blockType == 2 then
 						local suffix = morphData.block_notInCombat and str_notincombat or morphData.block_inCombat and str_incombat or ''
 						suffix = morphData.block_isBracing and suffix .. str_isbracing or suffix
@@ -159,7 +160,7 @@ local function register(skillType, ability, morph, blockType)
 				handleVariants(skillLine, morphData, false)
 
 				if sv.message and morphData.msg.re_cast then
-					local message = str_unreg .. v[ability][morph].name
+					local message = str_unreg .. FormatAbilityName(v[ability][morph].id)
 					addon.AddMessage(message)
 				end
 
@@ -207,6 +208,12 @@ local function OnAddonLoaded(event, name)
 	end
 
 	if addon.ASV.suppressBlockReset then addon.ASV.suppressBlock = addon.defaults.suppressBlock end
+
+	addon.hasCustomName = {
+		[addon.skilldata["ava"][3][6][0].id] = true,
+		[addon.skilldata["ava"][3][6][1].id] = true,
+		[addon.skilldata["ava"][3][6][2].id] = true,
+	}
 
 	NEAR_SB.Initialize()
 

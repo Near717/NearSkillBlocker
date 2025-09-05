@@ -79,9 +79,9 @@ local strings = {
     NEARSB_LAM_co_bonStacksEqual_tooltip    = 'Prevents ability cast if player doesn\'t have the exact defined amount of stacks.\nAvailable for "Bound Armaments" and "Venom Skull"',
 
     -- Custom ability names
-    NEARSB_abilityName_78338            = zo_strformat("<<2>> <<1>>", GetAbilityName(61511), "Remove"), -- Guard
-    NEARSB_abilityName_81415            = zo_strformat("<<2>> <<1>>", GetAbilityName(61536), "Remove"), -- Mystic Guard
-    NEARSB_abilityName_81420            = zo_strformat("<<2>> <<1>>", GetAbilityName(61529), "Remove"), -- Stalwart Guard 
+    NEARSB_abilityName_78338            = zo_strformat("<<2>> <<C:1>>", GetAbilityName(61511), "Remove"), -- Guard
+    NEARSB_abilityName_81415            = zo_strformat("<<2>> <<C:1>>", GetAbilityName(61536), "Remove"), -- Mystic Guard
+    NEARSB_abilityName_81420            = zo_strformat("<<2>> <<C:1>>", GetAbilityName(61529), "Remove"), -- Stalwart Guard 
 }
 
 

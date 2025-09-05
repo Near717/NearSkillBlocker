@@ -12,6 +12,23 @@ local function cmdMessageTypeExample()
 	end
 end
 
+local function GetCustomAbilityName(id)
+    local string = _G["NEARSB_abilityName_" .. id]
+    return GetString(string)
+end
+
+local function FormatAbilityName(id)
+	if addon.hasCustomName[id] then
+		return GetCustomAbilityName(id)
+	else
+		return zo_strformat("<<C:1>>", GetAbilityName(id))
+	end
+end
+
+local function FormatSkilLineName(id)
+	return zo_strformat("<<C:1>>", GetSkillLineNameById(id))
+end
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Addon settings panel
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -34,7 +51,7 @@ function NEAR_SB.SetupSettings()
 	local function createDropdown(skillLine, sv_skillLine)
 		local dropdown = {
 			type = 'dropdown',
-			name = skillLine.name,
+			name = FormatSkilLineName(skillLine.id),
 			choices = {},
 			choicesValues = {},
 			getFunc = function() return choice end,
@@ -45,7 +62,7 @@ function NEAR_SB.SetupSettings()
 		for ability in ipairs(skillLine) do
 			if type(ability) == 'number' then
 				for morph = 0, 2 do
-					table.insert(dropdown.choices, skillLine[ability][morph].name)
+					table.insert(dropdown.choices, FormatAbilityName(skillLine[ability][morph].id) )
 					table.insert(dropdown.choicesValues, sv_skillLine[ability][morph])
 				end
 			end

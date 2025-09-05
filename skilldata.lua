@@ -294,9 +294,9 @@ NEAR_SB.skilldata = {
                 [2] = { id = 36514, name = zo_strformat("<<C:1>>", GetAbilityName(36514)), }, -- 
             },
             [2] = { -- 
-                [0] = { id = 33386, name = zo_strformat("<<C:1>>", GetAbilityName(33386)), }, -- 
-                [1] = { id = 34843, name = zo_strformat("<<C:1>>", GetAbilityName(34843)), }, -- 
-                [2] = { id = 34851, name = zo_strformat("<<C:1>>", GetAbilityName(34851)), }, -- 
+                [0] = { id = 25255, name = zo_strformat("<<C:1>>", GetAbilityName(25255)), }, -- 
+                [1] = { id = 25260, name = zo_strformat("<<C:1>>", GetAbilityName(25260)), }, -- 
+                [2] = { id = 25267, name = zo_strformat("<<C:1>>", GetAbilityName(25267)), }, -- 
             },
             [3] = { -- 
                 [0] = { id = 18342, name = zo_strformat("<<C:1>>", GetAbilityName(18342)), }, -- 
@@ -304,9 +304,9 @@ NEAR_SB.skilldata = {
                 [2] = { id = 25484, name = zo_strformat("<<C:1>>", GetAbilityName(25484)), }, -- 
             },
             [4] = { -- 
-                [0] = { id = 33375, name = zo_strformat("<<C:1>>", GetAbilityName(33375)), }, -- 
-                [1] = { id = 35414, name = zo_strformat("<<C:1>>", GetAbilityName(35414)), }, -- 
-                [2] = { id = 35419, name = zo_strformat("<<C:1>>", GetAbilityName(35419)), }, -- 
+                [0] = { id = 33386, name = zo_strformat("<<C:1>>", GetAbilityName(33386)), }, -- 
+                [1] = { id = 34843, name = zo_strformat("<<C:1>>", GetAbilityName(34843)), }, -- 
+                [2] = { id = 34851, name = zo_strformat("<<C:1>>", GetAbilityName(34851)), }, -- 
             },
             [5] = { -- 
                 [0] = { id = 33357, name = zo_strformat("<<C:1>>", GetAbilityName(33357)), }, -- 
@@ -327,9 +327,9 @@ NEAR_SB.skilldata = {
                 [2] = { id = 36485, name = zo_strformat("<<C:1>>", GetAbilityName(36485)), }, -- 
             },
             [2] = { -- 
-                [0] = { id = 25255, name = zo_strformat("<<C:1>>", GetAbilityName(25255)), }, -- 
-                [1] = { id = 25260, name = zo_strformat("<<C:1>>", GetAbilityName(25260)), }, -- 
-                [2] = { id = 25267, name = zo_strformat("<<C:1>>", GetAbilityName(25267)), }, -- 
+                [0] = { id = 33375, name = zo_strformat("<<C:1>>", GetAbilityName(33375)), }, -- 
+                [1] = { id = 35414, name = zo_strformat("<<C:1>>", GetAbilityName(35414)), }, -- 
+                [2] = { id = 35419, name = zo_strformat("<<C:1>>", GetAbilityName(35419)), }, -- 
             },
             [3] = { -- 
                 [0] = { id = 25375, name = zo_strformat("<<C:1>>", GetAbilityName(25375)), }, -- 
